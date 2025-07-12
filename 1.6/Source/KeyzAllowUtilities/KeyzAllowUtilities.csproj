@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <OutputType>Library</OutputType>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>KeyzAllowUtilities</RootNamespace>
+    <AssemblyName>KeyzAllowUtilities</AssemblyName>
+    <OutputPath>../../Assemblies/</OutputPath>
+    <ZipFilePath>../../../$(AssemblyName).zip</ZipFilePath>
+    <ReleasePath>../../../Release</ReleasePath>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <SteamModsPath>$(RIMWORLD_STEAM_MODS_PATH)</SteamModsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>../../../../../RimWorldWin64_Data/Managed/Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>../../../../../RimWorldWin64_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>../../../../../RimWorldWin64_Data/Managed/UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Condition="Exists('../../../../../Data')" Include="../../../../../Data/**/*">
+      <Link>Attached/Rimworld/%(RecursiveDir)/%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+    <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="2.*" ExcludeAssets="runtime"/>
+  </ItemGroup>
+  
+  <ItemGroup Condition="'@(Reference->WithMetadataValue('Identity', 'Assembly-CSharp')->Metadata('HintPath')->Exists())' == ''">
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6-*"/>
+  </ItemGroup>
+  <PropertyGroup>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(SolutionDir)../../../../RimWorldWin64.exe</StartProgram>
+  </PropertyGroup>
+  <ItemGroup>
+    <ReleaseFiles Include="../../../1.*/**" Exclude="../../../1.*/Source/**" />
+    <AboutFiles Include="../../../About/**" Exclude="../../../About/*.png~"/>
+    <CommonFiles Include="../../../Common/**" />
+    
+    <ExtraFiles Include="../../../LoadFolders.xml;../../../LICENSE;../../../README.md" />
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="Build" Condition=" '$(Configuration)' == 'Release' ">
+    <RemoveDir Condition="Exists('../../../Release')" Directories="../../../Release" />
+    <Delete Condition="Exists('../../../$(AssemblyName).zip')" Files="../../../$(AssemblyName).zip" />
+    <Copy SourceFiles="@(AboutFiles)" DestinationFiles="@(AboutFiles->'../../../Release/About/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(CommonFiles)" DestinationFiles="@(CommonFiles->'../../../Release/Common/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    
+    <Copy SourceFiles="@(ReleaseFiles)" DestinationFiles="@(ReleaseFiles->'../../../Release/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(ExtraFiles)" DestinationFolder="../../../Release/" SkipUnchangedFiles="false" />
+    <ZipDirectory DestinationFile="../../../$(AssemblyName).zip" SourceDirectory="../../../Release" />
+    <RemoveDir Condition="Exists('$(SteamModsPath)')" Directories="$(SteamModsPath)/$(AssemblyName)" ContinueOnError="true"/>
+    <Copy Condition="Exists('$(SteamModsPath)')" SourceFiles="@(ReleaseFolder)" DestinationFiles="@(ReleaseFolder->'$(SteamModsPath)/$(AssemblyName)/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+  <Target Name="CleanRelease" AfterTargets="Clean">
+    <RemoveDir Directories="$(ReleasePath)" Condition="Exists('$(ReleasePath)')" />
+    <Delete Files="$(ZipFilePath)" Condition="Exists('$(ZipFilePath)')" />
+  </Target>
+</Project>
