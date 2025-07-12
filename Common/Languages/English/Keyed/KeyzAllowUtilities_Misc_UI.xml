@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-    <KeyzAllowUtilities_SettingsCategory>KeyzAllowUtilities</KeyzAllowUtilities_SettingsCategory>
-    <KeyzAllowUtilities_Settings_SettingName>Some Setting</KeyzAllowUtilities_Settings_SettingName>
+    <KeyzAllowUtilities_SettingsCategory>Keyz' Allow Utilities</KeyzAllowUtilities_SettingsCategory>
+    <KeyzAllowUtilities_Settings_MaxSelect>Max selected items</KeyzAllowUtilities_Settings_MaxSelect>
+    <KUA_AllowAll>Allow all across map</KUA_AllowAll>
+    <KUA_ForbidAll>Forbid all across map</KUA_ForbidAll>
+    <KUA_Allowed>{0} things allowed</KUA_Allowed>
+    <KUA_Forbidden>{0} things forbidden</KUA_Forbidden>
+    <KUA_MultiSelect>Selection Tools</KUA_MultiSelect>
+    <KUA_MultiSelectDesc>Various selection tools for this item type</KUA_MultiSelectDesc>
+    <KUA_SelectOnScreen>Select similar items on screen</KUA_SelectOnScreen>
+    <KUA_SelectOnMap>Select similar items on map</KUA_SelectOnMap>
 </LanguageData>

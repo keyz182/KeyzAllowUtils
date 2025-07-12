@@ -32,6 +32,10 @@
       <HintPath>../../../../../RimWorldWin64_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>../../../../../RimWorldWin64_Data/Managed/UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>../../../../../RimWorldWin64_Data/Managed/UnityEngine.TextRenderingModule.dll</HintPath>
       <Private>False</Private>
@@ -42,6 +46,81 @@
       <Link>Attached/Rimworld/%(RecursiveDir)/%(FileName)%(Extension)</Link>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\.idea\.idea.KeyzAllowUtilities\.idea\.gitignore">
+      <Link>KeyzAllowUtilities\1.6\Source\.idea\.idea.KeyzAllowUtilities\.idea\.gitignore</Link>
+    </Content>
+    <Content Include="..\.idea\.idea.KeyzAllowUtilities\.idea\.name">
+      <Link>KeyzAllowUtilities\1.6\Source\.idea\.idea.KeyzAllowUtilities\.idea\.name</Link>
+    </Content>
+    <Content Include="..\.idea\.idea.KeyzAllowUtilities\.idea\encodings.xml">
+      <Link>KeyzAllowUtilities\1.6\Source\.idea\.idea.KeyzAllowUtilities\.idea\encodings.xml</Link>
+    </Content>
+    <Content Include="..\.idea\.idea.KeyzAllowUtilities\.idea\indexLayout.xml">
+      <Link>KeyzAllowUtilities\1.6\Source\.idea\.idea.KeyzAllowUtilities\.idea\indexLayout.xml</Link>
+    </Content>
+    <Content Include="..\.idea\.idea.KeyzAllowUtilities\.idea\projectSettingsUpdater.xml">
+      <Link>KeyzAllowUtilities\1.6\Source\.idea\.idea.KeyzAllowUtilities\.idea\projectSettingsUpdater.xml</Link>
+    </Content>
+    <Content Include="..\.idea\.idea.KeyzAllowUtilities\.idea\vcs.xml">
+      <Link>KeyzAllowUtilities\1.6\Source\.idea\.idea.KeyzAllowUtilities\.idea\vcs.xml</Link>
+    </Content>
+    <Content Include="..\.idea\.idea.KeyzAllowUtilities\.idea\workspace.xml">
+      <Link>KeyzAllowUtilities\1.6\Source\.idea\.idea.KeyzAllowUtilities\.idea\workspace.xml</Link>
+    </Content>
+    <Content Include="..\.run\RimWorld.run.xml">
+      <Link>KeyzAllowUtilities\1.6\Source\.run\RimWorld.run.xml</Link>
+    </Content>
+    <Content Include="..\KeyzAllowUtilities.sln">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities.sln</Link>
+    </Content>
+    <Content Include="..\KeyzAllowUtilities.sln.DotSettings.user">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities.sln.DotSettings.user</Link>
+    </Content>
+    <Content Include="KeyzAllowUtilities.csproj">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\KeyzAllowUtilities.csproj</Link>
+    </Content>
+    <Content Include="obj\Debug\KeyzAllowUtilities.assets.cache">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\obj\Debug\KeyzAllowUtilities.assets.cache</Link>
+    </Content>
+    <Content Include="obj\Debug\KeyzAllowUtilities.csproj.AssemblyReference.cache">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\obj\Debug\KeyzAllowUtilities.csproj.AssemblyReference.cache</Link>
+    </Content>
+    <Content Include="obj\Debug\KeyzAllowUtilities.csproj.CoreCompileInputs.cache">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\obj\Debug\KeyzAllowUtilities.csproj.CoreCompileInputs.cache</Link>
+    </Content>
+    <Content Include="obj\Debug\KeyzAllowUtilities.csproj.FileListAbsolute.txt">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\obj\Debug\KeyzAllowUtilities.csproj.FileListAbsolute.txt</Link>
+    </Content>
+    <Content Include="obj\Debug\KeyzAllowUtilities.dll">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\obj\Debug\KeyzAllowUtilities.dll</Link>
+    </Content>
+    <Content Include="obj\Debug\KeyzAllowUtilities.GeneratedMSBuildEditorConfig.editorconfig">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\obj\Debug\KeyzAllowUtilities.GeneratedMSBuildEditorConfig.editorconfig</Link>
+    </Content>
+    <Content Include="obj\Debug\KeyzAllowUtilities.pdb">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\obj\Debug\KeyzAllowUtilities.pdb</Link>
+    </Content>
+    <Content Include="obj\KeyzAllowUtilities.csproj.nuget.dgspec.json">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\obj\KeyzAllowUtilities.csproj.nuget.dgspec.json</Link>
+    </Content>
+    <Content Include="obj\KeyzAllowUtilities.csproj.nuget.g.props">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\obj\KeyzAllowUtilities.csproj.nuget.g.props</Link>
+    </Content>
+    <Content Include="obj\KeyzAllowUtilities.csproj.nuget.g.targets">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\obj\KeyzAllowUtilities.csproj.nuget.g.targets</Link>
+    </Content>
+    <Content Include="obj\project.assets.json">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\obj\project.assets.json</Link>
+    </Content>
+    <Content Include="obj\project.nuget.cache">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\obj\project.nuget.cache</Link>
+    </Content>
+    <Content Include="obj\project.packagespec.json">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\obj\project.packagespec.json</Link>
+    </Content>
+    <Content Include="obj\rider.project.restore.info">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\obj\rider.project.restore.info</Link>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
@@ -49,7 +128,7 @@
     <ItemGroup>
     <PackageReference Include="Lib.Harmony" Version="2.*" ExcludeAssets="runtime"/>
   </ItemGroup>
-  
+
   <ItemGroup Condition="'@(Reference->WithMetadataValue('Identity', 'Assembly-CSharp')->Metadata('HintPath')->Exists())' == ''">
     <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6-*"/>
   </ItemGroup>
@@ -61,23 +140,50 @@
     <ReleaseFiles Include="../../../1.*/**" Exclude="../../../1.*/Source/**" />
     <AboutFiles Include="../../../About/**" Exclude="../../../About/*.png~"/>
     <CommonFiles Include="../../../Common/**" />
-    
+
     <ExtraFiles Include="../../../LoadFolders.xml;../../../LICENSE;../../../README.md" />
+
+    <ReleaseFiles Update="..\..\Assemblies\KeyzAllowUtilities.dll">
+      <Link>KeyzAllowUtilities\1.6\Assemblies\KeyzAllowUtilities.dll</Link>
+    </ReleaseFiles>
+
+    <ReleaseFiles Update="..\..\Assemblies\KeyzAllowUtilities.pdb">
+      <Link>KeyzAllowUtilities\1.6\Assemblies\KeyzAllowUtilities.pdb</Link>
+    </ReleaseFiles>
+
+    <ReleaseFiles Update="..\..\Defs\KeybindDefs.xml">
+      <Link>KeyzAllowUtilities\1.6\Defs\KeybindDefs.xml</Link>
+    </ReleaseFiles>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="Build" Condition=" '$(Configuration)' == 'Release' ">
-    <RemoveDir Condition="Exists('../../../Release')" Directories="../../../Release" />
-    <Delete Condition="Exists('../../../$(AssemblyName).zip')" Files="../../../$(AssemblyName).zip" />
-    <Copy SourceFiles="@(AboutFiles)" DestinationFiles="@(AboutFiles->'../../../Release/About/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(CommonFiles)" DestinationFiles="@(CommonFiles->'../../../Release/Common/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
-    
-    <Copy SourceFiles="@(ReleaseFiles)" DestinationFiles="@(ReleaseFiles->'../../../Release/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="false" />
-    <Copy SourceFiles="@(ExtraFiles)" DestinationFolder="../../../Release/" SkipUnchangedFiles="false" />
-    <ZipDirectory DestinationFile="../../../$(AssemblyName).zip" SourceDirectory="../../../Release" />
-    <RemoveDir Condition="Exists('$(SteamModsPath)')" Directories="$(SteamModsPath)/$(AssemblyName)" ContinueOnError="true"/>
-    <Copy Condition="Exists('$(SteamModsPath)')" SourceFiles="@(ReleaseFolder)" DestinationFiles="@(ReleaseFolder->'$(SteamModsPath)/$(AssemblyName)/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
-  </Target>
-  <Target Name="CleanRelease" AfterTargets="Clean">
-    <RemoveDir Directories="$(ReleasePath)" Condition="Exists('$(ReleasePath)')" />
-    <Delete Files="$(ZipFilePath)" Condition="Exists('$(ZipFilePath)')" />
-  </Target>
+  <ItemGroup>
+    <Folder Include="..\..\Patches\">
+      <Link>KeyzAllowUtilities\1.6\Patches</Link>
+    </Folder>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Command_Toggle_WithContext.cs">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\Command_Toggle_WithContext.cs</Link>
+    </Compile>
+    <Compile Update="CompForbiddable_Patches.cs">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\CompForbiddable_Patches.cs</Link>
+    </Compile>
+    <Compile Update="DebugLog.cs">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\DebugLog.cs</Link>
+    </Compile>
+    <Compile Update="KeyzAllowUtilitiesMod.cs">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\KeyzAllowUtilitiesMod.cs</Link>
+    </Compile>
+    <Compile Update="Settings.cs">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\Settings.cs</Link>
+    </Compile>
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs</Link>
+    </Compile>
+    <Compile Update="Properties\AssemblyInfo.cs">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Update="Thing_Patches.cs">
+      <Link>KeyzAllowUtilities\1.6\Source\KeyzAllowUtilities\CompForbiddable_Patches.cs</Link>
+    </Compile>
+  </ItemGroup>
 </Project>

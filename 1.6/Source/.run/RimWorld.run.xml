@@ -1,0 +1,11 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="RimWorld" type="RimworldRunConfiguration" factoryName="RimworldRunConfiguration">
+    <option name="commandLineOptions" value="" />
+    <option name="modListPath" value="$PROJECT_DIR$/../../modlist.xml" />
+    <option name="saveFilePath" value="" />
+    <option name="scriptName" value="C:\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64.exe" />
+    <method v="2">
+      <option name="Build Solution" enabled="true" />
+    </method>
+  </configuration>
+</component>

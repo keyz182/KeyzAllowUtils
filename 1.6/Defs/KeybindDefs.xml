@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Defs>
+
+    <KeyBindingCategoryDef>
+        <defName>KAU_AllowUtilities</defName>
+        <label>Allow Utilites</label>
+        <description>Shortcuts for Keyz' allow utils mod.</description>
+        <checkForConflicts>true</checkForConflicts>
+    </KeyBindingCategoryDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_DesignatorAllow</defName>
+        <label>Designator: Allow</label>
+        <defaultKeyCodeA>Backslash</defaultKeyCodeA>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_DesignatorForbid</defName>
+        <label>Designator: Forbid</label>
+        <defaultKeyCodeA>End</defaultKeyCodeA>
+    </KeyBindingDef>
+
+</Defs>
