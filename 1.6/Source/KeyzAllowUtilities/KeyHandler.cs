@@ -48,8 +48,11 @@ public class KeyHandler(Map map) : MapComponent(map)
         int countOfForbiddables = 0;
         foreach (CompForbiddable compForbiddable in map.ForbiddableThings(ofDef))
         {
-            compForbiddable.Forbidden = forbid;
-            countOfForbiddables+= compForbiddable.parent.stackCount;
+            if (compForbiddable.Forbidden != forbid) // Dont' count anything already set to what we want
+            {
+                compForbiddable.Forbidden = forbid;
+                countOfForbiddables += compForbiddable.parent.stackCount;
+            }
         }
         if(!forbid)
             Messages.Message("KUA_Allowed".Translate(countOfForbiddables), MessageTypeDefOf.NeutralEvent);
