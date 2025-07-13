@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+  <Title>Keyz' Allow Utilities</Title>
+  <Excluded>
+    <exclude>.editorconfig</exclude>
+    <exclude>.git</exclude>
+    <exclude>1.6\Source</exclude>
+    <exclude>About\Preview.png~</exclude>
+    <exclude>Assets</exclude>
+    <exclude>modlist.xml</exclude>
+    <exclude>release.bat</exclude>
+  </Excluded>
+</Configuration>

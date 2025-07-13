@@ -12,31 +12,41 @@ public class KeyHandler(Map map) : MapComponent(map)
     {
         if (Current.ProgramState != ProgramState.Playing)
             return;
-        if (KeyzAllowUtilitesDefOf.KAU_DesignatorAllow.KeyDownEvent)
+        if (KeyzAllowUtilitesDefOf.KAU_Allow.KeyDownEvent)
         {
             AllowAll(map);
             Event.current.Use();
         }
-        if (KeyzAllowUtilitesDefOf.KAU_DesignatorForbid.KeyDownEvent)
+        if (KeyzAllowUtilitesDefOf.KAU_Forbid.KeyDownEvent)
         {
             AllowAll(map, true);
             Event.current.Use();
         }
+        if (KeyzAllowUtilitesDefOf.KAU_SelectSimilar.KeyDownEvent)
+        {
+            CutFullyGrownOnMap(map);
+            Event.current.Use();
+        }
+
+        if (KeyzAllowUtilitesDefOf.KAU_HarvestFullyGrown.KeyDownEvent)
+        {
+
+        }
     }
 
-    public static IEnumerable<CompForbiddable> GetCompsForbidden(Map map, Def ofDef = null)
+    public static void CutFullyGrownOnMap(Map map)
     {
-        IEnumerable<ThingWithComps> things;
-        things = ofDef == null ? map.listerThings.AllThings.OfType<ThingWithComps>() : map.listerThings.AllThings.OfType<ThingWithComps>().Where(t => t.def == ofDef);
-        things = things.Where(t => t.HasComp<CompForbiddable>()).Where(t => !map.fogGrid.IsFogged(t.Position));
-        things = things.Where(t => t.def is { EverHaulable: true });
-        return things.Select(t => t.GetComp<CompForbiddable>());
+        foreach (Plant plant in map.listerThings.AllThings.OnlySelectableThings().NotFogged().OfType<Plant>().Where(p=>Mathf.Approximately(p.Growth, 1f)))
+        {
+            plant.Map.designationManager.RemoveAllDesignationsOn(plant);
+            plant.Map.designationManager.AddDesignation(new Designation((LocalTargetInfo) plant, DesignationDefOf.CutPlant));
+        }
     }
 
     public static void AllowAll(Map map, bool forbid = false, Def ofDef = null)
     {
         int countOfForbiddables = 0;
-        foreach (CompForbiddable compForbiddable in GetCompsForbidden(map, ofDef))
+        foreach (CompForbiddable compForbiddable in map.ForbiddableThings(ofDef))
         {
             compForbiddable.Forbidden = forbid;
             countOfForbiddables+= compForbiddable.parent.stackCount;

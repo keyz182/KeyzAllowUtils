@@ -10,4 +10,14 @@
     <KUA_MultiSelectDesc>Various selection tools for this item type</KUA_MultiSelectDesc>
     <KUA_SelectOnScreen>Select similar items on screen</KUA_SelectOnScreen>
     <KUA_SelectOnMap>Select similar items on map</KUA_SelectOnMap>
+
+    <KUA_HarvestGrown>Harvest Grown</KUA_HarvestGrown>
+    <KUA_HarvestGrownDesc>Tools to harvest only grown plants</KUA_HarvestGrownDesc>
+    <KUA_HarvestOnScreen>Harvest all fully grown on screen</KUA_HarvestOnScreen>
+    <KUA_HarvestOnMap>Harvest all fully grown on map</KUA_HarvestOnMap>
+
+    <KUA_CutGrown>Cut Grown</KUA_CutGrown>
+    <KUA_CutGrownDesc>Tools to Cut only grown plants</KUA_CutGrownDesc>
+    <KUA_CutGrownOnScreen>Cut all fully grown on screen</KUA_CutGrownOnScreen>
+    <KUA_CutGrownOnMap>Cut all fully grown on map</KUA_CutGrownOnMap>
 </LanguageData>
