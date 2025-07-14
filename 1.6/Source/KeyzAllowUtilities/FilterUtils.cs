@@ -48,20 +48,33 @@ public static class FilterUtils
             Find.Selector.Select(innerThing);
     }
 
-    public static void SelectOnScreen(Thing thing)
+    public static void SelectOnScreen(Thing thing, ThingDef stuff = null)
     {
-        Rect rect = new(0.0f, 0.0f, UI.screenWidth, UI.screenHeight);
-        IEnumerable<Thing> things = ThingSelectionUtility.MultiSelectableThingsInScreenRectDistinct(rect);
+        bool Filter(Thing t)
+        {
+            bool allow = ThingSelectionUtility.SelectableByMapClick(t) && t.def == thing.def;
 
-        foreach (Thing outerThing in things.OfDef(thing.def).OnlySelectableThings().NotFogged().NearestTo(thing).Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
+            if (stuff != null && t.Stuff != stuff) allow = false;
+
+            return allow;
+        }
+
+        IEnumerable<Thing> things = thing.Map.ThingsOnScreen(Filter);
+
+        foreach (Thing outerThing in things.NotFogged().NearestTo(thing).Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
         {
             outerThing.SelectThisOrInnerThing(thing.def);
         }
     }
 
-    public static void SelectOnMap(this Map map, Thing thing)
+    public static void SelectOnMap(this Map map, Thing thing, ThingDef stuff = null)
     {
-        foreach (Thing mapthing in map.listerThings.AllThings.Where(t=>t.def == thing.def).NearestTo(thing).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
+        IEnumerable<Thing> things = map.listerThings.AllThings.Where(t => t.def == thing.def);
+
+        if (stuff != null)
+            things = things.Where(t => t.Stuff == stuff);
+
+        foreach (Thing mapthing in things.NearestTo(thing).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
         {
             Find.Selector.Select(mapthing);
         }
@@ -108,7 +121,7 @@ public static class FilterUtils
         return (CellRect) _GetMapRect.Value.Invoke(null, [rect]);
     }
 
-    public static IEnumerable<Thing> ThingsOnScreen(this Map onMap, ThingCategory ofCategory)
+    public static IEnumerable<Thing> ThingsOnScreen(this Map onMap, Predicate<Thing> filter)
     {
         Rect rect = new(0.0f, 0.0f, UI.screenWidth, UI.screenHeight);
         CellRect mapRect = GetMapRect(rect);
@@ -117,10 +130,7 @@ public static class FilterUtils
 
         foreach (Thing thing in things)
         {
-            if (thing.def.category == ofCategory && ThingSelectionUtility.SelectableByMapClick(thing))
-            {
-                yield return thing;
-            }
+            if (filter(thing)) yield return thing;
         }
     }
 }

@@ -11,7 +11,7 @@ public class Settings : ModSettings
         var options = new Listing_Standard();
         options.Begin(wrect);
 
-        options.Label("KeyzAllowUtilities_Settings_MaxSelect");
+        options.Label("KeyzAllowUtilities_Settings_MaxSelect".Translate(MaxSelect));
         options.IntAdjuster(ref MaxSelect,  10, 0);
         options.Gap();
 

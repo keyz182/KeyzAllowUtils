@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
     <KeyzAllowUtilities_SettingsCategory>Keyz' Allow Utilities</KeyzAllowUtilities_SettingsCategory>
-    <KeyzAllowUtilities_Settings_MaxSelect>Max selected items</KeyzAllowUtilities_Settings_MaxSelect>
+    <KeyzAllowUtilities_Settings_MaxSelect>Max selected items: [{0}]</KeyzAllowUtilities_Settings_MaxSelect>
     <KUA_AllowAll>Allow all across map</KUA_AllowAll>
     <KUA_ForbidAll>Forbid all across map</KUA_ForbidAll>
     <KUA_Allowed>{0} things allowed</KUA_Allowed>
@@ -10,6 +10,9 @@
     <KUA_MultiSelectDesc>Various selection tools for this item type</KUA_MultiSelectDesc>
     <KUA_SelectOnScreen>Select similar items on screen</KUA_SelectOnScreen>
     <KUA_SelectOnMap>Select similar items on map</KUA_SelectOnMap>
+
+    <KUA_SelectOnScreenWithStuff>Select similar items on screen made from {0}</KUA_SelectOnScreenWithStuff>
+    <KUA_SelectOnMapWithStuff>Select similar items on map made from {0}</KUA_SelectOnMapWithStuff>
 
     <KUA_HarvestGrown>Harvest Grown</KUA_HarvestGrown>
     <KUA_HarvestGrownDesc>Tools to harvest only grown plants</KUA_HarvestGrownDesc>

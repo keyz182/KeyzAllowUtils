@@ -39,6 +39,18 @@ public static class Thing_Patches
 
                 ];
 
+                if (__instance.def.MadeFromStuff)
+                {
+                    items.Add(new FloatMenuOption("KUA_SelectOnScreenWithStuff".Translate(__instance.Stuff.LabelAsStuff), () =>
+                    {
+                        FilterUtils.SelectOnScreen(__instance, __instance.Stuff);
+                    }));
+                    items.Add(new FloatMenuOption("KUA_SelectOnMapWithStuff".Translate(__instance.Stuff.LabelAsStuff), () =>
+                    {
+                        __instance.Map.SelectOnMap(__instance, __instance.Stuff);
+                    }));
+                }
+
                 Find.WindowStack.Add(new FloatMenu(items));
             }
         };
