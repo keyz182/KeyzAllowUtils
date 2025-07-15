@@ -16,21 +16,25 @@ public class KeyHandler(Map map) : MapComponent(map)
         {
             AllowAll(map);
             Event.current.Use();
-        }
-        if (KeyzAllowUtilitesDefOf.KAU_Forbid.KeyDownEvent)
+        }else if (KeyzAllowUtilitesDefOf.KAU_Forbid.KeyDownEvent)
         {
             AllowAll(map, true);
             Event.current.Use();
-        }
-        if (KeyzAllowUtilitesDefOf.KAU_SelectSimilar.KeyDownEvent)
+        }else if (KeyzAllowUtilitesDefOf.KAU_SelectSimilar.KeyDownEvent)
+        {
+            if (Event.current.shift)
+            {
+                map.SelectMultiOnMap(Find.Selector.SelectedObjects);
+            }
+            else
+            {
+                map.SelectMultiOnMapByStuff(Find.Selector.SelectedObjects);
+            }
+            Event.current.Use();
+        }else if (KeyzAllowUtilitesDefOf.KAU_HarvestFullyGrown.KeyDownEvent)
         {
             CutFullyGrownOnMap(map);
             Event.current.Use();
-        }
-
-        if (KeyzAllowUtilitesDefOf.KAU_HarvestFullyGrown.KeyDownEvent)
-        {
-
         }
     }
 

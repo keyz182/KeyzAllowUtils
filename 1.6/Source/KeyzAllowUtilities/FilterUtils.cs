@@ -67,6 +67,30 @@ public static class FilterUtils
         }
     }
 
+    public static void SelectMultiOnMap(this Map map, List<object> things)
+    {
+        IEnumerable<ThingDef> uniqueThings = things.OfType<Thing>().Select(t => t.def).Distinct();
+
+        IEnumerable<Thing> matchingThings = map.listerThings.AllThings.Where(t => uniqueThings.Contains(t.def));
+
+        foreach (Thing mapThing in matchingThings.NearestTo(map.Center).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
+        {
+            Find.Selector.Select(mapThing);
+        }
+    }
+
+    public static void SelectMultiOnMapByStuff(this Map map, List<object> things)
+    {
+        var pairs = things.OfType<Thing>().Select(t => new { t.def, t.Stuff }).Distinct();
+
+        IEnumerable<Thing> matchingThings = map.listerThings.AllThings.Where(t => pairs.Contains(new { t.def, t.Stuff }));
+
+        foreach (Thing mapThing in matchingThings.NearestTo(map.Center).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
+        {
+            Find.Selector.Select(mapThing);
+        }
+    }
+
     public static void SelectOnMap(this Map map, Thing thing, ThingDef stuff = null)
     {
         IEnumerable<Thing> things = map.listerThings.AllThings.Where(t => t.def == thing.def);
@@ -98,21 +122,6 @@ public static class FilterUtils
         where T : Thing
     {
         return GenRadial.RadialCellsAround(center, radius, true).SelectMany(c => map.thingGrid.ThingsAt(c)).OfType<T>();
-    }
-
-    public static void SelectAllOnMapFromHotKey(this Map onMap)
-    {
-        if (Find.Selector.NumSelected > 0)
-        {
-            List<ThingDef> uniqueDefs = Find.Selector.SelectedObjects.OfType<Thing>().Select(t => t.def).Distinct().ToList();
-
-            IEnumerable<Thing> matchingThings = onMap.listerThings.AllThings.Where(t => uniqueDefs.Contains(t.def));
-
-            foreach (Thing thing in matchingThings.NotFogged().NearestTo(onMap.Center).Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
-            {
-                Find.Selector.Select(thing);
-            }
-        }
     }
 
     public static Lazy<MethodInfo> _GetMapRect = new(() => AccessTools.Method(typeof(ThingSelectionUtility), "GetMapRect"));
