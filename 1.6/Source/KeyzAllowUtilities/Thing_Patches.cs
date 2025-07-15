@@ -25,21 +25,20 @@ public static class Thing_Patches
         {
             icon = KUA_MultiSelect, defaultLabel = "KUA_MultiSelect".Translate(), defaultDesc = "KUA_MultiSelectDesc".Translate(), action = () =>
             {
-                List<FloatMenuOption> items =
-                [
-                    new FloatMenuOption("KUA_SelectOnScreen".Translate(), () =>
+                List<FloatMenuOption> items = [];
+
+                if (Event.current.shift || !__instance.def.MadeFromStuff)
+                {
+                    items.Add(new FloatMenuOption("KUA_SelectOnScreen".Translate(), () =>
                     {
                         FilterUtils.SelectOnScreen(__instance);
-                    }),
-
-                    new FloatMenuOption("KUA_SelectOnMap".Translate(), () =>
+                    }));
+                    items.Add(new FloatMenuOption("KUA_SelectOnMap".Translate(), () =>
                     {
                         __instance.Map.SelectOnMap(__instance);
-                    })
-
-                ];
-
-                if (__instance.def.MadeFromStuff)
+                    }));
+                }
+                else
                 {
                     items.Add(new FloatMenuOption("KUA_SelectOnScreenWithStuff".Translate(__instance.Stuff.LabelAsStuff), () =>
                     {

@@ -7,7 +7,7 @@
     <KUA_Allowed>{0} things allowed</KUA_Allowed>
     <KUA_Forbidden>{0} things forbidden</KUA_Forbidden>
     <KUA_MultiSelect>Selection Tools</KUA_MultiSelect>
-    <KUA_MultiSelectDesc>Various selection tools for this item type</KUA_MultiSelectDesc>
+    <KUA_MultiSelectDesc>Various selection tools for this item type. Hold shift to ignore stuff</KUA_MultiSelectDesc>
     <KUA_SelectOnScreen>Select similar items on screen</KUA_SelectOnScreen>
     <KUA_SelectOnMap>Select similar items on map</KUA_SelectOnMap>
 
