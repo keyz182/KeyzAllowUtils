@@ -13,7 +13,7 @@ public class KUAFloatMenu: FloatMenuOptionProvider
 
     public override bool TargetPawnValid(Pawn pawn, FloatMenuContext context)
     {
-        return base.TargetPawnValid(pawn, context) && pawn.Downed && pawn.HostileTo(Faction.OfPlayer);
+        return base.TargetPawnValid(pawn, context) && pawn.Downed;
     }
 
     public override IEnumerable<FloatMenuOption> GetOptionsFor(

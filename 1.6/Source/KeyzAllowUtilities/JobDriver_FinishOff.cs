@@ -103,7 +103,7 @@ public class JobDriver_FinishOff : JobDriver
     private bool JobHasFailed()
     {
         Pawn victim = TargetThingA as Pawn;
-        return victim is not { Spawned: true } || !victim.HostileTo(pawn.Faction) || victim.Dead || !victim.Downed;// || !HugsLibUtility.HasDesignation(pawn, AllowToolDefOf.FinishOffDesignation);
+        return victim is not { Spawned: true } || victim.Dead || !victim.Downed;// || !HugsLibUtility.HasDesignation(pawn, AllowToolDefOf.FinishOffDesignation);
     }
 
     private const int PrepareSwingDuration = 60;

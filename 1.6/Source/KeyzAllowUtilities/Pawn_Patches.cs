@@ -18,7 +18,7 @@ public static class Pawn_Patches
     [HarmonyPostfix]
     public static void GetGizmos_Patch(Pawn __instance, ref IEnumerable<Gizmo> __result)
     {
-        if(!__instance.HostileTo(Faction.OfPlayer) || !__instance.Downed || __instance.Dead) return;
+        if(!__instance.Downed || __instance.Dead) return;
 
         List<Gizmo> gizmos = __result.ToList();
         Designation des = __instance.Map.designationManager.DesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation);

@@ -34,4 +34,11 @@
         <defName>KAU_HarvestFullyGrown</defName>
         <label>Harvest fully grown</label>
     </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_HaulUrgently</defName>
+        <label>Haul Urgently</label>
+        <defaultKeyCodeA>O</defaultKeyCodeA>
+    </KeyBindingDef>
 </Defs>

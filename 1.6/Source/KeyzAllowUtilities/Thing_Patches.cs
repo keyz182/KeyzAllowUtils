@@ -59,6 +59,8 @@ public static class Thing_Patches
         };
         gizmos.Add(command_Action);
 
+        if(__instance is Pawn) return;
+        if(!__instance.def.EverHaulable) return;
 
         Designation des = __instance?.Map?.designationManager?.DesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation);
 

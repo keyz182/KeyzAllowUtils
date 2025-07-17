@@ -35,6 +35,12 @@ public class KeyHandler(Map map) : MapComponent(map)
         {
             CutFullyGrownOnMap(map);
             Event.current.Use();
+        }else if (KeyzAllowUtilitesDefOf.KAU_HaulUrgently.KeyDownEvent)
+        {
+            foreach (Thing thing in Find.Selector.SelectedObjects.OfType<Thing>().Where(t=>t.def.EverHaulable))
+            {
+                map.designationManager.AddDesignation(new Designation(thing, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
+            }
         }
     }
 
