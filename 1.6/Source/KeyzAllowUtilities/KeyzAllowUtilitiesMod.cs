@@ -1,6 +1,9 @@
-﻿using Verse;
+﻿using System;
+using System.Reflection;
+using Verse;
 using UnityEngine;
 using HarmonyLib;
+using Verse.AI;
 
 namespace KeyzAllowUtilities;
 
@@ -10,13 +13,11 @@ public class KeyzAllowUtilitiesMod : Mod
 
     public KeyzAllowUtilitiesMod(ModContentPack content) : base(content)
     {
-
-        // initialize settings
         settings = GetSettings<Settings>();
 #if DEBUG
         Harmony.DEBUG = true;
 #endif
-        Harmony harmony = new Harmony("keyz182.rimworld.KeyzAllowUtilities.main");	
+        Harmony harmony = new Harmony("keyz182.rimworld.KeyzAllowUtilities.main");
         harmony.PatchAll();
     }
 

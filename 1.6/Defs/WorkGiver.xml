@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Defs>
+    <WorkGiverDef>
+        <defName>KAU_UrgentHaulWorkGiver</defName>
+        <label>Urgent Hauling</label>
+        <giverClass>KeyzAllowUtilities.WorkGiver_HaulUrgently</giverClass>
+        <workType>KAU_UrgentHaul</workType>
+        <verb>Urgently Hauling</verb>
+        <gerund>Urgently Hauling</gerund>
+        <priorityInType>50</priorityInType>
+        <directOrderable>false</directOrderable>
+        <requiredCapacities>
+            <li>Manipulation</li>
+        </requiredCapacities>
+    </WorkGiverDef>
+
+    <WorkGiverDef>
+        <defName>KAU_FinishOff</defName>
+        <label>finish off</label>
+        <giverClass>KeyzAllowUtilities.WorkGiver_FinishOff</giverClass>
+        <workType>KAU_FinishingOff</workType>
+        <verb>finish off</verb>
+        <gerund>finishing off</gerund>
+        <priorityInType>50</priorityInType>
+        <directOrderable>false</directOrderable>
+        <requiredCapacities>
+            <li>Manipulation</li>
+        </requiredCapacities>
+    </WorkGiverDef>
+</Defs>

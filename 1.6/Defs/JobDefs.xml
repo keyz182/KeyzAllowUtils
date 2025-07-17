@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <JobDef>
+        <defName>KAU_FinishOffPawn</defName>
+        <driverClass>KeyzAllowUtilities.JobDriver_FinishOff</driverClass>
+        <reportString>Finishing off</reportString>
+        <alwaysShowWeapon>true</alwaysShowWeapon>
+        <casualInterruptible>false</casualInterruptible>
+    </JobDef>
+</Defs>

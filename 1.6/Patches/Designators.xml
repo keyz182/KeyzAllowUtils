@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Patch>
+    <Operation Class="PatchOperationSequence">
+        <operations>
+            <!-- Grabbed from original Allow Tool - puts the tool in the place people expect -->
+            <li Class="PatchOperationInsert">
+                <order>Append</order>
+                <xpath>/Defs/DesignationCategoryDef[defName="Orders"]/specialDesignatorClasses/li[13]</xpath>
+                <value>
+                    <li>KeyzAllowUtilities.Designator_HaulUrgently</li>
+                </value>
+            </li>
+            <!-- ~1~ Remove stock forbid designator @1@ -->
+            <!-- <li Class="PatchOperationRemove"> -->
+            <!--     <success>Always</success> -->
+            <!--     <xpath>/Defs/DesignationCategoryDef[defName="Orders"]/specialDesignatorClasses/li[text()="Designator_Forbid"]</xpath> -->
+            <!-- </li> -->
+            <!-- ~1~ Remove stock unforbid designator @1@ -->
+            <!-- <li Class="PatchOperationRemove"> -->
+            <!--     <success>Always</success> -->
+            <!--     <xpath>/Defs/DesignationCategoryDef[defName="Orders"]/specialDesignatorClasses/li[text()="Designator_Unforbid"]</xpath> -->
+            <!-- </li> -->
+        </operations>
+    </Operation>
+</Patch>

@@ -61,5 +61,14 @@
         <AboutFiles Include="../../../About/**" Exclude="../../../About/*.png~" />
         <CommonFiles Include="../../../Common/**" />
         <ExtraFiles Include="../../../LoadFolders.xml;../../../LICENSE;../../../README.md" />
+        <ReleaseFiles Update="..\..\Defs\JobDefs.xml">
+          <Link>KeyzAllowUtilities\1.6\Defs\JobDefs.xml</Link>
+        </ReleaseFiles>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="..\..\Patches\">
+        <Link>KeyzAllowUtilities\1.6\Patches</Link>
+      </Folder>
     </ItemGroup>
 </Project>

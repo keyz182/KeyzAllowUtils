@@ -23,4 +23,24 @@
     <KUA_CutGrownDesc>Tools to Cut only grown plants</KUA_CutGrownDesc>
     <KUA_CutGrownOnScreen>Cut all fully grown on screen</KUA_CutGrownOnScreen>
     <KUA_CutGrownOnMap>Cut all fully grown on map</KUA_CutGrownOnMap>
+
+    <KAU_NoKill>Cannot finish off</KAU_NoKill>
+    <KAU_Kill>Finish off {0} [{1}]</KAU_Kill>
+    <KAU_MeleeTooLow>Melee too low {0}</KAU_MeleeTooLow>
+    <KAU_Unable>Unable to melee</KAU_Unable>
+
+    <KUA_HaulUrgently>Haul Urgently</KUA_HaulUrgently>
+    <KUA_HaulUrgentlyDesc>High-priority hauling.</KUA_HaulUrgentlyDesc>
+
+    <KUA_ToggleFinishOff>Finish off</KUA_ToggleFinishOff>
+    <KUA_ToggleFinishOffDesc>Toggle finishing off</KUA_ToggleFinishOffDesc>
+
+    <KUA_ToggleFinishOffDisable>Cancel Finish Off</KUA_ToggleFinishOffDisable>
+    <KUA_ToggleFinishOffDisableDesc>Cancel Finish Off</KUA_ToggleFinishOffDisableDesc>
+
+    <KUA_ToggleHaulUrgently>Haul Urgently</KUA_ToggleHaulUrgently>
+    <KUA_ToggleHaulUrgentlyDesc>Haul Urgently</KUA_ToggleHaulUrgentlyDesc>
+
+    <KUA_ToggleHaulUrgentlyDisable>Cancel Haul Urgently</KUA_ToggleHaulUrgentlyDisable>
+    <KUA_ToggleHaulUrgentlyDisableDesc>Cancel Haul Urgently</KUA_ToggleHaulUrgentlyDisableDesc>
 </LanguageData>

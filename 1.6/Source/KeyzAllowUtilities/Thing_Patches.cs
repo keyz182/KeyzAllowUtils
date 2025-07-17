@@ -15,6 +15,10 @@ public static class Thing_Patches
 {
     public static readonly Texture2D KUA_MultiSelect = ContentFinder<Texture2D>.Get("UI/KUA_MultiSelect");
 
+    public static readonly Texture2D KUA_ToggleHaulUrgently = ContentFinder<Texture2D>.Get("UI/KUA_ToggleHaulUrgently");
+    public static readonly Texture2D KUA_ToggleHaulUrgentlyDisable = ContentFinder<Texture2D>.Get("UI/KUA_ToggleHaulUrgentlyDisable");
+
+
     [HarmonyPatch(nameof(Thing.GetGizmos))]
     [HarmonyPostfix]
     public static void GetGizmos_Patch(Thing __instance, ref IEnumerable<Gizmo> __result)
@@ -54,6 +58,30 @@ public static class Thing_Patches
             }
         };
         gizmos.Add(command_Action);
+
+
+        Designation des = __instance?.Map?.designationManager?.DesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation);
+
+        if (des == null)
+        {
+            gizmos.Add( new Command_Action()
+            {
+                icon = KUA_ToggleHaulUrgently, defaultLabel = "KUA_ToggleHaulUrgently".Translate(), defaultDesc = "KUA_ToggleHaulUrgentlyDesc".Translate(), action = () =>
+                {
+                    __instance?.Map.designationManager.AddDesignation(new Designation(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
+                }
+            });
+        }
+        else
+        {
+            gizmos.Add( new Command_Action()
+            {
+                icon = KUA_ToggleHaulUrgentlyDisable, defaultLabel = "KUA_ToggleHaulUrgentlyDisable".Translate(), defaultDesc = "KUA_ToggleHaulUrgentlyDisableDesc".Translate(), action = () =>
+                {
+                    __instance?.Map.designationManager.RemoveDesignation(des);
+                }
+            });
+        }
         __result = gizmos;
     }
 
