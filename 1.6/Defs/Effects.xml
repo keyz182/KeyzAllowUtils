@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Defs>
+
+    <ThingDef>
+        <defName>KAU_MoteWeaponGlint</defName>
+        <thingClass>MoteThrown</thingClass>
+        <label>Weapon glint mote</label>
+        <category>Mote</category>
+        <graphicData>
+            <graphicClass>Graphic_Mote</graphicClass>
+            <texPath>UI/KAU_Glint</texPath>
+            <shaderType>TransparentPostLight</shaderType>
+        </graphicData>
+        <tickerType>Normal</tickerType>
+        <useHitPoints>false</useHitPoints>
+        <isSaveable>false</isSaveable>
+        <rotatable>true</rotatable>
+        <altitudeLayer>MoteOverhead</altitudeLayer>
+        <mote>
+            <fadeInTime>0.4</fadeInTime>
+            <solidTime>0.2</solidTime>
+            <fadeOutTime>0.5</fadeOutTime>
+        </mote>
+    </ThingDef>
+
+    <EffecterDef>
+        <defName>KAU_WeaponGlint</defName>
+        <children>
+            <li>
+                <subEffecterClass>SubEffecter_SprayerTriggered</subEffecterClass>
+                <moteDef>KAU_MoteWeaponGlint</moteDef>
+                <spawnLocType>OnSource</spawnLocType>
+                <scale>
+                    <min>.8</min>
+                    <max>1</max>
+                </scale>
+                <rotationRate>
+                    <min>360</min>
+                    <max>540</max>
+                </rotationRate>
+                <angle>
+                    <min>0</min>
+                    <max>360</max>
+                </angle>
+            </li>
+            <li>
+                <subEffecterClass>SubEffecter_SoundTriggered</subEffecterClass>
+                <soundDef>KAU_KnifeGlint</soundDef>
+            </li>
+        </children>
+    </EffecterDef>
+</Defs>

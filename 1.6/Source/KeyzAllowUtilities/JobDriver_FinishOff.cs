@@ -27,7 +27,7 @@ public class JobDriver_FinishOff : JobDriver
             {
                 Pawn victim = job.targetA.Thing as Pawn;
                 skullMote = TryMakeSkullMote(victim, 0.25f);
-                // AllowToolDefOf.EffecterWeaponGlint.Spawn().Trigger(this.pawn, this.job.targetA.Thing, -1);
+                KeyzAllowUtilitesDefOf.KAU_WeaponGlint.Spawn().Trigger(pawn, job.targetA.Thing, -1);
             },
             defaultDuration = 60,
             defaultCompleteMode = ToilCompleteMode.Delay

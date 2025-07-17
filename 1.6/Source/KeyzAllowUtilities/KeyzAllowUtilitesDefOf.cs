@@ -13,6 +13,7 @@ public static class KeyzAllowUtilitesDefOf
     public static readonly JobDef KAU_FinishOffPawn;
     public static readonly DesignationDef KAU_HaulUrgentlyDesignation;
     public static readonly DesignationDef KAU_FinishOffDesignation;
+    public static readonly EffecterDef KAU_WeaponGlint;
 
     static KeyzAllowUtilitesDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(KeyzAllowUtilitesDefOf));
 }
