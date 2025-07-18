@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Defs>
+    <SoundDef>
+        <defName>KAU_KnifeGlint</defName>
+        <context>MapOnly</context>
+        <eventNames />
+        <maxVoices>4</maxVoices>
+        <maxSimultaneous>4</maxSimultaneous>
+        <subSounds>
+            <li>
+                <grains>
+                    <li Class="AudioGrain_Clip">
+                        <clipPath>KAU_KnifeGlint</clipPath>
+                    </li>
+                </grains>
+                <volumeRange>
+                    <min>15</min>
+                    <max>20</max>
+                </volumeRange>
+                <pitchRange>
+                    <min>0.8</min>
+                    <max>1.1</max>
+                </pitchRange>
+            </li>
+        </subSounds>
+    </SoundDef>
+</Defs>
