@@ -19,12 +19,12 @@ public class Settings : ModSettings
         options.Gap();
 
         options.CheckboxLabeled("KAU_ToggleHaulUrgently".Translate(), ref DisableHaulUrgently);
-        options.End();
+        options.Gap();
 
         options.CheckboxLabeled("KAU_ToggleDisableAllowShortcuts".Translate(), ref DisableAllowShortcuts);
         options.End();
 
-        if (DisableHaulUrgently)
+        if (DisableHaulUrgently && !Find.Maps.NullOrEmpty())
         {
             foreach (Map map in Find.Maps)
             {

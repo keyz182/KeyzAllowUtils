@@ -12,6 +12,9 @@ public class KeyHandler(Map map) : MapComponent(map)
     {
         if (Current.ProgramState != ProgramState.Playing)
             return;
+
+        if(KeyzAllowUtilitiesMod.settings.DisableAllowShortcuts) return;
+
         if (KeyzAllowUtilitesDefOf.KAU_Allow.KeyDownEvent)
         {
             AllowAll(map);
