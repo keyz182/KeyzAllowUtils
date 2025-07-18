@@ -10,7 +10,7 @@ public class WorkGiver_FinishOff : WorkGiver_Scanner
 
     public static bool IsValidTarget(Pawn target, Pawn worker)
     {
-        Designation des = target.Map.designationManager.DesignationOn(target, KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation);
+        Designation des = target.Map.designationManager.DesignationOn(target, KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation) ?? target.Map.designationManager.DesignationOn(target, KeyzAllowUtilitesDefOf.KAU_StripFinishOffDesignation);
         if (des == null) return false;
 
         if (target.Downed && !target.Dead && !target.Map.reservationManager.IsReserved(target))
@@ -57,7 +57,11 @@ public class WorkGiver_FinishOff : WorkGiver_Scanner
         Verb verb = meleeVerbs?.TryGetMeleeVerb(target);
         if (verb == null)return null;
 
-        Job job = JobMaker.MakeJob(KeyzAllowUtilitesDefOf.KAU_FinishOffPawn, target);
+        Designation des = target.Map.designationManager.DesignationOn(target, KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation) ?? target.Map.designationManager.DesignationOn(target, KeyzAllowUtilitesDefOf.KAU_StripFinishOffDesignation);
+
+        JobDef jobDef = des.def == KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation ? KeyzAllowUtilitesDefOf.KAU_FinishOffPawn : KeyzAllowUtilitesDefOf.KAU_StripFinishOffPawn;
+
+        Job job = JobMaker.MakeJob(jobDef, target);
         job.verbToUse = verb;
         job.killIncappedTarget = true;
         return job;

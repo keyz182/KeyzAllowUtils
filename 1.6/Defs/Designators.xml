@@ -11,4 +11,10 @@
         <texturePath>UI/KUA_FinishOffDesignation</texturePath>
         <targetType>Thing</targetType>
     </DesignationDef>
+
+    <DesignationDef>
+        <defName>KAU_StripFinishOffDesignation</defName>
+        <texturePath>UI/KUA_FinishOffDesignation</texturePath>
+        <targetType>Thing</targetType>
+    </DesignationDef>
 </Defs>

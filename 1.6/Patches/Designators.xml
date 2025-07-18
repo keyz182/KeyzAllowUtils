@@ -8,6 +8,8 @@
                 <xpath>/Defs/DesignationCategoryDef[defName="Orders"]/specialDesignatorClasses/li[13]</xpath>
                 <value>
                     <li>KeyzAllowUtilities.Designator_HaulUrgently</li>
+                    <li>KeyzAllowUtilities.Designator_SelectSimilar</li>
+                    <li>KeyzAllowUtilities.Designator_FinishOff</li>
                 </value>
             </li>
             <!-- ~1~ Remove stock forbid designator @1@ -->

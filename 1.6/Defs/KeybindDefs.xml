@@ -41,4 +41,10 @@
         <label>Haul Urgently</label>
         <defaultKeyCodeA>O</defaultKeyCodeA>
     </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_FinishOff</defName>
+        <label>Finish Off</label>
+    </KeyBindingDef>
 </Defs>

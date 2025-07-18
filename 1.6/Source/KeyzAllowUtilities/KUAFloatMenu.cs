@@ -53,6 +53,19 @@ public class KUAFloatMenu: FloatMenuOptionProvider
                             job.verbToUse = verb;
                             pawn.jobs.TryTakeOrderedJob(job);
                         }), pawn, clickedPawn);
+
+                    if (clickedPawn.apparel.AnyApparel || clickedPawn.equipment.HasAnything())
+                    {
+                        yield return FloatMenuUtility.DecoratePrioritizedTask(new FloatMenuOption(
+                            "KAU_StripKill".Translate((NamedArgument) clickedPawn.Label, pawn.Label),
+                            () =>
+                            {
+                                Job job = JobMaker.MakeJob(KeyzAllowUtilitesDefOf.KAU_StripFinishOffPawn, clickedPawn);
+                                job.count = 1;
+                                job.verbToUse = verb;
+                                pawn.jobs.TryTakeOrderedJob(job);
+                            }), pawn, clickedPawn);
+                    }
                 }
             }
         }

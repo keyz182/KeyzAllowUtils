@@ -8,6 +8,9 @@ namespace KeyzAllowUtilities;
 
 public class KeyHandler(Map map) : MapComponent(map)
 {
+    public static Designator_SelectSimilar selectSimilar =>
+        DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators.FirstOrDefault(d => d is Designator_SelectSimilar) as Designator_SelectSimilar;
+
     public override void MapComponentOnGUI()
     {
         if (Current.ProgramState != ProgramState.Playing)
@@ -25,13 +28,9 @@ public class KeyHandler(Map map) : MapComponent(map)
             Event.current.Use();
         }else if (KeyzAllowUtilitesDefOf.KAU_SelectSimilar.KeyDownEvent)
         {
-            if (Event.current.shift)
+            if (selectSimilar != null)
             {
-                map.SelectMultiOnMap(Find.Selector.SelectedObjects);
-            }
-            else
-            {
-                map.SelectMultiOnMapByStuff(Find.Selector.SelectedObjects);
+                Find.DesignatorManager.Select(selectSimilar);
             }
             Event.current.Use();
         }else if (KeyzAllowUtilitesDefOf.KAU_HarvestFullyGrown.KeyDownEvent)

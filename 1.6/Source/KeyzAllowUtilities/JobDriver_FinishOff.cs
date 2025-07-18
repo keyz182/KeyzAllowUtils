@@ -67,7 +67,7 @@ public class JobDriver_FinishOff : JobDriver
         };
     }
 
-    private void DoExecution(Pawn slayer, Pawn victim)
+    public virtual void DoExecution(Pawn slayer, Pawn victim)
     {
         int bloodAmount = Mathf.Max(GenMath.RoundRandom(victim.BodySize * 8f), 1);
         for (int i = 0; i < bloodAmount; i++)
@@ -87,7 +87,7 @@ public class JobDriver_FinishOff : JobDriver
         }
     }
 
-    private Thing TryMakeSkullMote(Pawn victim, float chance)
+    public Thing TryMakeSkullMote(Pawn victim, float chance)
     {
         if (victim?.RaceProps is not { intelligence: Intelligence.Humanlike }) return null;
 

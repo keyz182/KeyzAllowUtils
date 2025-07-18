@@ -7,4 +7,12 @@
         <alwaysShowWeapon>true</alwaysShowWeapon>
         <casualInterruptible>false</casualInterruptible>
     </JobDef>
+
+    <JobDef>
+        <defName>KAU_StripFinishOffPawn</defName>
+        <driverClass>KeyzAllowUtilities.JobDriver_StripFinishOff</driverClass>
+        <reportString>Stripping And Finishing off</reportString>
+        <alwaysShowWeapon>true</alwaysShowWeapon>
+        <casualInterruptible>false</casualInterruptible>
+    </JobDef>
 </Defs>

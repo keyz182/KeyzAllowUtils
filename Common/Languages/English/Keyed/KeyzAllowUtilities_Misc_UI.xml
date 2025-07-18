@@ -26,6 +26,7 @@
 
     <KAU_NoKill>Cannot finish off</KAU_NoKill>
     <KAU_Kill>Finish off {0} [{1}]</KAU_Kill>
+    <KAU_StripKill>Strip, then Finish off {0} [{1}]</KAU_StripKill>
     <KAU_MeleeTooLow>Melee too low {0}</KAU_MeleeTooLow>
     <KAU_Unable>Unable to melee</KAU_Unable>
 
@@ -46,4 +47,7 @@
 
     <KAU_ToggleHaulUrgently>Disable Haul Urgently</KAU_ToggleHaulUrgently>
     <KAU_ToggleDisableAllowShortcuts>Disable Allow/Forbid hotkeys</KAU_ToggleDisableAllowShortcuts>
+
+    <KUA_SelectSimilar>Select similar</KUA_SelectSimilar>
+    <KUA_SelectSimilarDesc>Selects items similar to those already selected</KUA_SelectSimilarDesc>
 </LanguageData>
