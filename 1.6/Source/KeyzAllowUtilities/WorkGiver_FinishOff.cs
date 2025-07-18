@@ -9,7 +9,16 @@ public class WorkGiver_FinishOff : WorkGiver_Scanner
 {
     public static bool IsValidTarget(Pawn target, Pawn worker)
     {
-        return target.Downed && !target.Dead && !target.Map.reservationManager.IsReserved(target);
+        Designation des = target.Map.designationManager.DesignationOn(target);
+        if (des == null) return false;
+
+        if (target.Downed && !target.Dead && !target.Map.reservationManager.IsReserved(target))
+        {
+            return true;
+        }
+
+        target.Map.designationManager.RemoveDesignation(des);
+        return false;
     }
 
     public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)

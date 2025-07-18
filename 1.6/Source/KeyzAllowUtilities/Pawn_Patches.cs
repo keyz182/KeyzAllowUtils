@@ -45,4 +45,15 @@ public static class Pawn_Patches
         }
         __result = gizmos;
     }
+
+    // [HarmonyPatch(nameof(Pawn.GetDisabledWorkTypes))]
+    // [HarmonyPostfix]
+    // public static void GetDisabledWorkTypes(Pawn __instance, List<WorkTypeDef> __result)
+    // {
+    //     SkillRecord melee = __instance?.skills?.GetSkill(SkillDefOf.Melee);
+    //     if (melee == null || melee.levelInt < 5)
+    //     {
+    //         __result.Add(KeyzAllowUtilitesDefOf.KAU_FinishingOff);
+    //     }
+    // }
 }

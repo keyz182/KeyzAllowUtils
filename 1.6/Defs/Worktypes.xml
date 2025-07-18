@@ -26,7 +26,8 @@
         <verb>Finish off</verb>
         <naturalPriority>1140</naturalPriority>
         <alwaysStartActive>true</alwaysStartActive>
-        <visible>false</visible>
+        <visible>true</visible>
+        <requireCapableColonist>true</requireCapableColonist>
         <relevantSkills>
             <li>Melee</li>
         </relevantSkills>

@@ -59,31 +59,33 @@ public static class Thing_Patches
         };
         gizmos.Add(command_Action);
 
-        if(__instance is Pawn) return;
-        if(!__instance.def.EverHaulable) return;
 
-        Designation des = __instance?.Map?.designationManager?.DesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation);
+        if (__instance is not Pawn && __instance.def.EverHaulable)
+        {
+            Designation des = __instance?.Map?.designationManager?.DesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation);
 
-        if (des == null)
-        {
-            gizmos.Add( new Command_Action()
+            if (des == null)
             {
-                icon = KUA_ToggleHaulUrgently, defaultLabel = "KUA_ToggleHaulUrgently".Translate(), defaultDesc = "KUA_ToggleHaulUrgentlyDesc".Translate(), action = () =>
+                gizmos.Add( new Command_Action()
                 {
-                    __instance?.Map.designationManager.AddDesignation(new Designation(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
-                }
-            });
-        }
-        else
-        {
-            gizmos.Add( new Command_Action()
+                    icon = KUA_ToggleHaulUrgently, defaultLabel = "KUA_ToggleHaulUrgently".Translate(), defaultDesc = "KUA_ToggleHaulUrgentlyDesc".Translate(), action = () =>
+                    {
+                        __instance?.Map.designationManager.AddDesignation(new Designation(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
+                    }
+                });
+            }
+            else
             {
-                icon = KUA_ToggleHaulUrgentlyDisable, defaultLabel = "KUA_ToggleHaulUrgentlyDisable".Translate(), defaultDesc = "KUA_ToggleHaulUrgentlyDisableDesc".Translate(), action = () =>
+                gizmos.Add( new Command_Action()
                 {
-                    __instance?.Map.designationManager.RemoveDesignation(des);
-                }
-            });
+                    icon = KUA_ToggleHaulUrgentlyDisable, defaultLabel = "KUA_ToggleHaulUrgentlyDisable".Translate(), defaultDesc = "KUA_ToggleHaulUrgentlyDisableDesc".Translate(), action = () =>
+                    {
+                        __instance?.Map.designationManager.RemoveDesignation(des);
+                    }
+                });
+            }
         }
+
         __result = gizmos;
     }
 

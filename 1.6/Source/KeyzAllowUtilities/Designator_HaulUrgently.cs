@@ -6,6 +6,7 @@ using Verse;
 
 namespace KeyzAllowUtilities;
 
+[StaticConstructorOnStartup]
 public class Designator_HaulUrgently : Designator
 {
     protected override DesignationDef Designation => KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation;
