@@ -45,4 +45,5 @@
     <KUA_ToggleHaulUrgentlyDisableDesc>Cancel Haul Urgently</KUA_ToggleHaulUrgentlyDisableDesc>
 
     <KAU_ToggleHaulUrgently>Disable Haul Urgently</KAU_ToggleHaulUrgently>
+    <KAU_ToggleDisableAllowShortcuts>Disable Allow/Forbid hotkeys</KAU_ToggleDisableAllowShortcuts>
 </LanguageData>
