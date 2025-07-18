@@ -17,7 +17,7 @@ public class WorkGiver_HaulUrgently: WorkGiver_Scanner
 
     public override bool ShouldSkip(Pawn pawn, bool forced = false)
     {
-        return !pawn.Map.designationManager.SpawnedDesignationsOfDef(KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation).Any();
+        return KeyzAllowUtilitiesMod.settings.DisableHaulUrgently || !pawn.Map.designationManager.SpawnedDesignationsOfDef(KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation).Any();
     }
 
     public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)

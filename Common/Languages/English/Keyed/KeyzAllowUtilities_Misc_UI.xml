@@ -43,4 +43,6 @@
 
     <KUA_ToggleHaulUrgentlyDisable>Cancel Haul Urgently</KUA_ToggleHaulUrgentlyDisable>
     <KUA_ToggleHaulUrgentlyDisableDesc>Cancel Haul Urgently</KUA_ToggleHaulUrgentlyDisableDesc>
+
+    <KAU_ToggleHaulUrgently>Disable Haul Urgently</KAU_ToggleHaulUrgently>
 </LanguageData>

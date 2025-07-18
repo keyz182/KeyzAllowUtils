@@ -12,6 +12,7 @@ public static class Toils_Haul_Patch
     [HarmonyPostfix]
     public static void ClearHaulUrgently(Toil __result)
     {
+        if(KeyzAllowUtilitiesMod.settings.DisableHaulUrgently) return;
         Action originalInitAction = __result.initAction;
         __result.initAction = delegate
         {

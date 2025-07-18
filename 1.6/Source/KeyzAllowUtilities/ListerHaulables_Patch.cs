@@ -15,6 +15,7 @@ public static class ListerHaulables_Patch
     public static Lazy<FieldInfo> Map = new(() => AccessTools.Field(typeof(ListerHaulables), "map"));
     public static ListerUrgentHaulables GetListerForMap(Map map)
     {
+        if (KeyzAllowUtilitiesMod.settings.DisableHaulUrgently) return null;
         if (map == null) return null;
         if (Listers.TryGetValue(map, out ListerUrgentHaulables forMap)) return forMap;
 

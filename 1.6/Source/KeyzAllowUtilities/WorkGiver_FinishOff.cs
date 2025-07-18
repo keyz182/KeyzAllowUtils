@@ -7,9 +7,10 @@ namespace KeyzAllowUtilities;
 
 public class WorkGiver_FinishOff : WorkGiver_Scanner
 {
+
     public static bool IsValidTarget(Pawn target, Pawn worker)
     {
-        Designation des = target.Map.designationManager.DesignationOn(target);
+        Designation des = target.Map.designationManager.DesignationOn(target, KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation);
         if (des == null) return false;
 
         if (target.Downed && !target.Dead && !target.Map.reservationManager.IsReserved(target))

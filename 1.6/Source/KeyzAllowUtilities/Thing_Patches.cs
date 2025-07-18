@@ -60,7 +60,7 @@ public static class Thing_Patches
         gizmos.Add(command_Action);
 
 
-        if (__instance is not Pawn && __instance.def.EverHaulable)
+        if (!KeyzAllowUtilitiesMod.settings.DisableHaulUrgently && __instance is not Pawn && __instance.def.EverHaulable)
         {
             Designation des = __instance?.Map?.designationManager?.DesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation);
 
