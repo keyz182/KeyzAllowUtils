@@ -25,5 +25,7 @@
         <li>Ludeon.RimWorld.Biotech</li>
         <li>Ludeon.RimWorld.Anomaly</li>
         <li>ludeon.rimworld.odyssey</li>
+        <li>Mehni.PickUpAndHaul</li>
+        <li>mehni.pickupandhaul.unofficial</li>
     </loadAfter>
 </ModMetaData>
