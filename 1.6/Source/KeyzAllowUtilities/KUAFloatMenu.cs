@@ -54,7 +54,7 @@ public class KUAFloatMenu: FloatMenuOptionProvider
                             pawn.jobs.TryTakeOrderedJob(job);
                         }), pawn, clickedPawn);
 
-                    if (clickedPawn.apparel.AnyApparel || clickedPawn.equipment.HasAnything())
+                    if ((clickedPawn.apparel?.AnyApparel ?? false) || (clickedPawn.equipment?.HasAnything() ?? false))
                     {
                         yield return FloatMenuUtility.DecoratePrioritizedTask(new FloatMenuOption(
                             "KAU_StripKill".Translate((NamedArgument) clickedPawn.Label, pawn.Label),

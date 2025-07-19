@@ -17,6 +17,7 @@ public static class KeyzAllowUtilitesDefOf
     public static readonly DesignationDef KAU_HaulUrgentlyDesignation;
     public static readonly DesignationDef KAU_FinishOffDesignation;
     public static readonly DesignationDef KAU_StripFinishOffDesignation;
+    public static readonly DesignationDef KAU_SelectSimilarDesignation;
     public static readonly EffecterDef KAU_WeaponGlint;
     public static readonly WorkTypeDef KAU_FinishingOff;
 

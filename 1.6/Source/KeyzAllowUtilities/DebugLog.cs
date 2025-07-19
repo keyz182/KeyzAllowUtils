@@ -3,7 +3,7 @@ using System;
 
 namespace KeyzAllowUtilities;
 
-static class ModLog
+public static class ModLog
 {
     [Conditional("DEBUG")]
     public static void Debug(string x)

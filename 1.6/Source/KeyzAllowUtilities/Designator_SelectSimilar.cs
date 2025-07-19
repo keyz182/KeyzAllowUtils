@@ -31,14 +31,18 @@ public class Designator_SelectSimilar : Designator
             return [];
 
         IEnumerable<Thing> selected = Find.Selector.SelectedObjects.OfType<Thing>();
-        List<Thing> thingsInCell = Map.thingGrid.ThingsListAt(c).Where(t=>t.def.selectable).Where(t => selected.Any(s => t.def == s.def)).ToList();
+        IEnumerable<Thing> thingsInCell = Map.thingGrid.ThingsListAt(c).Where(t=>t.def.selectable).Where(t => selected.Any(s => t.def == s.def));
+        IEnumerable<Thing> thingsInCellInStuff = Map.thingGrid.ThingsListAt(c).Where(t => t.TryGetInnerInteractableThingOwner() != null)
+            .SelectMany(t => t.TryGetInnerInteractableThingOwner());
+
+        thingsInCell = thingsInCell.Concat(thingsInCellInStuff).Where(t => t.def.selectable).Where(t => selected.Any(s => t.def == s.def));
 
         if (!Event.current.shift)
         {
             thingsInCell = thingsInCell.Where(t => selected.Any(s => s.Stuff == null || s.Stuff == t.Stuff)).ToList();
         }
 
-        return thingsInCell;
+        return thingsInCell.ToList();
     }
 
     public override AcceptanceReport CanDesignateCell(IntVec3 c)
@@ -62,7 +66,11 @@ public class Designator_SelectSimilar : Designator
 
     public override AcceptanceReport CanDesignateThing(Thing t)
     {
-        return t.def.selectable;
+        List<Thing> selected = Find.Selector.SelectedObjects.OfType<Thing>().ToList();
+
+        if (!t.def.selectable || !selected.Any(thing => thing.def == t.def) ) return false;
+
+        return Event.current.shift || selected.Any(thing => thing.Stuff == t.Stuff);
     }
 
     public override void DesignateThing(Thing t)
@@ -95,6 +103,21 @@ public class Designator_SelectSimilar : Designator
                     };
                     Graphics.DrawMesh(MeshPool.plane10, drawPos, Quaternion.identity, DragHighlightThingMat, 0);
                     seenThings.Add(t);
+                }
+
+                ThingOwner inner = t.TryGetInnerInteractableThingOwner();
+                if (inner == null) continue;
+
+                foreach (Thing thing in inner)
+                {
+                    if (seenThings.Contains(thing) || !CanDesignateThing(thing).Accepted) continue;
+
+                    Vector3 drawPos = thing.DrawPos with
+                    {
+                        y = AltitudeLayer.MetaOverlays.AltitudeFor()
+                    };
+                    Graphics.DrawMesh(MeshPool.plane10, drawPos, Quaternion.identity, DragHighlightThingMat, 0);
+                    seenThings.Add(thing);
                 }
             }
         }

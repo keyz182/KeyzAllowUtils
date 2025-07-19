@@ -17,4 +17,10 @@
         <texturePath>UI/KUA_FinishOffDesignation</texturePath>
         <targetType>Thing</targetType>
     </DesignationDef>
+
+    <DesignationDef>
+        <defName>KAU_SelectSimilarDesignation</defName>
+        <texturePath>UI/KUA_MultiSelect</texturePath>
+        <targetType>Thing</targetType>
+    </DesignationDef>
 </Defs>

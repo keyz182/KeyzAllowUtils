@@ -8,6 +8,9 @@ namespace KeyzAllowUtilities;
 
 public class WorkGiver_HaulUrgently: WorkGiver_Scanner
 {
+    public delegate Job TryGetJobOnThing(Pawn pawn, Thing t, bool forced);
+    public static TryGetJobOnThing JobOnThingDelegate = (pawn, t, forced) => HaulAIUtility.HaulToStorageJob(pawn, t, forced);
+
     public override Danger MaxPathDanger(Pawn pawn) => Danger.Deadly;
 
     public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
@@ -23,7 +26,7 @@ public class WorkGiver_HaulUrgently: WorkGiver_Scanner
     public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
     {
         if (!HaulAIUtility.PawnCanAutomaticallyHaulFast(pawn, t, forced)) return null;
-        Job job = HaulAIUtility.HaulToStorageJob(pawn, t, forced);
+        Job job = JobOnThingDelegate(pawn, t, forced);
 
         return job;
     }

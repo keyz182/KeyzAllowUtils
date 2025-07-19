@@ -41,6 +41,12 @@ public static class Thing_Patches
                     {
                         __instance.Map.SelectOnMap(__instance);
                     }));
+                    items.Add(new FloatMenuOption("KUA_SelectInRect".Translate(), () =>
+                    {
+                        Designator_SelectSimilar des = DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators.OfType<Designator_SelectSimilar>().FirstOrDefault();
+                        if(des != null)
+                            Find.DesignatorManager.Select(des);
+                    }));
                 }
                 else
                 {
@@ -51,6 +57,12 @@ public static class Thing_Patches
                     items.Add(new FloatMenuOption("KUA_SelectOnMapWithStuff".Translate(__instance.Stuff.LabelAsStuff), () =>
                     {
                         __instance.Map.SelectOnMap(__instance, __instance.Stuff);
+                    }));
+                    items.Add(new FloatMenuOption("KUA_SelectInRect".Translate(), () =>
+                    {
+                        Designator_SelectSimilar des = DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators.OfType<Designator_SelectSimilar>().FirstOrDefault();
+                        if(des != null)
+                            Find.DesignatorManager.Select(des);
                     }));
                 }
 
@@ -70,7 +82,8 @@ public static class Thing_Patches
                 {
                     icon = KUA_ToggleHaulUrgently, defaultLabel = "KUA_ToggleHaulUrgently".Translate(), defaultDesc = "KUA_ToggleHaulUrgentlyDesc".Translate(), action = () =>
                     {
-                        __instance?.Map.designationManager.AddDesignation(new Designation(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
+                        if(!__instance.IsInValidBestStorage())
+                            __instance?.Map.designationManager.AddDesignation(new Designation(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
                     }
                 });
             }
