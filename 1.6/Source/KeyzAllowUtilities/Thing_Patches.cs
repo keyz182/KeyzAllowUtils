@@ -18,6 +18,19 @@ public static class Thing_Patches
     public static readonly Texture2D KUA_ToggleHaulUrgently = ContentFinder<Texture2D>.Get("UI/KUA_ToggleHaulUrgently");
     public static readonly Texture2D KUA_ToggleHaulUrgentlyDisable = ContentFinder<Texture2D>.Get("UI/KUA_ToggleHaulUrgentlyDisable");
 
+    public static Designator_SelectSimilar _selectDesignator;
+
+    public static Designator_SelectSimilar SelectDesignator
+    {
+        get
+        {
+            _selectDesignator ??= DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators
+                .OfType<Designator_SelectSimilar>().FirstOrDefault();
+
+            return _selectDesignator;
+        }
+    }
+
 
     [HarmonyPatch(nameof(Thing.GetGizmos))]
     [HarmonyPostfix]
@@ -43,9 +56,8 @@ public static class Thing_Patches
                     }));
                     items.Add(new FloatMenuOption("KUA_SelectInRect".Translate(), () =>
                     {
-                        Designator_SelectSimilar des = DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators.OfType<Designator_SelectSimilar>().FirstOrDefault();
-                        if(des != null)
-                            Find.DesignatorManager.Select(des);
+                        if(SelectDesignator != null)
+                            Find.DesignatorManager.Select(SelectDesignator);
                     }));
                 }
                 else
@@ -60,9 +72,8 @@ public static class Thing_Patches
                     }));
                     items.Add(new FloatMenuOption("KUA_SelectInRect".Translate(), () =>
                     {
-                        Designator_SelectSimilar des = DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators.OfType<Designator_SelectSimilar>().FirstOrDefault();
-                        if(des != null)
-                            Find.DesignatorManager.Select(des);
+                        if(SelectDesignator != null)
+                            Find.DesignatorManager.Select(SelectDesignator);
                     }));
                 }
 
