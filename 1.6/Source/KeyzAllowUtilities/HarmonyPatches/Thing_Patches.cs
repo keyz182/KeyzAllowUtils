@@ -7,7 +7,7 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 
-namespace KeyzAllowUtilities;
+namespace KeyzAllowUtilities.HarmonyPatches;
 
 [HarmonyPatch(typeof(Thing))]
 [StaticConstructorOnStartup]

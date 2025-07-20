@@ -54,4 +54,7 @@
     <KUA_SelectSimilarDesc>Selects items similar to those already selected</KUA_SelectSimilarDesc>
 
     <KAU_ToggleDisableAllShortcuts>Disable all shortcuts</KAU_ToggleDisableAllShortcuts>
+
+    <KAU_DefErrorLog>Log def error sources</KAU_DefErrorLog>
+    <KAU_DefErrorLogToolTip>Logs the source of any def errors in a new log-line after the error</KAU_DefErrorLogToolTip>
 </LanguageData>

@@ -23,4 +23,5 @@
         <texturePath>UI/KUA_MultiSelect</texturePath>
         <targetType>Thing</targetType>
     </DesignationDef>
+
 </Defs>

@@ -3,7 +3,7 @@ using HarmonyLib;
 using Verse;
 using Verse.AI;
 
-namespace KeyzAllowUtilities;
+namespace KeyzAllowUtilities.HarmonyPatches;
 
 [HarmonyPatch(typeof(Toils_Haul))]
 public static class Toils_Haul_Patch

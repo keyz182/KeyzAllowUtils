@@ -6,7 +6,7 @@ using HarmonyLib;
 using RimWorld;
 using Verse;
 
-namespace KeyzAllowUtilities;
+namespace KeyzAllowUtilities.HarmonyPatches;
 
 [HarmonyPatch(typeof(CompForbiddable))]
 public static class CompForbiddable_Patches

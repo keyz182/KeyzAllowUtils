@@ -5,7 +5,7 @@ using System.Reflection;
 using HarmonyLib;
 using Verse;
 
-namespace KeyzAllowUtilities;
+namespace KeyzAllowUtilities.HarmonyPatches;
 
 [HarmonyPatch(typeof(DesignationCategoryDef))]
 public static class DesignationCategoryDef_Patch

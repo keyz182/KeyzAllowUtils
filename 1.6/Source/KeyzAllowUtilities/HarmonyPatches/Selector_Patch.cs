@@ -4,7 +4,7 @@ using System.Reflection.Emit;
 using HarmonyLib;
 using RimWorld;
 
-namespace KeyzAllowUtilities;
+namespace KeyzAllowUtilities.HarmonyPatches;
 
 [HarmonyPatch(typeof(Selector))]
 public static class Selector_Patch

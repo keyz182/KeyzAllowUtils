@@ -28,4 +28,9 @@ public static class ModLog
             Verse.Log.Error(e.ToString());
     }
 
+    public static void DefError(string msg)
+    {
+        Verse.Log.Warning($"<color=#6beb1c>[^^^Def Mod Error^^^]</color> {msg ?? "<null>"}");
+    }
+
 }
