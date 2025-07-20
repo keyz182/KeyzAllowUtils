@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyzAllowUtilities", "KeyzA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyzAllowUtilities.PUAH", "KeyzAllowUtilities.PUAH/KeyzAllowUtilities.PUAH.csproj", "{29e523c0-6e0b-40c6-a61d-9f9c9429a1da}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyzAllowUtilities.PUAH.Unofficial", "KeyzAllowUtilities.PUAH.Unofficial/KeyzAllowUtilities.PUAH.Unofficial.csproj", "{b936dbd0-5d09-49ea-9f96-0e95061f0711}"
-EndProject
 Global
     GlobalSection(SolutionConfigurationPlatforms) = preSolution
         Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
         {29e523c0-6e0b-40c6-a61d-9f9c9429a1da}.Debug|Any CPU.Build.0 = Debug|Any CPU
         {29e523c0-6e0b-40c6-a61d-9f9c9429a1da}.Release|Any CPU.ActiveCfg = Release|Any CPU
         {29e523c0-6e0b-40c6-a61d-9f9c9429a1da}.Release|Any CPU.Build.0 = Release|Any CPU
-        {b936dbd0-5d09-49ea-9f96-0e95061f0711}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-        {b936dbd0-5d09-49ea-9f96-0e95061f0711}.Debug|Any CPU.Build.0 = Debug|Any CPU
-        {b936dbd0-5d09-49ea-9f96-0e95061f0711}.Release|Any CPU.ActiveCfg = Release|Any CPU
-        {b936dbd0-5d09-49ea-9f96-0e95061f0711}.Release|Any CPU.Build.0 = Release|Any CPU
     EndGlobalSection
     GlobalSection(SolutionProperties) = preSolution
         HideSolutionNode = FALSE

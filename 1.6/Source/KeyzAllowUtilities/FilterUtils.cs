@@ -33,7 +33,7 @@ public static class FilterUtils
 
     public static IEnumerable<Thing> OnMap(this IEnumerable<Thing> things, Map map)
     {
-        return things.Where(t=> map.listerThings.AllThings.Contains(t));
+        return things.Where(t=> map.Selectables().Contains(t));
     }
 
     public static IEnumerable<Thing> OnlySelectableThings(this IEnumerable<Thing> things)
@@ -41,37 +41,75 @@ public static class FilterUtils
         return things.Where(ThingSelectionUtility.SelectableByMapClick);
     }
 
-    public static void SelectThisOrInnerThing(this Thing outerThing, Def def)
+    public static void SelectThisOrInnerThing(this Thing outerThing, Def def = null)
     {
         Thing innerThing = outerThing.GetInnerIfMinified();
-        if (innerThing.def == def )
+        if (def == null || innerThing.def == def )
             Find.Selector.Select(innerThing);
     }
 
-    public static void SelectOnScreen(Thing thing, ThingDef stuff = null)
+    public static void SelectOnScreen(Thing thing, ThingDef stuff = null, Predicate<Thing> filter = null)
     {
-        bool Filter(Thing t)
-        {
-            bool allow = ThingSelectionUtility.SelectableByMapClick(t) && t.def == thing.def;
-
-            if (stuff != null && t.Stuff != stuff) allow = false;
-
-            return allow;
-        }
-
         IEnumerable<Thing> things = thing.Map.ThingsOnScreen(Filter);
 
         foreach (Thing outerThing in things.NotFogged().NearestTo(thing).Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
         {
             outerThing.SelectThisOrInnerThing(thing.def);
         }
+
+        return;
+
+        bool Filter(Thing t)
+        {
+            bool allow = ThingSelectionUtility.SelectableByMapClick(t) && t.def == thing.def;
+
+            if (stuff != null && t.Stuff != stuff) allow = false;
+
+            return filter?.Invoke(t) ?? allow;
+        }
     }
 
-    public static void SelectMultiOnMap(this Map map, List<object> things)
+    public static IEnumerable<Thing> Selectables(this Map map, Predicate<Thing> filter = null)
+    {
+        return map.listerThings.AllThings.Where(ThingSelectionUtility.SelectableByMapClick).Where(t=>filter?.Invoke(t) ?? true);
+    }
+
+    public static void SelectAnyOnScreen(Map map, IntVec3 pos, ThingDef stuff = null, Predicate<Thing> filter = null)
+    {
+        IEnumerable<Thing> things = map.ThingsOnScreen(Filter);
+
+        foreach (Thing outerThing in things.NotFogged().NearestTo(pos).Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
+        {
+            outerThing.SelectThisOrInnerThing();
+        }
+
+        return;
+
+        bool Filter(Thing t)
+        {
+            bool allow = ThingSelectionUtility.SelectableByMapClick(t);
+
+            if (stuff != null && t.Stuff != stuff) allow = false;
+
+            return filter?.Invoke(t) ?? allow;
+        }
+    }
+
+    public static void SelectAnyOnMap(this Map map, IntVec3 pos, Predicate<Thing> filter = null)
+    {
+        IEnumerable<Thing> matchingThings = map.Selectables(filter);
+
+        foreach (Thing mapThing in matchingThings.NearestTo(pos).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
+        {
+            Find.Selector.Select(mapThing);
+        }
+    }
+
+    public static void SelectMultiOnMap(this Map map, List<object> things, Predicate<Thing> filter = null)
     {
         IEnumerable<ThingDef> uniqueThings = things.OfType<Thing>().Select(t => t.def).Distinct();
 
-        IEnumerable<Thing> matchingThings = map.listerThings.AllThings.Where(t => uniqueThings.Contains(t.def));
+        IEnumerable<Thing> matchingThings = map.Selectables(filter).Where(t => uniqueThings.Contains(t.def));
 
         foreach (Thing mapThing in matchingThings.NearestTo(map.Center).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
         {
@@ -83,7 +121,7 @@ public static class FilterUtils
     {
         var pairs = things.OfType<Thing>().Select(t => new { t.def, t.Stuff }).Distinct();
 
-        IEnumerable<Thing> matchingThings = map.listerThings.AllThings.Where(t => pairs.Contains(new { t.def, t.Stuff }));
+        IEnumerable<Thing> matchingThings = map.Selectables().Where(t => pairs.Contains(new { t.def, t.Stuff }));
 
         foreach (Thing mapThing in matchingThings.NearestTo(map.Center).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
         {
@@ -93,7 +131,7 @@ public static class FilterUtils
 
     public static void SelectOnMap(this Map map, Thing thing, ThingDef stuff = null)
     {
-        IEnumerable<Thing> things = map.listerThings.AllThings.Where(t => t.def == thing.def);
+        IEnumerable<Thing> things = map.Selectables().Where(t => t.def == thing.def);
 
         if (stuff != null)
             things = things.Where(t => t.Stuff == stuff);
@@ -135,7 +173,7 @@ public static class FilterUtils
         Rect rect = new(0.0f, 0.0f, UI.screenWidth, UI.screenHeight);
         CellRect mapRect = GetMapRect(rect);
         List<IntVec3> cells = mapRect.ExpandedBy(1).Cells.Where(cell => cell.InBounds(onMap)).ToList();
-        List<Thing> things = cells.SelectMany(cell => onMap.thingGrid.ThingsAt(cell)).ToList();
+        List<Thing> things = cells.SelectMany(cell => onMap.thingGrid.ThingsAt(cell)).Where(ThingSelectionUtility.SelectableByMapClick).ToList();
 
         foreach (Thing thing in things)
         {
