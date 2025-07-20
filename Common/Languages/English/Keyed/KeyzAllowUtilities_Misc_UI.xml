@@ -53,6 +53,5 @@
     <KUA_SelectSimilar>Select similar</KUA_SelectSimilar>
     <KUA_SelectSimilarDesc>Selects items similar to those already selected</KUA_SelectSimilarDesc>
 
-    <KAU_ToggleDangerousOptimisations>Toggle experimental and possibly dangerous optimisations</KAU_ToggleDangerousOptimisations>
-    <KAU_ToggleDangerousOptimisationsToolTip>These optimisations involve threading which may not be thread safe, have not been thoroughly tested, and may still be a work in progress</KAU_ToggleDangerousOptimisationsToolTip>
+    <KAU_ToggleDisableAllShortcuts>Disable all shortcuts</KAU_ToggleDisableAllShortcuts>
 </LanguageData>

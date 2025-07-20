@@ -8,6 +8,7 @@ public class Settings : ModSettings
     public int MaxSelect = 300;
     public bool DisableHaulUrgently = false;
     public bool DisableAllowShortcuts = false;
+    public bool DisableAllShortcuts = false;
 
     public void DoWindowContents(Rect wrect)
     {
@@ -22,6 +23,9 @@ public class Settings : ModSettings
         options.Gap();
 
         options.CheckboxLabeled("KAU_ToggleDisableAllowShortcuts".Translate(), ref DisableAllowShortcuts);
+        options.Gap();
+
+        options.CheckboxLabeled("KAU_ToggleDisableAllShortcuts".Translate(), ref DisableAllShortcuts);
         options.Gap();
 
 
@@ -41,5 +45,6 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref MaxSelect, "MaxSelect", 300);
         Scribe_Values.Look(ref DisableHaulUrgently, "DisableHaulUrgently", false);
         Scribe_Values.Look(ref DisableAllowShortcuts, "DisableAllowShortcuts", false);
+        Scribe_Values.Look(ref DisableAllShortcuts, "DisableAllShortcuts", false);
     }
 }

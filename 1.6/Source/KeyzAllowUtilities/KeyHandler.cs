@@ -20,7 +20,7 @@ public class KeyHandler(Map map) : MapComponent(map)
         if (Current.ProgramState != ProgramState.Playing)
             return;
 
-        if(KeyzAllowUtilitiesMod.settings.DisableAllowShortcuts) return;
+        if(KeyzAllowUtilitiesMod.settings.DisableAllShortcuts) return;
 
         if (KeyzAllowUtilitesDefOf.KAU_Allow.KeyDownEvent)
         {
@@ -30,7 +30,9 @@ public class KeyHandler(Map map) : MapComponent(map)
         {
             AllowAll(map, true);
             Event.current.Use();
-        }else if (KeyzAllowUtilitesDefOf.KAU_SelectSimilar.KeyDownEvent)
+        }
+
+        if (KeyzAllowUtilitesDefOf.KAU_SelectSimilar.KeyDownEvent)
         {
             if (selectSimilar != null)
             {
@@ -41,13 +43,27 @@ public class KeyHandler(Map map) : MapComponent(map)
         {
             CutFullyGrownOnMap(map);
             Event.current.Use();
-        }else if (KeyzAllowUtilitesDefOf.KAU_HaulUrgently.KeyDownEvent)
-        {
-            foreach (Thing thing in Find.Selector.SelectedObjects.OfType<Thing>().Where(t=>t.def.EverHaulable))
-            {
-                map.designationManager.AddDesignation(new Designation(thing, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
-            }
         }
+
+        if(KeyzAllowUtilitiesMod.settings.DisableAllowShortcuts) return;
+
+        if (KeyzAllowUtilitesDefOf.KAU_Allow.KeyDownEvent)
+        {
+            AllowAll(map);
+            Event.current.Use();
+        }else if (KeyzAllowUtilitesDefOf.KAU_Forbid.KeyDownEvent)
+        {
+            AllowAll(map, true);
+            Event.current.Use();
+        }
+
+        // else if (KeyzAllowUtilitesDefOf.KAU_HaulUrgently.KeyDownEvent)
+        // {
+        //     foreach (Thing thing in Find.Selector.SelectedObjects.OfType<Thing>().Where(t=>t.def.EverHaulable && !map.designationManager.HasMapDesignationOn(t)))
+        //     {
+        //         map.designationManager.AddDesignation(new Designation(thing, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
+        //     }
+        // }
     }
 
     public static void CutFullyGrownOnMap(Map map)

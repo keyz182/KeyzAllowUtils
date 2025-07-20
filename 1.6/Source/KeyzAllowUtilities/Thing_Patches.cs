@@ -40,7 +40,10 @@ public static class Thing_Patches
 
         Command_Action command_Action = new()
         {
-            icon = KUA_MultiSelectIcon, defaultLabel = KUA_MultiSelect.Value, defaultDesc = KUA_MultiSelectDesc.Value, action = () =>
+            icon = KUA_MultiSelectIcon,
+            defaultLabel = KUA_MultiSelect.Value,
+            defaultDesc = KUA_MultiSelectDesc.Value,
+            action = () =>
             {
                 List<FloatMenuOption> items = [];
 
@@ -91,9 +94,13 @@ public static class Thing_Patches
             {
                 gizmos.Add( new Command_Action
                 {
-                    icon = KUA_ToggleHaulUrgentlyIcon, defaultLabel = KUA_ToggleHaulUrgently.Value, defaultDesc = KUA_ToggleHaulUrgentlyDesc.Value, action = () =>
+                    icon = KUA_ToggleHaulUrgentlyIcon,
+                    defaultLabel = KUA_ToggleHaulUrgently.Value,
+                    defaultDesc = KUA_ToggleHaulUrgentlyDesc.Value,
+                    hotKey = KeyzAllowUtilitiesMod.settings.DisableAllShortcuts ? null : KeyzAllowUtilitesDefOf.KAU_HaulUrgently,
+                    action = () =>
                     {
-                        if(!__instance.IsInValidBestStorage())
+                        if(!__instance.IsInValidBestStorage() && !__instance.Map.designationManager.HasMapDesignationOn(__instance))
                             __instance.Map.designationManager.AddDesignation(new Designation(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
                     }
                 });
@@ -102,7 +109,11 @@ public static class Thing_Patches
             {
                 gizmos.Add( new Command_Action
                 {
-                    icon = KUA_ToggleHaulUrgentlyDisableIcon, defaultLabel = KUA_ToggleHaulUrgentlyDisable.Value, defaultDesc = KUA_ToggleHaulUrgentlyDisableDesc.Value, action = () =>
+                    icon = KUA_ToggleHaulUrgentlyDisableIcon,
+                    defaultLabel = KUA_ToggleHaulUrgentlyDisable.Value,
+                    defaultDesc = KUA_ToggleHaulUrgentlyDisableDesc.Value,
+                    hotKey = KeyzAllowUtilitiesMod.settings.DisableAllShortcuts ? null : KeyzAllowUtilitesDefOf.KAU_HaulUrgently,
+                    action = () =>
                     {
                         __instance.Map.designationManager.RemoveDesignation(des);
                     }
