@@ -165,7 +165,7 @@ public static class Thing_Patches
         }));
         items.Add(new FloatMenuOption(KUA_ToggleHaulUrgentlyOnMap.Value, () =>
         {
-            __instance.Map.SelectMultiOnMap([__instance], filter:Filter);
+            __instance.Map.SelectAnyOnMap(__instance.Position, filter:Filter);
             foreach (Thing thing in Find.Selector.SelectedObjects.OfType<Thing>())
             {
                 if (!thing.IsInValidBestStorage() && !thing.Map.designationManager.HasMapDesignationOn(thing))

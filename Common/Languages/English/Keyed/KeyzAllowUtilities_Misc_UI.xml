@@ -57,4 +57,7 @@
 
     <KAU_DefErrorLog>Log def error sources</KAU_DefErrorLog>
     <KAU_DefErrorLogToolTip>Logs the source of any def errors in a new log-line after the error</KAU_DefErrorLogToolTip>
+
+    <KUA_ToggleHaulUrgentlyOnScreen>Haul all on screen urgently</KUA_ToggleHaulUrgentlyOnScreen>
+    <KUA_ToggleHaulUrgentlyOnMap>Haul all on map urgently</KUA_ToggleHaulUrgentlyOnMap>
 </LanguageData>
