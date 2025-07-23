@@ -12,6 +12,14 @@
                     <li>KeyzAllowUtilities.Designator_FinishOff</li>
                 </value>
             </li>
+            <!-- Grabbed from original Allow Tool - puts the tool in the place people expect -->
+            <li Class="PatchOperationInsert">
+                <order>Append</order>
+                <xpath>/Defs/DesignationCategoryDef[defName="Zone"]/specialDesignatorClasses/li[5]</xpath>
+                <value>
+                    <li>KeyzAllowUtilities.Designator_ZoneAdd_GrowingFertile</li>
+                </value>
+            </li>
             <!-- ~1~ Remove stock forbid designator @1@ -->
             <!-- <li Class="PatchOperationRemove"> -->
             <!--     <success>Always</success> -->
