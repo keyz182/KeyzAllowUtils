@@ -29,7 +29,7 @@ public class KUAFloatMenu: FloatMenuOptionProvider
         foreach (Pawn pawn in context.ValidSelectedPawns)
         {
             int melee = pawn.skills.GetSkill(SkillDefOf.Melee).Level;
-            if (melee < 5)
+            if (!KeyzAllowUtilitiesMod.settings.DisableMeleeRequirementForFinishOff && melee < 5)
             {
                 yield return new FloatMenuOption(
                     "KAU_NoKill".Translate((NamedArgument) clickedPawn.Label) + ": " + "KAU_MeleeTooLow".Translate(melee).CapitalizeFirst(), null);
@@ -40,7 +40,7 @@ public class KUAFloatMenu: FloatMenuOptionProvider
                 if (verb == null)
                 {
                     yield return new FloatMenuOption(
-                        "KAU_NoKill".Translate((NamedArgument) clickedPawn.Label) + ": " + "KAU_Unable".Translate(melee).CapitalizeFirst(), null);
+                        "KAU_NoKill".Translate((NamedArgument) clickedPawn.Label) + ": " + "KAU_Unable".Translate().CapitalizeFirst(), null);
                 }
                 else
                 {

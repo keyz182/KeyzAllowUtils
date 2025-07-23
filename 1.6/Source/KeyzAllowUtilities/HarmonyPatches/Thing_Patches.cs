@@ -61,14 +61,17 @@ public static class Thing_Patches
                     {
                         items.Add(new FloatMenuOption(KUA_SelectOnScreen.Value, () =>
                         {
+                            if(__instance == null) return; // Just in case
                             FilterUtils.SelectOnScreen(__instance);
                         }));
                         items.Add(new FloatMenuOption(KUA_SelectOnMap.Value, () =>
                         {
+                            if(__instance == null) return; // Just in case
                             __instance.Map.SelectOnMap(__instance);
                         }));
                         items.Add(new FloatMenuOption(KUA_SelectInRect.Value, () =>
                         {
+                            if(__instance == null) return; // Just in case
                             if (SelectDesignator != null)
                                 Find.DesignatorManager.Select(SelectDesignator.Value);
                         }));
@@ -77,14 +80,17 @@ public static class Thing_Patches
                     {
                         items.Add(new FloatMenuOption("KUA_SelectOnScreenWithStuff".Translate(__instance.Stuff.LabelAsStuff), () =>
                         {
+                            if(__instance == null) return; // Just in case
                             FilterUtils.SelectOnScreen(__instance, __instance.Stuff);
                         }));
                         items.Add(new FloatMenuOption("KUA_SelectOnMapWithStuff".Translate(__instance.Stuff.LabelAsStuff), () =>
                         {
+                            if(__instance == null) return; // Just in case
                             __instance.Map.SelectOnMap(__instance, __instance.Stuff);
                         }));
                         items.Add(new FloatMenuOption(KUA_SelectInRect.Value, () =>
                         {
+                            if(__instance == null) return; // Just in case
                             if (SelectDesignator != null)
                                 Find.DesignatorManager.Select(SelectDesignator.Value);
                         }));

@@ -47,7 +47,7 @@ public class WorkGiver_FinishOff : WorkGiver_Scanner
             return null;
         }
 
-        if (pawn.skills.GetSkill(SkillDefOf.Melee).Level < 5)
+        if (!KeyzAllowUtilitiesMod.settings.DisableMeleeRequirementForFinishOff && pawn.skills.GetSkill(SkillDefOf.Melee).Level < 5)
         {
             JobFailReason.Is("Melee too low", null);
             return null;
