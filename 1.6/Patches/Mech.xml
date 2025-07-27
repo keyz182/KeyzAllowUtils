@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+    <Operation Class="PatchOperationConditional">
+        <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race/mechWorkTypePriorities</xpath>
+        <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race</xpath>
+            <value>
+                <mechWorkTypePriorities />
+            </value>
+        </nomatch>
+    </Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race/mechWorkTypePriorities</xpath>
+        <value>
+            <KAU_UrgentHaul>1</KAU_UrgentHaul>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationConditional">
+        <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race/mechEnabledWorkTypes</xpath>
+        <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race</xpath>
+            <value>
+                <mechEnabledWorkTypes />
+            </value>
+        </nomatch>
+    </Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race/mechEnabledWorkTypes</xpath>
+        <value>
+            <li>KAU_UrgentHaul</li>
+        </value>
+    </Operation>
+
+</Patch>

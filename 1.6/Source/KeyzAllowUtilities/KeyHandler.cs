@@ -15,6 +15,23 @@ public class KeyHandler(Map map) : MapComponent(map)
     public static Designator_SelectSimilar selectSimilar =>
         DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators.FirstOrDefault(d => d is Designator_SelectSimilar) as Designator_SelectSimilar;
 
+
+    public override void FinalizeInit()
+    {
+        foreach (Pawn mech in map.mapPawns.SpawnedColonyMechs)
+        {
+            // get haul urgently picked up
+            if (mech.RaceProps.mechEnabledWorkTypes.Contains(KeyzAllowUtilitesDefOf.KAU_UrgentHaul))
+            {
+                mech.workSettings.Notify_UseWorkPrioritiesChanged();
+                if (mech.workSettings.GetPriority(KeyzAllowUtilitesDefOf.KAU_UrgentHaul) <= 0)
+                {
+                    mech.workSettings.SetPriority(KeyzAllowUtilitesDefOf.KAU_UrgentHaul, 1);
+                }
+            }
+        }
+    }
+
     public override void MapComponentOnGUI()
     {
         if (Current.ProgramState != ProgramState.Playing)

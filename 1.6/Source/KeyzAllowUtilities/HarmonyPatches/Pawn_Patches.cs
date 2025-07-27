@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
-using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -18,10 +17,10 @@ public static class Pawn_Patches
     [HarmonyPostfix]
     public static void GetGizmos_Patch(Pawn __instance, ref IEnumerable<Gizmo> __result)
     {
-        if(!__instance.Downed || __instance.Dead) return;
+        if(!__instance.Downed || __instance.Dead || __instance.MapOrHolderMap() == null) return;
 
         List<Gizmo> gizmos = __result.ToList();
-        Designation des = __instance.Map.designationManager.DesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation);
+        Designation des = __instance.MapOrHolderMap().designationManager.DesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation);
 
         if (des == null)
         {
@@ -29,7 +28,7 @@ public static class Pawn_Patches
             {
                 icon = KUA_ToggleFinishOff, defaultLabel = "KUA_ToggleFinishOff".Translate(), defaultDesc = "KUA_ToggleFinishOffDesc".Translate(), action = () =>
                 {
-                    __instance.Map.designationManager.AddDesignation(new Designation(__instance, KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation));
+                    __instance.MapOrHolderMap().designationManager.AddDesignation(new Designation(__instance, KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation));
                 }
             });
         }
@@ -39,7 +38,7 @@ public static class Pawn_Patches
             {
                 icon = KUA_ToggleFinishOffDisable, defaultLabel = "KUA_ToggleFinishOffDisable".Translate(), defaultDesc = "KUA_ToggleFinishOffDisableDesc".Translate(), action = () =>
                 {
-                    __instance.Map.designationManager.RemoveDesignation(des);
+                    __instance.MapOrHolderMap().designationManager.RemoveDesignation(des);
                 }
             });
         }

@@ -40,6 +40,8 @@ public static class Thing_Patches
     public static void GetGizmos_Patch(Thing __instance, ref IEnumerable<Gizmo> __result)
     {
         List<Gizmo> gizmos = __result.ToList();
+        Map currentMap = __instance.MapOrHolderMap();
+        if(currentMap == null) return;
 
         Command_Action command_Action = new()
         {
@@ -61,17 +63,14 @@ public static class Thing_Patches
                     {
                         items.Add(new FloatMenuOption(KUA_SelectOnScreen.Value, () =>
                         {
-                            if(__instance == null) return; // Just in case
                             FilterUtils.SelectOnScreen(__instance);
                         }));
                         items.Add(new FloatMenuOption(KUA_SelectOnMap.Value, () =>
                         {
-                            if(__instance == null) return; // Just in case
-                            __instance.Map.SelectOnMap(__instance);
+                            currentMap.SelectOnMap(__instance);
                         }));
                         items.Add(new FloatMenuOption(KUA_SelectInRect.Value, () =>
                         {
-                            if(__instance == null) return; // Just in case
                             if (SelectDesignator != null)
                                 Find.DesignatorManager.Select(SelectDesignator.Value);
                         }));
@@ -80,17 +79,14 @@ public static class Thing_Patches
                     {
                         items.Add(new FloatMenuOption("KUA_SelectOnScreenWithStuff".Translate(__instance.Stuff.LabelAsStuff), () =>
                         {
-                            if(__instance == null) return; // Just in case
                             FilterUtils.SelectOnScreen(__instance, __instance.Stuff);
                         }));
                         items.Add(new FloatMenuOption("KUA_SelectOnMapWithStuff".Translate(__instance.Stuff.LabelAsStuff), () =>
                         {
-                            if(__instance == null) return; // Just in case
-                            __instance.Map.SelectOnMap(__instance, __instance.Stuff);
+                            currentMap.SelectOnMap(__instance, __instance.Stuff);
                         }));
                         items.Add(new FloatMenuOption(KUA_SelectInRect.Value, () =>
                         {
-                            if(__instance == null) return; // Just in case
                             if (SelectDesignator != null)
                                 Find.DesignatorManager.Select(SelectDesignator.Value);
                         }));
@@ -105,7 +101,7 @@ public static class Thing_Patches
 
         if (!KeyzAllowUtilitiesMod.settings.DisableHaulUrgently && __instance is not Pawn && __instance.def.EverHaulable)
         {
-            Designation des = __instance.Map?.designationManager?.DesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation);
+            Designation des = __instance.MapOrHolderMap()?.designationManager?.DesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation);
 
             if (des == null)
             {
@@ -119,8 +115,8 @@ public static class Thing_Patches
                     {
                         if (Event.current.button == 0)
                         {
-                            if (!__instance.IsInValidBestStorage() && !__instance.Map.designationManager.HasMapDesignationOn(__instance))
-                                __instance.Map.designationManager.AddDesignation(new Designation(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
+                            if (!__instance.IsInValidBestStorage() && !currentMap.designationManager.HasMapDesignationOn(__instance))
+                                currentMap.designationManager.AddDesignation(new Designation(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
                         }
                         else
                         {
@@ -141,7 +137,7 @@ public static class Thing_Patches
                     {
                         if (Event.current.button == 0)
                         {
-                            __instance.Map.designationManager.RemoveDesignation(des);
+                            currentMap.designationManager.RemoveDesignation(des);
                         }
                         else
                         {
@@ -161,21 +157,21 @@ public static class Thing_Patches
 
         items.Add(new FloatMenuOption(KUA_ToggleHaulUrgentlyOnScreen.Value, () =>
         {
-            FilterUtils.SelectAnyOnScreen(__instance.Map, __instance.Position, filter:Filter);
+            FilterUtils.SelectAnyOnScreen(__instance.MapOrHolderMap(), __instance.Position, filter:Filter);
             foreach (Thing thing in Find.Selector.SelectedObjects.OfType<Thing>())
             {
-                if (!thing.IsInValidBestStorage() && !thing.Map.designationManager.HasMapDesignationOn(thing))
-                    thing.Map.designationManager.AddDesignation(new Designation(thing, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
+                if (!thing.IsInValidBestStorage() && !thing.MapOrHolderMap().designationManager.HasMapDesignationOn(thing))
+                    thing.MapOrHolderMap().designationManager.AddDesignation(new Designation(thing, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
             }
             Find.Selector.ClearSelection();
         }));
         items.Add(new FloatMenuOption(KUA_ToggleHaulUrgentlyOnMap.Value, () =>
         {
-            __instance.Map.SelectAnyOnMap(__instance.Position, filter:Filter);
+            __instance.MapOrHolderMap().SelectAnyOnMap(__instance.Position, filter:Filter);
             foreach (Thing thing in Find.Selector.SelectedObjects.OfType<Thing>())
             {
-                if (!thing.IsInValidBestStorage() && !thing.Map.designationManager.HasMapDesignationOn(thing))
-                    thing.Map.designationManager.AddDesignation(new Designation(thing, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
+                if (!thing.IsInValidBestStorage() && !thing.MapOrHolderMap().designationManager.HasMapDesignationOn(thing))
+                    thing.MapOrHolderMap().designationManager.AddDesignation(new Designation(thing, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
             }
             Find.Selector.ClearSelection();
         }));

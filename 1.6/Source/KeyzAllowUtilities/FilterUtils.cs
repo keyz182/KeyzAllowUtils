@@ -13,7 +13,7 @@ public static class FilterUtils
 {
     public static IEnumerable<Thing> NotFogged(this IEnumerable<Thing> list)
     {
-        return list.Where(t => !t.Map.fogGrid.IsFogged(t.Position));
+        return list.Where(t => !t.MapOrHolderMap().fogGrid.IsFogged(t.Position));
     }
 
     public static IEnumerable<Thing> NearestTo(this IEnumerable<Thing> things, LocalTargetInfo target)
@@ -48,9 +48,15 @@ public static class FilterUtils
             Find.Selector.Select(innerThing);
     }
 
+    public static Map MapOrHolderMap(this Thing thing)
+    {
+        if (thing.Map != null) return thing.Map;
+        return thing.ParentHolder is not Thing t ? null : t.Map;
+    }
+
     public static void SelectOnScreen(Thing thing, ThingDef stuff = null, Predicate<Thing> filter = null)
     {
-        IEnumerable<Thing> things = thing.Map.ThingsOnScreen(Filter);
+        IEnumerable<Thing> things = thing.MapOrHolderMap().ThingsOnScreen(Filter);
 
         foreach (Thing outerThing in things.NotFogged().NearestTo(thing).Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
         {
