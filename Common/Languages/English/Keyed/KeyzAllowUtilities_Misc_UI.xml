@@ -63,8 +63,8 @@
     <KUA_ToggleHaulUrgentlyOnScreen>Haul all on screen urgently</KUA_ToggleHaulUrgentlyOnScreen>
     <KUA_ToggleHaulUrgentlyOnMap>Haul all on map urgently</KUA_ToggleHaulUrgentlyOnMap>
 
-    <KAU_GrowingZone>Growing zone (fertile only)</KAU_GrowingZone>
+    <KAU_GrowingZone>Growing zone (Fertile only)</KAU_GrowingZone>
     <KAU_DesignatorGrowingZoneDesc>Create a zone where your colonists will try to grow a certain kind of plant that only targets fertile tiles.</KAU_DesignatorGrowingZoneDesc>
 
-    <KAU_DesignatorZoneExpand>Expand zone (fertile only)</KAU_DesignatorZoneExpand>
+    <KAU_DesignatorZoneExpand>Expand zone (Fertile only)</KAU_DesignatorZoneExpand>
 </LanguageData>
