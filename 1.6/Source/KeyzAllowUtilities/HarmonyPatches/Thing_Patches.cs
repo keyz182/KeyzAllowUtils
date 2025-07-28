@@ -50,7 +50,7 @@ public static class Thing_Patches
             defaultDesc = KUA_MultiSelectDesc.Value,
             action = () =>
             {
-                if (Event.current.button == 0)
+                if (Event.current == null || Event.current.button == 0)
                 {
                     if(SelectDesignator != null)
                         Find.DesignatorManager.Select(SelectDesignator.Value);
@@ -113,7 +113,7 @@ public static class Thing_Patches
                     hotKey = KeyzAllowUtilitiesMod.settings.DisableAllShortcuts ? null : KeyzAllowUtilitesDefOf.KAU_HaulUrgently,
                     action = () =>
                     {
-                        if (Event.current.button == 0)
+                        if (Event.current == null || Event.current.button == 0)
                         {
                             if (!__instance.IsInValidBestStorage() && !currentMap.designationManager.HasMapDesignationOn(__instance))
                                 currentMap.designationManager.AddDesignation(new Designation(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
@@ -135,7 +135,7 @@ public static class Thing_Patches
                     hotKey = KeyzAllowUtilitiesMod.settings.DisableAllShortcuts ? null : KeyzAllowUtilitesDefOf.KAU_HaulUrgently,
                     action = () =>
                     {
-                        if (Event.current.button == 0)
+                        if (Event.current == null || Event.current.button == 0)
                         {
                             currentMap.designationManager.RemoveDesignation(des);
                         }
