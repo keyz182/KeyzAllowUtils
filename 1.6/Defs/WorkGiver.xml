@@ -2,11 +2,11 @@
 <Defs>
     <WorkGiverDef>
         <defName>KAU_UrgentHaulWorkGiver</defName>
-        <label>Urgent Hauling</label>
+        <label>Urgent hauling</label>
         <giverClass>KeyzAllowUtilities.WorkGiver_HaulUrgently</giverClass>
         <workType>KAU_UrgentHaul</workType>
-        <verb>Urgently Hauling</verb>
-        <gerund>Urgently Hauling</gerund>
+        <verb>Urgently hauling</verb>
+        <gerund>Urgently hauling</gerund>
         <priorityInType>50</priorityInType>
         <directOrderable>false</directOrderable>
         <requiredCapacities>

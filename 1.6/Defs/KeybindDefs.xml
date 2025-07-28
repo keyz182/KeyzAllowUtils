@@ -38,13 +38,13 @@
     <KeyBindingDef>
         <category>KAU_AllowUtilities</category>
         <defName>KAU_HaulUrgently</defName>
-        <label>Haul Urgently</label>
+        <label>Haul urgently</label>
         <defaultKeyCodeA>O</defaultKeyCodeA>
     </KeyBindingDef>
 
     <KeyBindingDef>
         <category>KAU_AllowUtilities</category>
         <defName>KAU_FinishOff</defName>
-        <label>Finish Off</label>
+        <label>Finish off</label>
     </KeyBindingDef>
 </Defs>

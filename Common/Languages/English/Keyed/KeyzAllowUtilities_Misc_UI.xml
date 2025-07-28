@@ -6,7 +6,7 @@
     <KUA_ForbidAll>Forbid all across map</KUA_ForbidAll>
     <KUA_Allowed>{0} things allowed</KUA_Allowed>
     <KUA_Forbidden>{0} things forbidden</KUA_Forbidden>
-    <KUA_MultiSelect>Selection Tools</KUA_MultiSelect>
+    <KUA_MultiSelect>Selection tools</KUA_MultiSelect>
     <KUA_MultiSelectDesc>Various selection tools for this item type. Hold shift to ignore stuff</KUA_MultiSelectDesc>
     <KUA_SelectOnScreen>Select similar items on screen</KUA_SelectOnScreen>
     <KUA_SelectOnMap>Select similar items on map</KUA_SelectOnMap>
@@ -16,36 +16,36 @@
     <KUA_SelectOnMapWithStuff>Select similar items on map made from {0}</KUA_SelectOnMapWithStuff>
     <KUA_SelectInRectWithStuff>Select similar items in rect made from {0}</KUA_SelectInRectWithStuff>
 
-    <KUA_HarvestGrown>Harvest Grown</KUA_HarvestGrown>
+    <KUA_HarvestGrown>Harvest grown</KUA_HarvestGrown>
     <KUA_HarvestGrownDesc>Tools to harvest only grown plants</KUA_HarvestGrownDesc>
     <KUA_HarvestOnScreen>Harvest all fully grown on screen</KUA_HarvestOnScreen>
     <KUA_HarvestOnMap>Harvest all fully grown on map</KUA_HarvestOnMap>
 
-    <KUA_CutGrown>Cut Grown</KUA_CutGrown>
-    <KUA_CutGrownDesc>Tools to Cut only grown plants</KUA_CutGrownDesc>
+    <KUA_CutGrown>Cut grown</KUA_CutGrown>
+    <KUA_CutGrownDesc>Tools to cut only grown plants</KUA_CutGrownDesc>
     <KUA_CutGrownOnScreen>Cut all fully grown on screen</KUA_CutGrownOnScreen>
     <KUA_CutGrownOnMap>Cut all fully grown on map</KUA_CutGrownOnMap>
 
     <KAU_NoKill>Cannot finish off</KAU_NoKill>
     <KAU_Kill>Finish off {0} [{1}]</KAU_Kill>
-    <KAU_StripKill>Strip, then Finish off {0} [{1}]</KAU_StripKill>
+    <KAU_StripKill>Strip, then finish off {0} [{1}]</KAU_StripKill>
     <KAU_MeleeTooLow>Melee too low {0}</KAU_MeleeTooLow>
     <KAU_Unable>Unable to melee</KAU_Unable>
 
-    <KUA_HaulUrgently>Haul Urgently</KUA_HaulUrgently>
+    <KUA_HaulUrgently>Haul urgently</KUA_HaulUrgently>
     <KUA_HaulUrgentlyDesc>High-priority hauling.</KUA_HaulUrgentlyDesc>
 
     <KUA_ToggleFinishOff>Finish off</KUA_ToggleFinishOff>
     <KUA_ToggleFinishOffDesc>Toggle finishing off</KUA_ToggleFinishOffDesc>
 
-    <KUA_ToggleFinishOffDisable>Cancel Finish Off</KUA_ToggleFinishOffDisable>
-    <KUA_ToggleFinishOffDisableDesc>Cancel Finish Off</KUA_ToggleFinishOffDisableDesc>
+    <KUA_ToggleFinishOffDisable>Cancel finish off</KUA_ToggleFinishOffDisable>
+    <KUA_ToggleFinishOffDisableDesc>Cancel finish off</KUA_ToggleFinishOffDisableDesc>
 
-    <KUA_ToggleHaulUrgently>Haul Urgently</KUA_ToggleHaulUrgently>
-    <KUA_ToggleHaulUrgentlyDesc>Haul Urgently</KUA_ToggleHaulUrgentlyDesc>
+    <KUA_ToggleHaulUrgently>Haul urgently</KUA_ToggleHaulUrgently>
+    <KUA_ToggleHaulUrgentlyDesc>Haul urgently</KUA_ToggleHaulUrgentlyDesc>
 
-    <KUA_ToggleHaulUrgentlyDisable>Cancel Haul Urgently</KUA_ToggleHaulUrgentlyDisable>
-    <KUA_ToggleHaulUrgentlyDisableDesc>Cancel Haul Urgently</KUA_ToggleHaulUrgentlyDisableDesc>
+    <KUA_ToggleHaulUrgentlyDisable>Cancel haul urgently</KUA_ToggleHaulUrgentlyDisable>
+    <KUA_ToggleHaulUrgentlyDisableDesc>Cancel haul urgently</KUA_ToggleHaulUrgentlyDisableDesc>
 
     <KAU_ToggleHaulUrgently>Disable Haul Urgently</KAU_ToggleHaulUrgently>
     <KAU_ToggleDisableAllowShortcuts>Disable Allow/Forbid hotkeys</KAU_ToggleDisableAllowShortcuts>
@@ -63,8 +63,8 @@
     <KUA_ToggleHaulUrgentlyOnScreen>Haul all on screen urgently</KUA_ToggleHaulUrgentlyOnScreen>
     <KUA_ToggleHaulUrgentlyOnMap>Haul all on map urgently</KUA_ToggleHaulUrgentlyOnMap>
 
-    <KAU_GrowingZone>Growing Zone (Fertile Only)</KAU_GrowingZone>
+    <KAU_GrowingZone>Growing zone (Fertile only)</KAU_GrowingZone>
     <KAU_DesignatorGrowingZoneDesc>Create a zone where your colonists will try to grow a certain kind of plant that only targets fertile tiles.</KAU_DesignatorGrowingZoneDesc>
 
-    <KAU_DesignatorZoneExpand>Expand Zone (Fertile Only)</KAU_DesignatorZoneExpand>
+    <KAU_DesignatorZoneExpand>Expand zone (Fertile only)</KAU_DesignatorZoneExpand>
 </LanguageData>
