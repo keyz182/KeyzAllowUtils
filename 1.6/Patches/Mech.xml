@@ -13,7 +13,7 @@
     <Operation Class="PatchOperationAdd">
         <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race/mechWorkTypePriorities</xpath>
         <value>
-            <KAU_UrgentHaul>1</KAU_UrgentHaul>
+            <KAU_UrgentHaul>2</KAU_UrgentHaul>
         </value>
     </Operation>
 

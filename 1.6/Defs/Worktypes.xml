@@ -8,7 +8,7 @@
         <description>Haul things urgently.</description>
         <verb>haul at</verb>
         <disabledForSlaves>false</disabledForSlaves>
-        <naturalPriority>1180</naturalPriority>
+        <naturalPriority>1170</naturalPriority>
         <alwaysStartActive>true</alwaysStartActive>
         <requireCapableColonist>true</requireCapableColonist>
         <workTags>
