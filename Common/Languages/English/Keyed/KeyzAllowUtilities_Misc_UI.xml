@@ -67,4 +67,7 @@
     <KAU_DesignatorGrowingZoneDesc>Create a zone where your colonists will try to grow a certain kind of plant that only targets fertile tiles.</KAU_DesignatorGrowingZoneDesc>
 
     <KAU_DesignatorZoneExpand>Expand zone (Fertile only)</KAU_DesignatorZoneExpand>
+
+    <KAU_StripMine>Strip Mine</KAU_StripMine>
+    <KAU_StripMineDesc>Mine a grid rather than everything</KAU_StripMineDesc>
 </LanguageData>

@@ -13,6 +13,7 @@ public class KeyzAllowUtilitiesMod : Mod
 
     public KeyzAllowUtilitiesMod(ModContentPack content) : base(content)
     {
+        ModLog.Log("Loading KeyzAllowUtilities");
         settings = GetSettings<Settings>();
 #if DEBUG
         Harmony.DEBUG = true;

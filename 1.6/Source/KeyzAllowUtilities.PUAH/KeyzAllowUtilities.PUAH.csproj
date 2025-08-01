@@ -45,6 +45,7 @@
         </Reference>
         <Reference Include="PickUpAndHaul">
             <HintPath Condition="Exists('../../../../../../../workshop/content/294100/1279012058/1.6/Assemblies/PickUpAndHaul.dll')">../../../../../../../workshop/content/294100/1279012058/1.6/Assemblies/PickUpAndHaul.dll</HintPath>
+            <HintPath Condition="Exists('../../../../../../../../workshop/content/294100/1279012058/1.6/Assemblies/PickUpAndHaul.dll')">../../../../../../../../workshop/content/294100/1279012058/1.6/Assemblies/PickUpAndHaul.dll</HintPath>
             <Private>False</Private>
         </Reference>
     </ItemGroup>

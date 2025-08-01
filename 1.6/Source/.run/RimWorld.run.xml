@@ -3,7 +3,7 @@
     <option name="commandLineOptions" value="" />
     <option name="modListPath" value="$PROJECT_DIR$/../../modlist.xml" />
     <option name="saveFilePath" value="" />
-    <option name="scriptName" value="C:\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64.exe" />
+    <option name="scriptName" value="$PROJECT_DIR$/../../../.." />
     <method v="2">
       <option name="Build Solution" enabled="true" />
     </method>

@@ -10,6 +10,7 @@
                     <li>KeyzAllowUtilities.Designator_HaulUrgently</li>
                     <li>KeyzAllowUtilities.Designator_SelectSimilar</li>
                     <li>KeyzAllowUtilities.Designator_FinishOff</li>
+                    <li>KeyzAllowUtilities.Designator_StripMine</li>
                 </value>
             </li>
             <!-- Grabbed from original Allow Tool - puts the tool in the place people expect -->
