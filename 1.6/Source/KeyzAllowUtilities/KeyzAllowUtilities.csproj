@@ -74,6 +74,24 @@
         <ReleaseFiles Update="..\..\Defs\JobDefs.xml">
             <Link>KeyzAllowUtilities\1.6\Defs\JobDefs.xml</Link>
         </ReleaseFiles>
+        <ReleaseFiles Update="..\..\Defs\Designators.xml">
+          <Link>KeyzAllowUtilities\1.6\Defs\Designators.xml</Link>
+        </ReleaseFiles>
+        <ReleaseFiles Update="..\..\Defs\Effects.xml">
+          <Link>KeyzAllowUtilities\1.6\Defs\Effects.xml</Link>
+        </ReleaseFiles>
+        <ReleaseFiles Update="..\..\Defs\KeybindDefs.xml">
+          <Link>KeyzAllowUtilities\1.6\Defs\KeybindDefs.xml</Link>
+        </ReleaseFiles>
+        <ReleaseFiles Update="..\..\Defs\SoundDef.xml">
+          <Link>KeyzAllowUtilities\1.6\Defs\SoundDef.xml</Link>
+        </ReleaseFiles>
+        <ReleaseFiles Update="..\..\Defs\WorkGiver.xml">
+          <Link>KeyzAllowUtilities\1.6\Defs\WorkGiver.xml</Link>
+        </ReleaseFiles>
+        <ReleaseFiles Update="..\..\Defs\Worktypes.xml">
+          <Link>KeyzAllowUtilities\1.6\Defs\Worktypes.xml</Link>
+        </ReleaseFiles>
     </ItemGroup>
 
     <ItemGroup>

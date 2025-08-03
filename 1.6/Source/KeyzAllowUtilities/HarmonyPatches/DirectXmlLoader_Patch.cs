@@ -5,15 +5,15 @@ using Verse;
 
 namespace KeyzAllowUtilities.HarmonyPatches;
 
-[HarmonyPatch(typeof(DirectXmlToObjectNew))]
+// [HarmonyPatch(typeof(DirectXmlToObjectNew))]
 public static class DirectXmlLoader_Patch
 {
     public static Lazy<FieldInfo> MessageQueue = new Lazy<FieldInfo>(()=>AccessTools.Field(typeof(Log), "messageQueue"));
     public static Lazy<FieldInfo> MessageCount = new Lazy<FieldInfo>(()=>AccessTools.Field(typeof(Log), "messageCount"));
     public static Lazy<FieldInfo> LastMessage = new Lazy<FieldInfo>(()=>AccessTools.Field(typeof(LogMessageQueue), "lastMessage"));
 
-    [HarmonyPatch(nameof(DirectXmlToObjectNew.DefFromNodeNew))]
-    [HarmonyPrefix]
+    // [HarmonyPatch(nameof(DirectXmlToObjectNew.DefFromNodeNew))]
+    // [HarmonyPrefix]
     public static void DefFromNodeNew_Prefix(ref LogMessage __state)
     {
         LogMessage message = LastLogMessage();
@@ -29,11 +29,16 @@ public static class DirectXmlLoader_Patch
         return message;
     }
 
-    [HarmonyPatch(nameof(DirectXmlToObjectNew.DefFromNodeNew))]
-    [HarmonyPostfix]
+    // [HarmonyPatch(nameof(DirectXmlToObjectNew.DefFromNodeNew))]
+    // [HarmonyPostfix]
     public static void DefFromNodeNew_Postfix(Def __result, LoadableXmlAsset loadingAsset, LogMessage __state)
     {
-        if (!KeyzAllowUtilitiesMod.settings.DefErrorLog || __result == null  || LastLogMessage() == __state)
+        // if (!KeyzAllowUtilitiesMod.settings.DefErrorLog)
+        // {
+        //     return;
+        // }
+
+        if (__result == null  || LastLogMessage() == __state)
         {
             return;
         }

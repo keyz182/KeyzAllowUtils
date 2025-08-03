@@ -116,7 +116,10 @@ public static class Thing_Patches
                         if (Event.current == null || Event.current.button == 0)
                         {
                             if (!__instance.IsInValidBestStorage() && !currentMap.designationManager.HasMapDesignationOn(__instance))
+                            {
                                 currentMap.designationManager.AddDesignation(new Designation(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
+                                currentMap.designationManager.AddDesignation(new Designation(__instance, DesignationDefOf.Haul));
+                            }
                         }
                         else
                         {
@@ -138,6 +141,7 @@ public static class Thing_Patches
                         if (Event.current == null || Event.current.button == 0)
                         {
                             currentMap.designationManager.RemoveDesignation(des);
+                            currentMap.designationManager.RemoveAllDesignationsOfDef(DesignationDefOf.Haul);
                         }
                         else
                         {
@@ -161,7 +165,10 @@ public static class Thing_Patches
             foreach (Thing thing in Find.Selector.SelectedObjects.OfType<Thing>())
             {
                 if (!thing.IsInValidBestStorage() && !thing.MapOrHolderMap().designationManager.HasMapDesignationOn(thing))
+                {
                     thing.MapOrHolderMap().designationManager.AddDesignation(new Designation(thing, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
+                    thing.MapOrHolderMap().designationManager.AddDesignation(new Designation(thing, DesignationDefOf.Haul));
+                }
             }
             Find.Selector.ClearSelection();
         }));
@@ -171,7 +178,10 @@ public static class Thing_Patches
             foreach (Thing thing in Find.Selector.SelectedObjects.OfType<Thing>())
             {
                 if (!thing.IsInValidBestStorage() && !thing.MapOrHolderMap().designationManager.HasMapDesignationOn(thing))
+                {
                     thing.MapOrHolderMap().designationManager.AddDesignation(new Designation(thing, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
+                    thing.MapOrHolderMap().designationManager.AddDesignation(new Designation(thing, DesignationDefOf.Haul));
+                }
             }
             Find.Selector.ClearSelection();
         }));

@@ -11,6 +11,8 @@
                     <li>KeyzAllowUtilities.Designator_SelectSimilar</li>
                     <li>KeyzAllowUtilities.Designator_FinishOff</li>
                     <li>KeyzAllowUtilities.Designator_StripMine</li>
+                    <li>KeyzAllowUtilities.Designator_HarvestGrown</li>
+                    <li>KeyzAllowUtilities.Designator_CutGrown</li>
                 </value>
             </li>
             <!-- Grabbed from original Allow Tool - puts the tool in the place people expect -->

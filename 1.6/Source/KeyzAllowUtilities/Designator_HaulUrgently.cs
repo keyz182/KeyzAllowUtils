@@ -65,6 +65,7 @@ public class Designator_HaulUrgently : Designator
     public override void DesignateThing(Thing t)
     {
         Map.designationManager.AddDesignation(new Designation((LocalTargetInfo) t, Designation));
+        Map.designationManager.AddDesignation(new Designation((LocalTargetInfo) t, DesignationDefOf.Haul));
         t.SetForbidden(false, false);
     }
 

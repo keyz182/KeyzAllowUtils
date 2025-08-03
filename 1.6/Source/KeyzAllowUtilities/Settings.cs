@@ -9,7 +9,6 @@ public class Settings : ModSettings
     public bool DisableHaulUrgently = false;
     public bool DisableAllowShortcuts = false;
     public bool DisableAllShortcuts = false;
-    public bool DefErrorLog = false;
     public bool DisableMeleeRequirementForFinishOff = false;
 
     public void DoWindowContents(Rect wrect)
@@ -28,9 +27,6 @@ public class Settings : ModSettings
         options.Gap();
 
         options.CheckboxLabeled("KAU_ToggleDisableAllShortcuts".Translate(), ref DisableAllShortcuts);
-        options.Gap();
-
-        options.CheckboxLabeled("KAU_DefErrorLog".Translate(), ref DefErrorLog, tooltip:"KAU_DefErrorLogToolTip".Translate());
         options.Gap();
 
         options.CheckboxLabeled("KAU_DisableMeleeRequirementForFinishOff".Translate(), ref DisableMeleeRequirementForFinishOff);
@@ -54,7 +50,6 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref DisableHaulUrgently, "DisableHaulUrgently", false);
         Scribe_Values.Look(ref DisableAllowShortcuts, "DisableAllowShortcuts", false);
         Scribe_Values.Look(ref DisableAllShortcuts, "DisableAllShortcuts", false);
-        Scribe_Values.Look(ref DefErrorLog, "DefErrorLog", false);
         Scribe_Values.Look(ref DisableMeleeRequirementForFinishOff, "DisableMeleeRequirementForFinishOff", false);
     }
 }
