@@ -1,37 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
     <Operation Class="PatchOperationConditional">
-        <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race/mechWorkTypePriorities</xpath>
-        <nomatch Class="PatchOperationAdd">
-            <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race</xpath>
-            <value>
-                <mechWorkTypePriorities />
-            </value>
-        </nomatch>
-    </Operation>
-
-    <Operation Class="PatchOperationAdd">
-        <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race/mechWorkTypePriorities</xpath>
-        <value>
-            <KAU_UrgentHaul>2</KAU_UrgentHaul>
-        </value>
+        <xpath>Defs/ThingDef[defName="Mech_Lifter"]</xpath>
+        <match Class="PatchOperationConditional">
+            <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race/mechWorkTypePriorities</xpath>
+            <nomatch Class="PatchOperationAdd">
+                <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race</xpath>
+                <value>
+                    <mechWorkTypePriorities />
+                </value>
+            </nomatch>
+        </match>
     </Operation>
 
     <Operation Class="PatchOperationConditional">
-        <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race/mechEnabledWorkTypes</xpath>
-        <nomatch Class="PatchOperationAdd">
-            <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race</xpath>
+        <xpath>Defs/ThingDef[defName="Mech_Lifter"]</xpath>
+        <match Class="PatchOperationAdd">
+            <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race/mechWorkTypePriorities</xpath>
             <value>
-                <mechEnabledWorkTypes />
+                <KAU_UrgentHaul>2</KAU_UrgentHaul>
             </value>
-        </nomatch>
+        </match>
     </Operation>
 
-    <Operation Class="PatchOperationAdd">
-        <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race/mechEnabledWorkTypes</xpath>
-        <value>
-            <li>KAU_UrgentHaul</li>
-        </value>
+    <Operation Class="PatchOperationConditional">
+        <xpath>Defs/ThingDef[defName="Mech_Lifter"]</xpath>
+        <match Class="PatchOperationConditional">
+            <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race/mechEnabledWorkTypes</xpath>
+            <nomatch Class="PatchOperationAdd">
+                <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race</xpath>
+                <value>
+                    <mechEnabledWorkTypes />
+                </value>
+            </nomatch>
+        </match>
+    </Operation>
+
+    <Operation Class="PatchOperationConditional">
+        <xpath>Defs/ThingDef[defName="Mech_Lifter"]</xpath>
+        <match Class="PatchOperationAdd">
+            <xpath>Defs/ThingDef[defName="Mech_Lifter"]/race/mechEnabledWorkTypes</xpath>
+            <value>
+                <li>KAU_UrgentHaul</li>
+            </value>
+        </match>
     </Operation>
 
 </Patch>
