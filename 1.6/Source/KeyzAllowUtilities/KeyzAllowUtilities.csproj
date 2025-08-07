@@ -26,28 +26,28 @@
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Assembly-CSharp">
-            <HintPath>../../../../../RimWorldWin64_Data/Managed/Assembly-CSharp.dll</HintPath>
-            <HintPath>../../../../../Contents/Resources/Data/Managed/Assembly-CSharp.dll</HintPath>
+            <HintPath Condition="Exists('../../../../../RimWorldWin64_Data/Managed/Assembly-CSharp.dll')">../../../../../RimWorldWin64_Data/Managed/Assembly-CSharp.dll</HintPath>
+            <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/Assembly-CSharp.dll')">../../../../../Contents/Resources/Data/Managed/Assembly-CSharp.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-            <HintPath>../../../../../RimWorldWin64_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
-            <HintPath>../../../../../Contents/Resources/Data/Managed/UnityEngine.CoreModule.dll</HintPath>
+            <HintPath Condition="Exists('../../../../../RimWorldWin64_Data/Managed/UnityEngine.CoreModule.dll')">../../../../../RimWorldWin64_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
+            <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/UnityEngine.CoreModule.dll')">../../../../../Contents/Resources/Data/Managed/UnityEngine.CoreModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine.IMGUIModule">
-            <HintPath>../../../../../RimWorldWin64_Data/Managed/UnityEngine.IMGUIModule.dll</HintPath>
-            <HintPath>../../../../../Contents/Resources/Data/Managed/UnityEngine.IMGUIModule.dll</HintPath>
+            <HintPath Condition="Exists('../../../../../RimWorldWin64_Data/Managed/UnityEngine.IMGUIModule.dll')">../../../../../RimWorldWin64_Data/Managed/UnityEngine.IMGUIModule.dll</HintPath>
+            <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/UnityEngine.IMGUIModule.dll')">../../../../../Contents/Resources/Data/Managed/UnityEngine.IMGUIModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine.TextRenderingModule">
-            <HintPath>../../../../../RimWorldWin64_Data/Managed/UnityEngine.TextRenderingModule.dll</HintPath>
-            <HintPath>../../../../../Contents/Resources/Data/Managed/UnityEngine.TextRenderingModule.dll</HintPath>
+            <HintPath Condition="Exists('../../../../../RimWorldWin64_Data/Managed/UnityEngine.TextRenderingModule.dll')">../../../../../RimWorldWin64_Data/Managed/UnityEngine.TextRenderingModule.dll</HintPath>
+            <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/UnityEngine.TextRenderingModule.dll')">../../../../../Contents/Resources/Data/Managed/UnityEngine.TextRenderingModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine.InputLegacyModule">
-            <HintPath>../../../../../RimWorldWin64_Data/Managed/UnityEngine.InputLegacyModule.dll</HintPath>
-            <HintPath>../../../../../Contents/Resources/Data/Managed/UnityEngine.InputLegacyModule.dll</HintPath>
+            <HintPath Condition="Exists('../../../../../RimWorldWin64_Data/Managed/UnityEngine.InputLegacyModule.dll')">../../../../../RimWorldWin64_Data/Managed/UnityEngine.InputLegacyModule.dll</HintPath>
+            <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/UnityEngine.InputLegacyModule.dll')">../../../../../Contents/Resources/Data/Managed/UnityEngine.InputLegacyModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
     </ItemGroup>
@@ -58,9 +58,9 @@
         <PackageReference Include="Lib.Harmony" Version="2.*" ExcludeAssets="runtime" />
     </ItemGroup>
 
-    <ItemGroup Condition="'@(Reference->WithMetadataValue('Identity', 'Assembly-CSharp')->Metadata('HintPath')->Exists())' == ''">
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6-*" />
-    </ItemGroup>
+    <!-- <ItemGroup Condition="'@(Reference->WithMetadataValue('Identity', 'Assembly-CSharp')->Metadata('HintPath')->Exists())' == ''"> -->
+    <!--     <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6-*" /> -->
+    <!-- </ItemGroup> -->
     <PropertyGroup>
         <StartAction>Program</StartAction>
         <StartProgram>$(SolutionDir)../../../../RimWorldWin64.exe</StartProgram>

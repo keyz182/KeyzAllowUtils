@@ -22,7 +22,7 @@ public static class DebugActions
     {
         foreach (ThingDef t in allCavePlants)
         {
-            if (t.CanEverPlantAt(c, map))
+            if (t.CanEverPlantAt(c, map, false))
                 outPlants.Add(t);
         }
     }
@@ -35,7 +35,7 @@ public static class DebugActions
         List<ThingDef> allWildPlants = map.Biome.AllWildPlants;
         foreach (ThingDef plantDef in allWildPlants)
         {
-            if (plantDef.CanEverPlantAt(c, map))
+            if (plantDef.CanEverPlantAt(c, map, false))
             {
                 if (Mathf.Approximately(plantDef.plant.wildOrder, map.Biome.LowestWildAndCavePlantOrder))
                 {
