@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using KeyzAllowUtilities.Utilities;
 using UnityEngine;
 using Verse;
 
@@ -19,6 +22,43 @@ public class Settings : ModSettings
     public bool DisableCut = false;
     public bool DisableSelection = false;
     public bool DisableFertileZone = false;
+
+    public void RemoveThingDefFromDenyList(ThingDef buildable)
+    {
+        _defSelectionDenyList.Remove(buildable.defName);
+        _cachedDenyList?.Clear();
+    }
+
+    public void AddThingDefToDenyList(ThingDef buildable)
+    {
+        _defSelectionDenyList.Add(buildable.defName);
+        _cachedDenyList?.Clear();
+    }
+
+    protected List<string> _defSelectionDenyList = [];
+
+    private List<ThingDef> _cachedDenyList;
+    public List<ThingDef> DefSelectionDenyList
+    {
+        get
+        {
+            if (_cachedDenyList.NullOrEmpty())
+            {
+                if (_defSelectionDenyList.NullOrEmpty())
+                {
+                    _defSelectionDenyList = [];
+                }
+                _cachedDenyList = _defSelectionDenyList
+                    .Select(s => DefDatabase<ThingDef>.GetNamed(s))
+                    .Where(d => d is not null)
+                    .ToList();
+            }
+
+            return _cachedDenyList;
+        }
+    }
+
+    public bool IsAllowed(Thing thing) => !DefSelectionDenyList.Contains(thing.def);
 
     private float ScrollViewHeight = 0;
     public Vector2 scrollPosition = Vector2.zero;
@@ -63,6 +103,35 @@ public class Settings : ModSettings
 
             options.Gap();
             options.GapLine();
+            Text.Font = GameFont.Medium;
+            options.Label("Denylist");
+            Text.Font = orig;
+            options.Label("ThingDefs in this list will be ignored by this mods tools.");
+            options.Gap();
+            if (options.ButtonText("Add ThingDef to denylist"))
+            {
+                Dialog_ThingDefFinder finder = new();
+                Find.WindowStack.Add(finder);
+            }
+
+            options.Gap();
+            foreach (ThingDef deniedThing in DefSelectionDenyList.Where(t => t != null).ToList()) // Handle mods removed and such
+            {
+                bool remove;
+                if (deniedThing.uiIcon != null)
+                {
+                    remove = options.ButtonTextLabeledPct($"{deniedThing.LabelCap} ({deniedThing.defName})", $"Remove", 0.9f,
+                        TextAnchor.MiddleLeft, labelIcon: deniedThing.uiIcon);
+                }
+                else
+                {
+                    remove = options.ButtonText($"{deniedThing.LabelCap} ({deniedThing.defName})");
+                }
+                if (remove)
+                {
+                    RemoveThingDefFromDenyList(deniedThing);
+                }
+            }
         }
         catch (Exception e)
         {
@@ -119,6 +188,9 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref DisableAllowShortcuts, "DisableAllowShortcuts", false);
         Scribe_Values.Look(ref DisableAllShortcuts, "DisableAllShortcuts", false);
         Scribe_Values.Look(ref DisableMeleeRequirementForFinishOff, "DisableMeleeRequirementForFinishOff", false);
+
+        Scribe_Collections.Look(ref _defSelectionDenyList, "DefSelectionDenyList", LookMode.Value);
+        _cachedDenyList?.Clear();
 
         ValidateDesignators();
     }
