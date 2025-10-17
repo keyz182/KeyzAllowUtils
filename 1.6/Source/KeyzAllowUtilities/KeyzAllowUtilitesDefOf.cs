@@ -26,6 +26,7 @@ public static class KeyzAllowUtilitesDefOf
     public static readonly KeyBindingDef KAU_FertileGrowArea;
     public static readonly KeyBindingDef KAU_FertileGrowAreaExpand;
     public static readonly KeyBindingDef KAU_SelectSimilarDesignator;
+    public static readonly KeyBindingDef KAU_MapEditMode;
 
     // Jobs
     public static readonly JobDef KAU_FinishOffPawn;

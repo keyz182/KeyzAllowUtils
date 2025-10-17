@@ -83,4 +83,11 @@
         <defName>KAU_FinishOff</defName>
         <label>Finish off</label>
     </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_MapEditMode</defName>
+        <label>Edit Mode</label>
+        <defaultKeyCodeA>F11</defaultKeyCodeA>
+    </KeyBindingDef>
 </Defs>
