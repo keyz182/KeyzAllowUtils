@@ -206,27 +206,31 @@ public static class Thing_Patches
             }
         }
 
-        if (!KeyzAllowUtilitiesMod.settings.DisableClaimAll && __instance is Building_Door)
+        if (!KeyzAllowUtilitiesMod.settings.DisableClaimAll && __instance is Building_Door door)
         {
-            gizmos.Add( new Command_Action
+            // Only show the "Claim all doors" button when the selected door is unclaimed
+            if (door.ClaimableBy(Faction.OfPlayer))
             {
-                icon = KUA_ClaimAllDoorsIcon,
-                defaultLabel = KUA_ClaimAllDoors.Value,
-                defaultDesc = KUA_ClaimAllDoorsDesc.Value,
-                action = () =>
+                gizmos.Add( new Command_Action
                 {
-                    List<Building_Door> claimable_doors = __instance.Map.listerBuildings.allBuildingsNonColonist.OfType<Building_Door>().Where(door => door.ClaimableBy(Faction.OfPlayer)).ToList();
-
-                    foreach (Building_Door door in claimable_doors)
+                    icon = KUA_ClaimAllDoorsIcon,
+                    defaultLabel = KUA_ClaimAllDoors.Value,
+                    defaultDesc = KUA_ClaimAllDoorsDesc.Value,
+                    action = () =>
                     {
-                        door.SetFaction(Faction.OfPlayer);
-                        foreach (IntVec3 cell in door.OccupiedRect())
-                            FleckMaker.ThrowMetaPuffs(new TargetInfo(cell, door.Map));
-                    }
+                        List<Building_Door> claimableDoors = __instance.Map.listerBuildings.allBuildingsNonColonist.OfType<Building_Door>().Where(d => d.ClaimableBy(Faction.OfPlayer)).ToList();
 
-                    Messages.Message("KUA_ClaimedDoors".Translate(claimable_doors.Count), MessageTypeDefOf.PositiveEvent);
-                }
-            });
+                        foreach (Building_Door claimableDoor in claimableDoors)
+                        {
+                            claimableDoor.SetFaction(Faction.OfPlayer);
+                            foreach (IntVec3 cell in claimableDoor.OccupiedRect())
+                                FleckMaker.ThrowMetaPuffs(new TargetInfo(cell, claimableDoor.Map));
+                        }
+
+                        Messages.Message("KUA_ClaimedDoors".Translate(claimableDoors.Count), MessageTypeDefOf.PositiveEvent);
+                    }
+                });
+            }
         }
 
         __result = gizmos;
