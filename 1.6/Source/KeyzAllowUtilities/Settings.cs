@@ -20,6 +20,7 @@ public class Settings : ModSettings
     public bool DisableCut = false;
     public bool DisableSelection = false;
     public bool DisableFertileZone = false;
+    public float PlantGrownLevel = 1f;
 
     private float ScrollViewHeight = 0;
     public Vector2 scrollPosition = Vector2.zero;
@@ -62,6 +63,7 @@ public class Settings : ModSettings
             options.CheckboxLabeled("KAU_ToggleDisableAllowShortcuts".Translate(), ref DisableAllowShortcuts);
             options.CheckboxLabeled("KAU_ToggleDisableAllShortcuts".Translate(), ref DisableAllShortcuts);
             options.CheckboxLabeled("KAU_DisableMeleeRequirementForFinishOff".Translate(), ref DisableMeleeRequirementForFinishOff);
+            PlantGrownLevel = options.SliderLabeled("KAU_PlantGrownLevel".Translate(PlantGrownLevel*100), PlantGrownLevel, 0f, 1f);
 
             options.Gap();
             options.GapLine();
@@ -122,6 +124,7 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref DisableAllowShortcuts, "DisableAllowShortcuts", false);
         Scribe_Values.Look(ref DisableAllShortcuts, "DisableAllShortcuts", false);
         Scribe_Values.Look(ref DisableMeleeRequirementForFinishOff, "DisableMeleeRequirementForFinishOff", false);
+        Scribe_Values.Look(ref PlantGrownLevel, "PlantGrownLevel", 1f);
 
         ValidateDesignators();
     }

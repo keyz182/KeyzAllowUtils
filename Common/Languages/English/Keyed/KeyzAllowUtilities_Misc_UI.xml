@@ -119,4 +119,6 @@
     <KUA_ClaimAllDoors>Claim all doors</KUA_ClaimAllDoors>
     <KUA_ClaimAllDoorsDesc>Claim all doors that can currently be claimed by the player on the map</KUA_ClaimAllDoorsDesc>
     <KUA_ClaimedDoors>Claimed {0} doors</KUA_ClaimedDoors>
+
+    <KAU_PlantGrownLevel>Consider plants grown at this level {0}%</KAU_PlantGrownLevel>
 </LanguageData>

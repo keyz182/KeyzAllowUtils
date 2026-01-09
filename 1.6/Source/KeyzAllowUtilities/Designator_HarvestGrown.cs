@@ -50,7 +50,10 @@ public class Designator_HarvestGrown : Designator_Plants
 
         if(Map.designationManager.AllDesignationsOn(plant).Any(des=>des.def == DesignationDefOf.HarvestPlant)) return "KAU_AlreadyDesignated".Translate();
 
-        if (!Mathf.Approximately(plant.Growth, 1f)) return "KAU_NotFullyGrown".Translate();
+        if (plant.Growth < KeyzAllowUtilitiesMod.settings.PlantGrownLevel && !Mathf.Approximately(plant.Growth, KeyzAllowUtilitiesMod.settings.PlantGrownLevel))
+        {
+            return "KAU_NotFullyGrown".Translate();
+        }
 
         if (t.TryGetComp(out CompPlantPreventCutting comp) && comp.PreventCutting)
             return "MessageMustPlantCuttingForbidden".Translate();
