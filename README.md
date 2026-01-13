@@ -4,6 +4,8 @@
   </a>
 </p>
 
+[![blazingly fast](https://blazingly.fast/api/badge.svg?repo=keyz182%2FKeyzAllowUtils)](https://blazingly.fast)
+
 # Keyz' Allow Utilities
 A utility mod that adds various quality-of-life improvements for managing items and plants across your colony map. This mod focuses on enhancing selection, allow/forbid controls, and plant management features.
 
