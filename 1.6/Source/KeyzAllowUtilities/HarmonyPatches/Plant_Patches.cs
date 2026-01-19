@@ -18,7 +18,7 @@ public static class Plant_Patches
     {
         IEnumerable<Thing> plants = map.ThingsOnScreen((thing => thing.def.category == ThingCategory.Plant && ThingSelectionUtility.SelectableByMapClick(thing) )).OfDefs(things.Select(t=>t.def).Distinct());
 
-        foreach (Plant plant in plants.OnlySelectableThings().NotFogged().OfType<Plant>())
+        foreach (Plant plant in plants.OnlySelectableThings().NotFogged().OfType<Plant>().NearestTo(map.GetCenterOfScreenOnMap()))
         {
             if (Mathf.Approximately(plant.Growth, 1f) && (!checkIfHarvestable || plant.HarvestableNow))
             {

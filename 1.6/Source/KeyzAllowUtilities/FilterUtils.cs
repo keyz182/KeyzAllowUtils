@@ -11,54 +11,17 @@ namespace KeyzAllowUtilities;
 
 public static class FilterUtils
 {
-    public static IEnumerable<Thing> NotFogged(this IEnumerable<Thing> list)
+    public static Lazy<MethodInfo> _GetMapRect = new(() => AccessTools.Method(typeof(ThingSelectionUtility), "GetMapRect"));
+    public static CellRect GetMapRect(Rect rect)
     {
-        return list.Where(t => !t.MapOrHolderMap().fogGrid.IsFogged(t.Position));
-    }
-
-    public static IEnumerable<Thing> NearestTo(this IEnumerable<Thing> things, LocalTargetInfo target)
-    {
-        return things.OrderBy(t => t.Position.DistanceToSquared(target.Cell));
-    }
-
-    public static IEnumerable<Thing> OfDef(this IEnumerable<Thing> things, Def def)
-    {
-        return things.Where(t=> t.def != null && t.def == def);
-    }
-
-    public static IEnumerable<Thing> OfDefs(this IEnumerable<Thing> things, IEnumerable<Def> defs)
-    {
-        return things.Where(t=> t.def != null && defs.Contains(t.def));
-    }
-
-    public static IEnumerable<Thing> OnMap(this IEnumerable<Thing> things, Map map)
-    {
-        return things.Where(t=> map.Selectables().Contains(t));
-    }
-
-    public static IEnumerable<Thing> OnlySelectableThings(this IEnumerable<Thing> things)
-    {
-        return things.Where(ThingSelectionUtility.SelectableByMapClick);
-    }
-
-    public static void SelectThisOrInnerThing(this Thing outerThing, Def def = null)
-    {
-        Thing innerThing = outerThing.GetInnerIfMinified();
-        if (def == null || innerThing.def == def )
-            Find.Selector.Select(innerThing);
-    }
-
-    public static Map MapOrHolderMap(this Thing thing)
-    {
-        if (thing.Map != null) return thing.Map;
-        return thing.ParentHolder is not Thing t ? null : t.Map;
+        return (CellRect) _GetMapRect.Value.Invoke(null, [rect]);
     }
 
     public static void SelectOnScreen(Thing thing, ThingDef stuff = null, Predicate<Thing> filter = null)
     {
         IEnumerable<Thing> things = thing.MapOrHolderMap().ThingsOnScreen(Filter);
 
-        foreach (Thing outerThing in things.NotFogged().NearestTo(thing).Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
+        foreach (Thing outerThing in things.NotFogged().NearestTo(thing.Map.GetCenterOfScreenOnMap()).Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
         {
             outerThing.SelectThisOrInnerThing(thing.def);
         }
@@ -101,89 +64,150 @@ public static class FilterUtils
         }
     }
 
-    public static void SelectAnyOnMap(this Map map, IntVec3 pos, Predicate<Thing> filter = null)
+    extension<T>(IEnumerable<T> list) where T : Thing
     {
-        IEnumerable<Thing> matchingThings = map.Selectables(filter);
-
-        foreach (Thing mapThing in matchingThings.NearestTo(pos).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
+        public IEnumerable<T> NearestTo(LocalTargetInfo target)
         {
-            Find.Selector.Select(mapThing);
+            return list.OrderBy(t => t.Position.DistanceToSquared(target.Cell));
+        }
+
+        public IEnumerable<T> NotFogged()
+        {
+            return list.Where(t => !t.MapOrHolderMap().fogGrid.IsFogged(t.Position));
+        }
+
+        public IEnumerable<T> OfDef(Def def)
+        {
+            return list.Where(t=> t.def != null && t.def == def);
+        }
+
+        public IEnumerable<T> OfDefs(IEnumerable<Def> defs)
+        {
+            return list.Where(t=> t.def != null && defs.Contains(t.def));
+        }
+
+        public IEnumerable<T> OnMap(Map map)
+        {
+            return list.Where(t=> map.Selectables().Contains(t));
+        }
+
+        public IEnumerable<T> OnlySelectableThings()
+        {
+            return list.Where(ThingSelectionUtility.SelectableByMapClick);
         }
     }
 
-    public static void SelectMultiOnMap(this Map map, List<object> things, Predicate<Thing> filter = null)
+    extension(Thing outerThing)
     {
-        IEnumerable<ThingDef> uniqueThings = things.OfType<Thing>().Select(t => t.def).Distinct();
-
-        IEnumerable<Thing> matchingThings = map.Selectables(filter).Where(t => uniqueThings.Contains(t.def));
-
-        foreach (Thing mapThing in matchingThings.NearestTo(map.Center).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
+        public void SelectThisOrInnerThing(Def def = null)
         {
-            Find.Selector.Select(mapThing);
+            Thing innerThing = outerThing.GetInnerIfMinified();
+            if (def == null || innerThing.def == def )
+                Find.Selector.Select(innerThing);
+        }
+
+        public Map MapOrHolderMap()
+        {
+            if (outerThing.Map != null) return outerThing.Map;
+            return outerThing.ParentHolder is not Thing t ? null : t.Map;
         }
     }
 
-    public static void SelectMultiOnMapByStuff(this Map map, List<object> things)
+    extension(Map map)
     {
-        var pairs = things.OfType<Thing>().Select(t => new { t.def, t.Stuff }).Distinct();
-
-        IEnumerable<Thing> matchingThings = map.Selectables().Where(t => pairs.Contains(new { t.def, t.Stuff }));
-
-        foreach (Thing mapThing in matchingThings.NearestTo(map.Center).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
+        public void SelectAnyOnMap(IntVec3 pos, Predicate<Thing> filter = null)
         {
-            Find.Selector.Select(mapThing);
+            IEnumerable<Thing> matchingThings = map.Selectables(filter);
+
+            foreach (Thing mapThing in matchingThings.NearestTo(pos).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
+            {
+                Find.Selector.Select(mapThing);
+            }
+        }
+
+        public void SelectMultiOnMap(List<object> things, Predicate<Thing> filter = null)
+        {
+            IEnumerable<ThingDef> uniqueThings = things.OfType<Thing>().Select(t => t.def).Distinct();
+
+            IEnumerable<Thing> matchingThings = map.Selectables(filter).Where(t => uniqueThings.Contains(t.def));
+
+            foreach (Thing mapThing in matchingThings.NearestTo(map.Center).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
+            {
+                Find.Selector.Select(mapThing);
+            }
+        }
+
+        public void SelectMultiOnMapByStuff(List<object> things)
+        {
+            var pairs = things.OfType<Thing>().Select(t => new { t.def, t.Stuff }).Distinct();
+
+            IEnumerable<Thing> matchingThings = map.Selectables().Where(t => pairs.Contains(new { t.def, t.Stuff }));
+
+            foreach (Thing mapThing in matchingThings.NearestTo(map.Center).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
+            {
+                Find.Selector.Select(mapThing);
+            }
+        }
+
+        public void SelectOnMap(Thing thing, ThingDef stuff = null)
+        {
+            IEnumerable<Thing> things = map.Selectables().Where(t => t.def == thing.def);
+
+            if (stuff != null)
+                things = things.Where(t => t.Stuff == stuff);
+
+            foreach (Thing mapthing in things.NearestTo(thing).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
+            {
+                Find.Selector.Select(mapthing);
+            }
+        }
+
+        public IEnumerable<CompForbiddable> ForbiddableThings(Def ofDef = null)
+        {
+            IEnumerable<ThingWithComps> things = ofDef == null ? map.listerThings.AllThings.OfType<ThingWithComps>() : map.listerThings.AllThings.OfType<ThingWithComps>().Where(t => t.def == ofDef);
+            things = things.Where(t => t.HasComp<CompForbiddable>()).Where(t => !map.fogGrid.IsFogged(t.Position));
+            things = things.Where(t => t.def is { EverHaulable: true });
+            return things.Select(t => t.GetComp<CompForbiddable>());
+        }
+
+        public IEnumerable<Thing> GetThingsInRadius(IntVec3 center, int radius)
+        {
+            IEnumerable<IntVec3> cells = GenRadial.RadialCellsAround(center, radius, true);
+            return cells.SelectMany(c => map.thingGrid.ThingsAt(c));
+        }
+
+        public IEnumerable<Thing> GetThingsInRadius<T>(IntVec3 center, int radius)
+            where T : Thing
+        {
+            return GenRadial.RadialCellsAround(center, radius, true).SelectMany(c => map.thingGrid.ThingsAt(c)).OfType<T>().OrderBy(t=>t.Position.DistanceTo(center));
         }
     }
 
-    public static void SelectOnMap(this Map map, Thing thing, ThingDef stuff = null)
+    extension(Map onMap)
     {
-        IEnumerable<Thing> things = map.Selectables().Where(t => t.def == thing.def);
-
-        if (stuff != null)
-            things = things.Where(t => t.Stuff == stuff);
-
-        foreach (Thing mapthing in things.NearestTo(thing).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
+        public IntVec3 GetMapCenter()
         {
-            Find.Selector.Select(mapthing);
+            return onMap.Center;
         }
-    }
 
-    public static IEnumerable<CompForbiddable> ForbiddableThings(this Map map, Def ofDef = null)
-    {
-        IEnumerable<ThingWithComps> things = ofDef == null ? map.listerThings.AllThings.OfType<ThingWithComps>() : map.listerThings.AllThings.OfType<ThingWithComps>().Where(t => t.def == ofDef);
-        things = things.Where(t => t.HasComp<CompForbiddable>()).Where(t => !map.fogGrid.IsFogged(t.Position));
-        things = things.Where(t => t.def is { EverHaulable: true });
-        return things.Select(t => t.GetComp<CompForbiddable>());
-    }
-
-    public static IEnumerable<Thing> GetThingsInRadius(this Map map, IntVec3 center, int radius)
-    {
-        IEnumerable<IntVec3> cells = GenRadial.RadialCellsAround(center, radius, true);
-        return cells.SelectMany(c => map.thingGrid.ThingsAt(c));
-    }
-
-    public static IEnumerable<Thing> GetThingsInRadius<T>(this Map map, IntVec3 center, int radius)
-        where T : Thing
-    {
-        return GenRadial.RadialCellsAround(center, radius, true).SelectMany(c => map.thingGrid.ThingsAt(c)).OfType<T>();
-    }
-
-    public static Lazy<MethodInfo> _GetMapRect = new(() => AccessTools.Method(typeof(ThingSelectionUtility), "GetMapRect"));
-    public static CellRect GetMapRect(Rect rect)
-    {
-        return (CellRect) _GetMapRect.Value.Invoke(null, [rect]);
-    }
-
-    public static IEnumerable<Thing> ThingsOnScreen(this Map onMap, Predicate<Thing> filter)
-    {
-        Rect rect = new(0.0f, 0.0f, UI.screenWidth, UI.screenHeight);
-        CellRect mapRect = GetMapRect(rect);
-        List<IntVec3> cells = mapRect.ExpandedBy(1).Cells.Where(cell => cell.InBounds(onMap)).ToList();
-        List<Thing> things = cells.SelectMany(cell => onMap.thingGrid.ThingsAt(cell)).Where(ThingSelectionUtility.SelectableByMapClick).ToList();
-
-        foreach (Thing thing in things)
+        public IntVec3 GetCenterOfScreenOnMap()
         {
-            if (filter(thing)) yield return thing;
+            Rect rect = new(0.0f, 0.0f, UI.screenWidth, UI.screenHeight);
+            CellRect mapRect = GetMapRect(rect);
+            return mapRect.CenterCell;
+        }
+
+        public IEnumerable<Thing> ThingsOnScreen(Predicate<Thing> filter)
+        {
+            Rect rect = new(0.0f, 0.0f, UI.screenWidth, UI.screenHeight);
+            CellRect mapRect = GetMapRect(rect);
+            List<IntVec3> cells = mapRect.ExpandedBy(1).Cells.Where(cell => cell.InBounds(onMap)).ToList();
+            List<Thing> things = cells.SelectMany(cell => onMap.thingGrid.ThingsAt(cell)).Where(ThingSelectionUtility.SelectableByMapClick).ToList();
+
+            foreach (Thing thing in things)
+            {
+                if (filter(thing)) yield return thing;
+            }
         }
     }
 }

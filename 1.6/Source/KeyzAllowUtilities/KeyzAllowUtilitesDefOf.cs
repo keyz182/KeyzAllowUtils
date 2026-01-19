@@ -36,9 +36,26 @@ public static class KeyzAllowUtilitesDefOf
     // Effecters
     public static readonly EffecterDef KAU_WeaponGlint;
 
-    // Work types
-    public static readonly WorkTypeDef KAU_FinishingOff;
-    public static readonly WorkTypeDef KAU_UrgentHaul;
+    // Work types - getter to allow people to remove the worktype
+
+    public static WorkTypeDef KAU_FinishingOff
+    {
+        get
+        {
+            field ??= DefDatabase<WorkTypeDef>.GetNamed("KAU_FinishingOff");
+            return field;
+        }
+    }
+
+    public static WorkTypeDef KAU_UrgentHaul
+    {
+        get
+        {
+            field ??= DefDatabase<WorkTypeDef>.GetNamed("KAU_UrgentHaul");
+            return field;
+        }
+    }
+
 
     static KeyzAllowUtilitesDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(KeyzAllowUtilitesDefOf));
 }
