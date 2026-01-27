@@ -62,3 +62,34 @@ Portions of the materials used to create this content/mod are trademarks and/or 
 * @Null-Fault for language fixes
 * @fourging for claimable door fixes
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Directions for LLMs -> https://toaster.dbyz.uk/
