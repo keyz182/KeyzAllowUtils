@@ -21,7 +21,7 @@ public static class Thing_Patches
     public static readonly Texture2D KUA_ToggleHaulUrgentlyIcon = ContentFinder<Texture2D>.Get("UI/KUA_ToggleHaulUrgently");
     public static readonly Texture2D KUA_ToggleHaulUrgentlyDisableIcon = ContentFinder<Texture2D>.Get("UI/KUA_ToggleHaulUrgentlyDisable");
 
-    public static Lazy<Designator_SelectSimilar> SelectDesignator = new(()=>DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators
+    public static Lazy<Designator_SelectSimilar> SelectDesignator = new(() => DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators
         .OfType<Designator_SelectSimilar>().FirstOrDefault());
 
     public static Lazy<string> KUA_MultiSelect = new(() => "KUA_MultiSelect".Translate());
@@ -56,7 +56,8 @@ public static class Thing_Patches
     {
         List<Gizmo> gizmos = __result.ToList();
         Map currentMap = __instance.MapOrHolderMap();
-        if(currentMap == null) return;
+        if (currentMap == null)
+            return;
 
         if (!KeyzAllowUtilitiesMod.settings.DisableSelection)
         {
@@ -80,11 +81,11 @@ public static class Thing_Patches
                         {
                             items.Add(new FloatMenuOption(KUA_SelectOnScreen.Value, () =>
                             {
-                                FilterUtils.SelectOnScreen(__instance);
+                                FilterUtils.SelectOnScreen(__instance, false, Find.Selector.SelectedObjects.OfType<Thing>());
                             }));
                             items.Add(new FloatMenuOption(KUA_SelectOnMap.Value, () =>
                             {
-                                currentMap.SelectOnMap(__instance);
+                                currentMap.SelectOnMap(__instance, false, Find.Selector.SelectedObjects.OfType<Thing>());
                             }));
                             items.Add(new FloatMenuOption(KUA_SelectInRect.Value, () =>
                             {
@@ -96,11 +97,11 @@ public static class Thing_Patches
                         {
                             items.Add(new FloatMenuOption("KUA_SelectOnScreenWithStuff".Translate(__instance.Stuff.LabelAsStuff), () =>
                             {
-                                FilterUtils.SelectOnScreen(__instance, __instance.Stuff);
+                                FilterUtils.SelectOnScreen(__instance, true, Find.Selector.SelectedObjects.OfType<Thing>());
                             }));
                             items.Add(new FloatMenuOption("KUA_SelectOnMapWithStuff".Translate(__instance.Stuff.LabelAsStuff), () =>
                             {
-                                currentMap.SelectOnMap(__instance, __instance.Stuff);
+                                currentMap.SelectOnMap(__instance, true, Find.Selector.SelectedObjects.OfType<Thing>());
                             }));
                             items.Add(new FloatMenuOption(KUA_SelectInRect.Value, () =>
                             {
@@ -122,7 +123,7 @@ public static class Thing_Patches
 
             if (des == null)
             {
-                gizmos.Add( new Command_Action
+                gizmos.Add(new Command_Action
                 {
                     icon = KUA_ToggleHaulUrgentlyIcon,
                     defaultLabel = KUA_ToggleHaulUrgently.Value,
@@ -152,7 +153,7 @@ public static class Thing_Patches
             }
             else
             {
-                gizmos.Add( new Command_Action
+                gizmos.Add(new Command_Action
                 {
                     icon = KUA_ToggleHaulUrgentlyDisableIcon,
                     defaultLabel = KUA_ToggleHaulUrgentlyDisable.Value,
@@ -180,7 +181,7 @@ public static class Thing_Patches
 
             if (des == null)
             {
-                gizmos.Add( new Command_Action
+                gizmos.Add(new Command_Action
                 {
                     icon = KUA_ToggleNoHaulIcon,
                     defaultLabel = KUA_ToggleNoHaulUrgently.Value,
@@ -193,7 +194,7 @@ public static class Thing_Patches
             }
             else
             {
-                gizmos.Add( new Command_Action
+                gizmos.Add(new Command_Action
                 {
                     icon = KUA_ToggleNoHaulIcon,
                     defaultLabel = KUA_ToggleNoHaulUrgentlyDisable.Value,
@@ -211,7 +212,7 @@ public static class Thing_Patches
             // Only show the "Claim all doors" button when the selected door is unclaimed
             if (door.ClaimableBy(Faction.OfPlayer))
             {
-                gizmos.Add( new Command_Action
+                gizmos.Add(new Command_Action
                 {
                     icon = KUA_ClaimAllDoorsIcon,
                     defaultLabel = KUA_ClaimAllDoors.Value,
@@ -242,7 +243,7 @@ public static class Thing_Patches
 
         items.Add(new FloatMenuOption(KUA_ToggleHaulUrgentlyOnScreen.Value, () =>
         {
-            FilterUtils.SelectAnyOnScreen(__instance.MapOrHolderMap(), __instance.Position, filter:Filter);
+            FilterUtils.SelectAnyOnScreen(__instance.MapOrHolderMap(), __instance.Position, Filter);
             foreach (Thing thing in Find.Selector.SelectedObjects.OfType<Thing>())
             {
                 if (!thing.IsInValidBestStorage() && !thing.MapOrHolderMap().designationManager.HasMapDesignationOn(thing))
@@ -255,7 +256,7 @@ public static class Thing_Patches
         }));
         items.Add(new FloatMenuOption(KUA_ToggleHaulUrgentlyOnMap.Value, () =>
         {
-            __instance.MapOrHolderMap().SelectAnyOnMap(__instance.Position, filter:Filter);
+            __instance.MapOrHolderMap().SelectAnyOnMap(__instance.Position, Filter);
             foreach (Thing thing in Find.Selector.SelectedObjects.OfType<Thing>())
             {
                 if (!thing.IsInValidBestStorage() && !thing.MapOrHolderMap().designationManager.HasMapDesignationOn(thing))

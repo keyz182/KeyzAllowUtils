@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using UnityEngine;
@@ -9,6 +10,9 @@ namespace KeyzAllowUtilities;
 [StaticConstructorOnStartup]
 public class Designator_SelectSimilar : Designator
 {
+    private Func<Thing, bool> filter = null;
+    private Func<Thing, bool> filterWithStuff = null;
+
     public override bool Disabled
     {
         get => disabled || KeyzAllowUtilitiesMod.settings.DisableSelection;
@@ -32,40 +36,43 @@ public class Designator_SelectSimilar : Designator
         hotKey = KeyzAllowUtilitesDefOf.KAU_SelectSimilarDesignator;
     }
 
-    public List<Thing> SelectableThingsInCell(IntVec3 c)
+    private Func<Thing, bool> GetFilter()
+    {
+        if (Event.current?.shift ?? false)
+        {
+            filterWithStuff ??= FilterUtils.MakeFilter(Find.Selector.SelectedObjects.OfType<Thing>(), false);
+
+            return filterWithStuff;
+        }
+        else
+        {
+            filter ??= FilterUtils.MakeFilter(Find.Selector.SelectedObjects.OfType<Thing>(), true);
+
+            return filter;
+        }
+    }
+
+    public IEnumerable<Thing> SelectableThingsInCell(IntVec3 c)
     {
         if (!c.InBounds(Map) || c.Fogged(Map))
-            return [];
-
-        IEnumerable<Thing> selected = Find.Selector.SelectedObjects.OfType<Thing>();
-        IEnumerable<Thing> thingsInCell = Map.thingGrid.ThingsListAt(c).Where(t=>t.def.selectable).Where(t => selected.Any(s => t.def == s.def));
-        IEnumerable<Thing> thingsInCellInStuff = Map.thingGrid.ThingsListAt(c).Where(t => t.TryGetInnerInteractableThingOwner() != null)
-            .SelectMany(t => t.TryGetInnerInteractableThingOwner());
-
-        thingsInCell = thingsInCell.Concat(thingsInCellInStuff).Where(t => t.def.selectable).Where(t => selected.Any(s => t.def == s.def));
-
-        if (!Event.current.shift)
         {
-            thingsInCell = thingsInCell.Where(t => selected.Any(s => s.Stuff == null || s.Stuff == t.Stuff)).ToList();
+            return [];
         }
 
-        return thingsInCell.ToList();
+        IEnumerable<Thing> thingsInCell = Map.thingGrid.ThingsListAt(c);
+        IEnumerable<Thing> thingsInCellInStuff = thingsInCell.Where(t => t is not MinifiedThing).SelectMany(t => t.TryGetInnerInteractableThingOwner() ?? Enumerable.Empty<Thing>());
+
+        return thingsInCell.Concat(thingsInCellInStuff).Where(GetFilter());
     }
 
     public override AcceptanceReport CanDesignateCell(IntVec3 c)
     {
-        List<Thing> thingsInCell = SelectableThingsInCell(c);
-
-        if (thingsInCell.Count <= 0)
-            return "No Selectables";
-
-        return true;
+        return SelectableThingsInCell(c).Any() ? true : "No Selectables";
     }
 
     public override void DesignateSingleCell(IntVec3 c)
     {
-        List<Thing> thingsInCell = SelectableThingsInCell(c);
-        foreach (Thing thing in thingsInCell)
+        foreach (Thing thing in SelectableThingsInCell(c))
         {
             Find.Selector.Select(thing);
         }
@@ -73,11 +80,7 @@ public class Designator_SelectSimilar : Designator
 
     public override AcceptanceReport CanDesignateThing(Thing t)
     {
-        List<Thing> selected = Find.Selector.SelectedObjects.OfType<Thing>().ToList();
-
-        if (!t.def.selectable || !selected.Any(thing => thing.def == t.def) ) return false;
-
-        return Event.current.shift || selected.Any(thing => thing.Stuff == t.Stuff);
+        return GetFilter()(t);
     }
 
     public override void DesignateThing(Thing t)
@@ -87,48 +90,37 @@ public class Designator_SelectSimilar : Designator
 
     public override void SelectedUpdate() => GenUI.RenderMouseoverBracket();
 
-    private static HashSet<Thing> seenThings = new();
+    private static HashSet<Vector2> drawnPos = new();
 
     public override void RenderHighlight(List<IntVec3> dragCells)
     {
-        seenThings.Clear();
+        drawnPos.Clear();
         foreach (IntVec3 dragCell in dragCells)
         {
-            if (Map.thingGrid.ThingsListAt(dragCell).Any(t=>Find.Selector.IsSelected(t)))
+            foreach (Thing t in SelectableThingsInCell(dragCell))
             {
-                Graphics.DrawMesh(MeshPool.plane10, dragCell.ToVector3ShiftedWithAltitude(AltitudeLayer.MetaOverlays.AltitudeFor()), Quaternion.identity, DragHighlightThingMat, 0);
-                if (Map.designationManager.DesignationAt(dragCell, DesignationDefOf.Mine) != null)
-                    continue;
-            }
-            List<Thing> thingList = dragCell.GetThingList(Map);
-            foreach (Thing t in thingList)
-            {
-                if (!seenThings.Contains(t) && CanDesignateThing(t).Accepted)
+                if (t.DrawPosHeld is Vector3 drawPosHeld && drawnPos.Add(new Vector2(drawPosHeld.x, drawPosHeld.z)))
                 {
-                    Vector3 drawPos = t.DrawPos with
-                    {
-                        y = AltitudeLayer.MetaOverlays.AltitudeFor()
-                    };
+                    Vector3 drawPos = new(drawPosHeld.x, AltitudeLayer.MetaOverlays.AltitudeFor(), drawPosHeld.z);
+
                     Graphics.DrawMesh(MeshPool.plane10, drawPos, Quaternion.identity, DragHighlightThingMat, 0);
-                    seenThings.Add(t);
-                }
-
-                ThingOwner inner = t.TryGetInnerInteractableThingOwner();
-                if (inner == null) continue;
-
-                foreach (Thing thing in inner)
-                {
-                    if (seenThings.Contains(thing) || !CanDesignateThing(thing).Accepted) continue;
-
-                    Vector3 drawPos = thing.DrawPos with
-                    {
-                        y = AltitudeLayer.MetaOverlays.AltitudeFor()
-                    };
-                    Graphics.DrawMesh(MeshPool.plane10, drawPos, Quaternion.identity, DragHighlightThingMat, 0);
-                    seenThings.Add(thing);
                 }
             }
         }
-        seenThings.Clear();
+        drawnPos.Clear();
+    }
+
+    protected override void FinalizeDesignationSucceeded()
+    {
+        filter = null;
+        filterWithStuff = null;
+        base.FinalizeDesignationSucceeded();
+    }
+
+    protected override void FinalizeDesignationFailed()
+    {
+        filter = null;
+        filterWithStuff = null;
+        base.FinalizeDesignationFailed();
     }
 }
