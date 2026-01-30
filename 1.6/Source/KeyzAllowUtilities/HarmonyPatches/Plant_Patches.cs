@@ -118,7 +118,7 @@ public static class Plant_Patches
                 {
                     if (Event.current.shift)
                     {
-                        Find.DesignatorManager.Select(harvestPlants);
+                        Find.DesignatorManager.Select(cutPlants);
                         return;
                     }
                     List<FloatMenuOption> items =

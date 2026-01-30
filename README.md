@@ -61,6 +61,9 @@ Portions of the materials used to create this content/mod are trademarks and/or 
 * Marnador for the [RimWorld Font](https://github.com/spdskatr/RWModdingResources/raw/master/RimWordFont.ttf)
 * @Null-Fault for language fixes
 * @fourging for claimable door fixes
+* @ましろ for Lifter patches
+* @llunak for gizmo fixes
+* @a-certain-existence for select similar overhaul
 
 
 

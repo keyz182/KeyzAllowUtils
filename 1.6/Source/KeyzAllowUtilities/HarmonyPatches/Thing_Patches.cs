@@ -72,6 +72,10 @@ public static class Thing_Patches
                     {
                         if (SelectDesignator.Value != null)
                             Find.DesignatorManager.Select(SelectDesignator.Value);
+                    }else if (Event.current.shift)
+                    {
+                        Find.DesignatorManager.Select(SelectDesignator.Value);
+                        return;
                     }
                     else
                     {

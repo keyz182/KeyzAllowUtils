@@ -31,31 +31,43 @@ public class Designator_StripMine : Designator_Mine
         hotKey = KeyzAllowUtilitesDefOf.KAU_StripMine;
     }
 
+    public static readonly float ControlWindowWidth = 200f;
+    public static readonly float ControlWindowHeight = 320f;
+    public static readonly float ControlWindowBottomOffset = 300f;
+    public static readonly float DiagramSize = 192f;
+
     public override void DoExtraGuiControls(float leftX, float bottomY)
     {
-        float width = 200f;
-        float height = 500f;
-        Rect winRect = new(leftX, bottomY - 90f, width, height);
+        Rect winRect = new(leftX, Mathf.Clamp(bottomY - ControlWindowBottomOffset, ControlWindowHeight, 1000f), ControlWindowWidth, ControlWindowHeight);
         Find.WindowStack.ImmediateWindow(73445, winRect, WindowLayer.GameUI, (Action) (() =>
         {
-            Rect rect = new Rect(0, 0, width, height);
+            Rect rect = new Rect(0, 0, ControlWindowWidth, ControlWindowHeight);
             // Widgets.DrawRectFast(rect, Color.blue);
             Rect inset = rect.ContractedBy(4f);
             // Widgets.DrawRectFast(inset, Color.green);
 
-            Listing_Standard options = new();
-            options.Begin(inset);
-
-            Rect diagram = options.GetRect(192f);
+            RectDivider div = new RectDivider(inset, 1412412441);
+            Rect diagram = div.NewRow(DiagramSize);
             Widgets.DrawTextureFitted(diagram, Diagram, 1f);
 
-            options.Label("Horizontal <color=red>Spacing</color>");
+            RectDivider col1 = div.NewCol(96f, marginOverride:0f);
+            // Widgets.DrawRectFast(col1, Color.yellow);
+            RectDivider col2 = div.NewCol(96f, marginOverride:0f);
+            // Widgets.DrawRectFast(col2, Color.magenta);
+
+            Listing_Standard options = new();
+            options.Begin(col1);
+            options.Label("<size=10%>Horiz <color=red>Spacing</color></size>");
             options.IntAdjusterWithDisplay(ref SpacingX, 1, 2);
-            options.Label("Horizontal <color=blue>Offset</color>");
-            options.IntAdjusterWithDisplay(ref OffsetX, 1, 0);
-            options.Label("Vertical <color=red>Spacing</color>");
+            options.Label("<size=10%>Vert <color=red>Spacing</color></size>");
             options.IntAdjusterWithDisplay(ref SpacingZ, 1, 2);
-            options.Label("Vertical <color=blue>Offset</color>");
+            options.End();
+
+            options = new();
+            options.Begin(col2);
+            options.Label("<size=10%>Horiz <color=blue>Offset</color></size>");
+            options.IntAdjusterWithDisplay(ref OffsetX, 1, 0);
+            options.Label("<size=10%>Vert <color=blue>Offset</color></size>");
             options.IntAdjusterWithDisplay(ref OffsetZ, 1, 0);
             options.End();
         }));

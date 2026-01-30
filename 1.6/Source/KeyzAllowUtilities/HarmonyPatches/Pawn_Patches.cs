@@ -14,6 +14,9 @@ public static class Pawn_Patches
     public static readonly Texture2D KUA_ToggleFinishOff = ContentFinder<Texture2D>.Get("UI/KUA_ToggleFinishOff");
     public static readonly Texture2D KUA_ToggleFinishOffDisable = ContentFinder<Texture2D>.Get("UI/KUA_ToggleFinishOffDisable");
 
+    public static Designator_FinishOff finishOff =>
+        DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators.FirstOrDefault(d => d is Designator_FinishOff) as Designator_FinishOff;
+
     [HarmonyPatch(nameof(Pawn.GetGizmos))]
     [HarmonyPostfix]
     public static void GetGizmos_Patch(Pawn __instance, ref IEnumerable<Gizmo> __result)
@@ -37,6 +40,11 @@ public static class Pawn_Patches
                     defaultDesc = "KUA_ToggleFinishOffDesc".Translate(),
                     action = () =>
                     {
+                        if (Event.current.shift)
+                        {
+                            Find.DesignatorManager.Select(finishOff);
+                            return;
+                        }
                         __instance.MapOrHolderMap().designationManager.AddDesignation(new Designation(__instance, KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation));
                     }
                 });
@@ -48,6 +56,11 @@ public static class Pawn_Patches
             {
                 icon = KUA_ToggleFinishOffDisable, defaultLabel = "KUA_ToggleFinishOffDisable".Translate(), defaultDesc = "KUA_ToggleFinishOffDisableDesc".Translate(), action = () =>
                 {
+                    if (Event.current.shift)
+                    {
+                        Find.DesignatorManager.Select(finishOff);
+                        return;
+                    }
                     __instance.MapOrHolderMap().designationManager.RemoveDesignation(des);
                 }
             });
