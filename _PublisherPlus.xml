@@ -3,9 +3,15 @@
   <Excluded>
     <exclude>.editorconfig</exclude>
     <exclude>.git</exclude>
+    <exclude>.github</exclude>
+    <exclude>qodana.yaml</exclude>
+    <exclude>qodana.sarif.json</exclude>
     <exclude>1.6/Source</exclude>
     <exclude>Assets</exclude>
     <exclude>modlist.xml</exclude>
     <exclude>release.bat</exclude>
+    <exclude>release.sh</exclude>
+    <exclude>.gitattributes</exclude>
+    <exclude>.gitignore</exclude>
   </Excluded>
 </Configuration>

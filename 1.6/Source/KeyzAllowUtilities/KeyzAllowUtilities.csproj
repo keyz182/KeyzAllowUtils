@@ -13,6 +13,8 @@
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <SteamModsPath>$(RIMWORLD_STEAM_MODS_PATH)</SteamModsPath>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <FileVersion>1.0.0</FileVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <Optimize>false</Optimize>
@@ -62,7 +64,7 @@
     <ItemGroup>
         <PackageReference Include="Lib.Harmony" Version="2.*" ExcludeAssets="runtime" />
     </ItemGroup>
-
+    
     <!-- <ItemGroup Condition="'@(Reference->WithMetadataValue('Identity', 'Assembly-CSharp')->Metadata('HintPath')->Exists())' == ''"> -->
     <!--     <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6-*" /> -->
     <!-- </ItemGroup> -->
@@ -76,5 +78,17 @@
         <AboutFiles Include="../../../About/**" Exclude="../../../About/*.png~" />
         <CommonFiles Include="../../../Common/**;../../../Compatibility/**" />
         <ExtraFiles Include="../../../loadFolders.xml;../../../LICENSE;../../../README.md;../../../.github/**;../../../qodana.yaml" />
+        <ExtraFiles Update="..\..\..\.github\workflows\publish.yaml">
+          <Link>KeyzAllowUtils\.github\workflows\publish</Link>
+        </ExtraFiles>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\..\release.sh">
+        <Link>KeyzAllowUtils\release.sh</Link>
+      </Content>
+      <Content Include="..\..\..\_PublisherPlus.xml">
+        <Link>KeyzAllowUtils\_PublisherPlus.xml</Link>
+      </Content>
     </ItemGroup>
 </Project>

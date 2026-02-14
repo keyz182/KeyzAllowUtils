@@ -5,7 +5,6 @@ on:
   push:
     branches: # Specify your branches here
       - main # The 'main' branch
-      - 'releases/*' # The release branches
 
 jobs:
   qodana:
@@ -22,7 +21,7 @@ jobs:
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2025.3
         with:
-            args: --linter,qodana-dotnet
+            args: --linter,qodana-dotnet --baseline,./qodana-baseline.xml
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1058539408 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'

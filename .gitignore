@@ -259,3 +259,4 @@ __pycache__/
 
 # game source code
 gameSourceCodeDecompiledResult/
+*.zip
