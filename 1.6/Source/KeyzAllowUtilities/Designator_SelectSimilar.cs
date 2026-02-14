@@ -74,7 +74,7 @@ public class Designator_SelectSimilar : Designator
     {
         foreach (Thing thing in SelectableThingsInCell(c))
         {
-            Find.Selector.Select(thing);
+            Find.Selector.Select(thing, forceDesignatorDeselect: false);
         }
     }
 
@@ -85,7 +85,7 @@ public class Designator_SelectSimilar : Designator
 
     public override void DesignateThing(Thing t)
     {
-        Find.Selector.Select(t);
+        Find.Selector.Select(t, forceDesignatorDeselect: false);
     }
 
     public override void SelectedUpdate() => GenUI.RenderMouseoverBracket();

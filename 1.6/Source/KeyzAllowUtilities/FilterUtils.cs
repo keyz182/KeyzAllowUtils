@@ -46,50 +46,58 @@ public static class FilterUtils
             );
         }
 
+        private readonly Func<Thing, bool> Finalize(Func<Thing, bool> baseFilter)
+        {
+            return isMinified ? target => target is MinifiedThing minifiedTarget && baseFilter(minifiedTarget.InnerThing) : baseFilter;
+        }
+
+        private readonly bool BaseFilter(Thing thing)
+        {
+            return thing.def == def;
+        }
+
         public readonly Func<Thing, bool> MakeFilter()
         {
-            Func<Func<Thing, bool>, Func<Thing, bool>> finalize = isMinified
-                ? (baseFilter => target => target is MinifiedThing minifiedTarget && baseFilter(minifiedTarget.InnerThing))
-                : (baseFilter => baseFilter);
+            FilterCondition condition = this;
+            Func<Thing, bool> baseFilter = condition.BaseFilter;
 
-            ThingDef def = this.def;
-            Func<Thing, bool> baseFilter = target => target.def == def;
-
-            if (wornByCorpse is bool expectedWornByCorpse)
+            if (wornByCorpse is { } expectedWornByCorpse)
             {
-                Func<Thing, bool> baseFilter2 = baseFilter;
+                Func<Thing, bool> outerBaseFilter = baseFilter;
 
-                baseFilter = target => baseFilter2(target) && (target as Apparel)?.WornByCorpse == expectedWornByCorpse;
+                baseFilter = target => outerBaseFilter(target) && (target as Apparel)?.WornByCorpse == expectedWornByCorpse;
             }
 
-            if (biocoded is bool expectedBiocoded)
+            if (biocoded is { } expectedBiocoded)
             {
-                Func<Thing, bool> baseFilter2 = baseFilter;
+                Func<Thing, bool> outerBaseFilter = baseFilter;
 
-                baseFilter = target => baseFilter2(target) && target.TryGetComp<CompBiocodable>()?.Biocoded == expectedBiocoded;
+                baseFilter = target => outerBaseFilter(target) && target.TryGetComp<CompBiocodable>()?.Biocoded == expectedBiocoded;
             }
 
-            if (rotStage is RotStage expectedRotStage)
+            if (rotStage is { } expectedRotStage)
             {
-                Func<Thing, bool> baseFilter2 = baseFilter;
+                Func<Thing, bool> outerBaseFilter = baseFilter;
 
-                baseFilter = target => baseFilter2(target) && target.TryGetComp<CompRottable>()?.Stage == expectedRotStage;
+                baseFilter = target => outerBaseFilter(target) && target.TryGetComp<CompRottable>()?.Stage == expectedRotStage;
             }
 
-            if (stuff is ThingDef expectedStuff)
+            // ReSharper disable once InvertIf
+            if (stuff is { } expectedStuff)
             {
-                Func<Thing, bool> baseFilter2 = baseFilter;
+                Func<Thing, bool> outerBaseFilter = baseFilter;
 
-                baseFilter = target => baseFilter2(target) && target.Stuff == expectedStuff;
+                baseFilter = target => outerBaseFilter(target) && target.Stuff == expectedStuff;
             }
 
-            return finalize(baseFilter);
+            return Finalize(baseFilter);
         }
     }
 
     public static Func<Thing, bool> MakeFilter(IEnumerable<Thing> things, bool checkStuff)
     {
-        return things.Select(thing => FilterCondition.Of(thing, checkStuff))
+        return things
+            .Select(thing => FilterCondition.Of(thing, checkStuff))
             .Distinct()
             .Select(condition => condition.MakeFilter())
             .Aggregate((Thing _) => false, (lhs, rhs) => thing => lhs(thing) || rhs(thing));
@@ -107,7 +115,7 @@ public static class FilterUtils
 
         foreach (Thing outerThing in things.NotFogged().NearestTo(thing.Map.GetCenterOfScreenOnMap()).Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
         {
-            Find.Selector.Select(outerThing);
+            Find.Selector.Select(outerThing, forceDesignatorDeselect: false);
         }
     }
 
@@ -124,7 +132,7 @@ public static class FilterUtils
 
         foreach (Thing outerThing in things.NotFogged().NearestTo(pos).Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
         {
-            Find.Selector.Select(outerThing);
+            Find.Selector.Select(outerThing, forceDesignatorDeselect: false);
         }
     }
 
@@ -174,7 +182,7 @@ public static class FilterUtils
 
             foreach (Thing mapThing in matchingThings.NearestTo(pos).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
             {
-                Find.Selector.Select(mapThing);
+                Find.Selector.Select(mapThing, forceDesignatorDeselect: false);
             }
         }
 
@@ -184,7 +192,7 @@ public static class FilterUtils
 
             foreach (Thing mapthing in things.NearestTo(thing).NotFogged().Take(KeyzAllowUtilitiesMod.settings.MaxSelect))
             {
-                Find.Selector.Select(mapthing);
+                Find.Selector.Select(mapthing, forceDesignatorDeselect: false);
             }
         }
 
