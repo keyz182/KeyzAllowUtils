@@ -33,9 +33,3 @@ jobs:
               with:
                   name: Release - ${{ github.ref }}
                   files: KeyzAllowUtils.zip
-            - name: Release
-              uses: softprops/action-gh-release@v2
-              if: github.ref_type != 'tag'
-              with:
-                  name: prerelease - ${{ github.sha }}
-                  files: KeyzAllowUtils.zip
