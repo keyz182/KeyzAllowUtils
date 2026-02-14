@@ -81,9 +81,6 @@
         <ExtraFiles Update="..\..\..\.github\workflows\publish.yaml">
           <Link>KeyzAllowUtils\.github\workflows\publish</Link>
         </ExtraFiles>
-        <ExtraFiles Update="..\..\..\.github\workflows\build.yaml">
-          <Link>KeyzAllowUtils\.github\workflows\build.yaml</Link>
-        </ExtraFiles>
     </ItemGroup>
 
     <ItemGroup>
