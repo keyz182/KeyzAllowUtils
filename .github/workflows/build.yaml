@@ -2,7 +2,7 @@ name: publish
 
 on:
     push:
-        branches: [ releases/* ]
+        branches: [ main ]
 
 env:
     DOTNET_VERSION: '8.0.123' # The .NET SDK version to use
@@ -26,10 +26,3 @@ jobs:
             - name: Build
               run: |
                   ./release.sh
-
-            - name: Release
-              uses: softprops/action-gh-release@v2
-              if: github.ref_type == 'tag'
-              with:
-                  name: Release - ${{ github.ref }}
-                  files: KeyzAllowUtils.zip
