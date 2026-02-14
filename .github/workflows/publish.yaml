@@ -7,6 +7,10 @@ on:
 env:
     DOTNET_VERSION: '8.0.123' # The .NET SDK version to use
 
+permissions:
+    packages: write
+    contents: write
+
 jobs:
     publish:
 
@@ -22,7 +26,16 @@ jobs:
             - name: Build
               run: |
                   ./release.sh
-            - uses: pipe-cd/actions-gh-release@v2.3.4
+
+            - name: Release
+              uses: softprops/action-gh-release@v2
+              if: github.ref_type == 'tag'
               with:
-                  release_file: 'KeyzAllowUtils.zip'
-                  token: ${{ secrets.GITHUB_TOKEN }}
+                  name: Release - ${{ github.ref }}
+                  files: KeyzAllowUtils.zip
+            - name: Release
+              uses: softprops/action-gh-release@v2
+              if: github.ref_type != 'tag'
+              with:
+                  name: prerelease - ${{ github.sha }}
+                  files: KeyzAllowUtils.zip
