@@ -10,3 +10,7 @@ include:
   - name: CheckDependencyLicenses
 dotnet:
     solution: 1.6/Source/KeyzAllowUtilities.sln
+exclude:
+    - name: All
+      paths:
+          - "**/*.svg"
