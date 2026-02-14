@@ -75,6 +75,12 @@
         <category>KAU_AllowUtilities</category>
         <defName>KAU_HaulUrgently</defName>
         <label>Haul urgently</label>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_HaulUrgentlySelection</defName>
+        <label>Haul urgently selection</label>
         <defaultKeyCodeA>O</defaultKeyCodeA>
     </KeyBindingDef>
 

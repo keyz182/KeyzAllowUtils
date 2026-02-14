@@ -15,6 +15,12 @@ public class KeyHandler(Map map) : MapComponent(map)
     public static Designator_SelectSimilar selectSimilar =>
         DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators.FirstOrDefault(d => d is Designator_SelectSimilar) as Designator_SelectSimilar;
 
+    public static Designator_FinishOff finishOff =>
+        DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators.FirstOrDefault(d => d is Designator_FinishOff) as Designator_FinishOff;
+
+    public static Designator_HaulUrgently haulUrgently =>
+        DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators.FirstOrDefault(d => d is Designator_HaulUrgently) as Designator_HaulUrgently;
+
 
     public override void FinalizeInit()
     {
@@ -47,13 +53,25 @@ public class KeyHandler(Map map) : MapComponent(map)
         {
             AllowAll(map, true);
             Event.current.Use();
-        }
-
-        if (!KeyzAllowUtilitiesMod.settings.DisableSelection && KeyzAllowUtilitesDefOf.KAU_SelectSimilar.KeyDownEvent)
+        }else if (!KeyzAllowUtilitiesMod.settings.DisableSelection && KeyzAllowUtilitesDefOf.KAU_SelectSimilar.KeyDownEvent)
         {
             if (selectSimilar != null)
             {
                 Find.DesignatorManager.Select(selectSimilar);
+            }
+            Event.current.Use();
+        }else if (!KeyzAllowUtilitiesMod.settings.DisableFinishOff && KeyzAllowUtilitesDefOf.KAU_FinishOff.KeyDownEvent)
+        {
+            if (selectSimilar != null)
+            {
+                Find.DesignatorManager.Select(finishOff);
+            }
+            Event.current.Use();
+        }else if (!KeyzAllowUtilitiesMod.settings.DisableHaulUrgently && KeyzAllowUtilitesDefOf.KAU_HaulUrgentlySelection.KeyDownEvent)
+        {
+            if (selectSimilar != null)
+            {
+                Find.DesignatorManager.Select(haulUrgently);
             }
             Event.current.Use();
         }

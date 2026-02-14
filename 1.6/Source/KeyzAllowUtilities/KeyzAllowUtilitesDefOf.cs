@@ -21,6 +21,7 @@ public static class KeyzAllowUtilitesDefOf
     public static readonly KeyBindingDef KAU_HarvestFullyGrownWood;
     public static readonly KeyBindingDef KAU_CutFullyGrown;
     public static readonly KeyBindingDef KAU_HaulUrgently;
+    public static readonly KeyBindingDef KAU_HaulUrgentlySelection;
     public static readonly KeyBindingDef KAU_StripMine;
     public static readonly KeyBindingDef KAU_FinishOff;
     public static readonly KeyBindingDef KAU_FertileGrowArea;

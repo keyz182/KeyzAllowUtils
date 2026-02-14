@@ -32,7 +32,6 @@ public class Designator_FinishOff : Designator
         soundDragChanged = SoundDefOf.Designate_DragStandard_Changed;
         useMouseIcon = true;
         soundSucceeded = SoundDefOf.Designate_Haul;
-        hotKey = KeyzAllowUtilitesDefOf.KAU_FinishOff;
     }
 
     public List<Thing> SelectableThingsInCell(IntVec3 c)
