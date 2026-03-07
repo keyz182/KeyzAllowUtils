@@ -10,6 +10,7 @@ namespace KeyzAllowUtilities;
 [StaticConstructorOnStartup]
 public class Designator_SelectSimilar : Designator
 {
+    private readonly List<Thing> similarTo = [];
     private Func<Thing, bool> filter = null;
     private Func<Thing, bool> filterWithStuff = null;
 
@@ -21,8 +22,6 @@ public class Designator_SelectSimilar : Designator
 
     public override bool Visible => !KeyzAllowUtilitiesMod.settings.DisableSelection;
     public override DrawStyleCategoryDef DrawStyleCategory => DrawStyleCategoryDefOf.FilledRectangle;
-
-    public static readonly Material DragHighlightThingMat = MaterialPool.MatFrom("UI/KUA_HaulHighlight", ShaderDatabase.MetaOverlay);
 
     public Designator_SelectSimilar()
     {
@@ -38,18 +37,19 @@ public class Designator_SelectSimilar : Designator
 
     private Func<Thing, bool> GetFilter()
     {
-        if (Event.current?.shift ?? false)
+        // `similarTo` will only be non-empty between `Selected()` and `Deselected()` calls. So this emptiness check
+        // ensures the cached filter being consistent with the `similarTo`.
+        if (similarTo.Empty())
         {
-            filterWithStuff ??= FilterUtils.MakeFilter(Find.Selector.SelectedObjects.OfType<Thing>(), false);
-
-            return filterWithStuff;
+            return _ => false;
         }
-        else
-        {
-            filter ??= FilterUtils.MakeFilter(Find.Selector.SelectedObjects.OfType<Thing>(), true);
 
-            return filter;
-        }
+        bool ignoreStuff = Event.current?.shift ?? false;
+        ref Func<Thing, bool> selectedFilter = ref (ignoreStuff ? ref filter : ref filterWithStuff);
+
+        selectedFilter ??= FilterUtils.MakeFilter(similarTo, checkStuff: !ignoreStuff);
+
+        return selectedFilter;
     }
 
     public IEnumerable<Thing> SelectableThingsInCell(IntVec3 c)
@@ -90,6 +90,18 @@ public class Designator_SelectSimilar : Designator
 
     public override void SelectedUpdate() => GenUI.RenderMouseoverBracket();
 
+    public override void Selected()
+    {
+        similarTo.AddRange(Find.Selector.SelectedObjects.OfType<Thing>());
+    }
+
+    public override void Deselected()
+    {
+        similarTo.Clear();
+        filter = null;
+        filterWithStuff = null;
+    }
+
     private static HashSet<Vector2> drawnPos = new();
 
     public override void RenderHighlight(List<IntVec3> dragCells)
@@ -103,24 +115,10 @@ public class Designator_SelectSimilar : Designator
                 {
                     Vector3 drawPos = new(drawPosHeld.x, AltitudeLayer.MetaOverlays.AltitudeFor(), drawPosHeld.z);
 
-                    Graphics.DrawMesh(MeshPool.plane10, drawPos, Quaternion.identity, DragHighlightThingMat, 0);
+                    Graphics.DrawMesh(MeshPool.plane10, drawPos, Quaternion.identity, DesignatorUtility.DragHighlightThingMat, 0);
                 }
             }
         }
         drawnPos.Clear();
-    }
-
-    protected override void FinalizeDesignationSucceeded()
-    {
-        filter = null;
-        filterWithStuff = null;
-        base.FinalizeDesignationSucceeded();
-    }
-
-    protected override void FinalizeDesignationFailed()
-    {
-        filter = null;
-        filterWithStuff = null;
-        base.FinalizeDesignationFailed();
     }
 }

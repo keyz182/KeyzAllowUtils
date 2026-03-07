@@ -62,14 +62,14 @@ public class KeyHandler(Map map) : MapComponent(map)
             Event.current.Use();
         }else if (!KeyzAllowUtilitiesMod.settings.DisableFinishOff && KeyzAllowUtilitesDefOf.KAU_FinishOff.KeyDownEvent)
         {
-            if (selectSimilar != null)
+            if (finishOff != null)
             {
                 Find.DesignatorManager.Select(finishOff);
             }
             Event.current.Use();
         }else if (!KeyzAllowUtilitiesMod.settings.DisableHaulUrgently && KeyzAllowUtilitesDefOf.KAU_HaulUrgentlySelection.KeyDownEvent)
         {
-            if (selectSimilar != null)
+            if (haulUrgently != null)
             {
                 Find.DesignatorManager.Select(haulUrgently);
             }
