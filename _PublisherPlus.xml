@@ -6,6 +6,7 @@
     <exclude>.github</exclude>
     <exclude>qodana.yaml</exclude>
     <exclude>qodana.sarif.json</exclude>
+    <exclude>qodana.sarif.baseline.json</exclude>
     <exclude>1.6/Source</exclude>
     <exclude>Assets</exclude>
     <exclude>modlist.xml</exclude>
