@@ -22,6 +22,8 @@
                     <li>KeyzAllowUtilities.Designator_CutBlighted</li>
                     <li>KeyzAllowUtilities.Designator_HarvestGrown</li>
                     <li>KeyzAllowUtilities.Designator_HarvestGrownWood</li>
+                    <li>KeyzAllowUtilities.Designator_HarvestAll</li>
+                    <li>KeyzAllowUtilities.Designator_HarvestAllWood</li>
                     <li>RimWorld.Designator_Open</li>
                 </value>
             </li>

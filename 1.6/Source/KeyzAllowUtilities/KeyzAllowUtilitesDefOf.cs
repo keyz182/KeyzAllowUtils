@@ -29,6 +29,8 @@ public static class KeyzAllowUtilitesDefOf
     public static readonly KeyBindingDef KAU_SelectSimilarDesignator;
     public static readonly KeyBindingDef KAU_SelectFloor;
     public static readonly KeyBindingDef KAU_CutBlighted;
+    public static readonly KeyBindingDef KAU_HarvestAll;
+    public static readonly KeyBindingDef KAU_HarvestAllWood;
 
     // Jobs
     public static readonly JobDef KAU_FinishOffPawn;

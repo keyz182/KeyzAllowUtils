@@ -12,6 +12,7 @@ namespace KeyzAllowUtilities.HarmonyPatches;
 public static class Plant_Patches
 {
     public static readonly Texture2D KUA_HarvestGrown = ContentFinder<Texture2D>.Get("UI/KUA_HarvestGrown");
+    public static readonly Texture2D KUA_HarvestGrownWood = ContentFinder<Texture2D>.Get("UI/KUA_HarvestGrownWood");
     public static readonly Texture2D KUA_CutGrown = ContentFinder<Texture2D>.Get("UI/KUA_CutGrown");
 
     public static bool IsFullyGrown(Plant plant)
@@ -44,6 +45,32 @@ public static class Plant_Patches
             {
                 plant.Map.designationManager.RemoveAllDesignationsOn(plant);
                 plant.Map.designationManager.AddDesignation(new Designation((LocalTargetInfo) plant, designation));
+            }
+        }
+    }
+
+    public static void DesignateAnyOnScreen(IEnumerable<Plant> things, Map map, DesignationDef designation, bool checkIfHarvestable = true)
+    {
+        IEnumerable<Thing> plants = map.ThingsOnScreen((thing => thing.def.category == ThingCategory.Plant && ThingSelectionUtility.SelectableByMapClick(thing))).OfDefs(things.Select(t => t.def).Distinct());
+
+        foreach (Plant plant in plants.OnlySelectableThings().NotFogged().OfType<Plant>().NearestTo(map.GetCenterOfScreenOnMap()))
+        {
+            if (!checkIfHarvestable || plant.HarvestableNow)
+            {
+                plant.Map.designationManager.RemoveAllDesignationsOn(plant);
+                plant.Map.designationManager.AddDesignation(new Designation((LocalTargetInfo)plant, designation));
+            }
+        }
+    }
+
+    public static void DesignateAnyOnMap(this Map map, IEnumerable<Plant> things, DesignationDef designation, bool checkIfHarvestable = true)
+    {
+        foreach (Plant plant in map.listerThings.AllThings.OfDefs(things.Select(t => t.def).Distinct()).OnlySelectableThings().NotFogged().OfType<Plant>())
+        {
+            if (!checkIfHarvestable || plant.HarvestableNow)
+            {
+                plant.Map.designationManager.RemoveAllDesignationsOn(plant);
+                plant.Map.designationManager.AddDesignation(new Designation((LocalTargetInfo)plant, designation));
             }
         }
     }
@@ -156,6 +183,84 @@ public static class Plant_Patches
                 }
             };
             gizmos.Add(cutGrownCommand);
+        }
+
+        if (!KeyzAllowUtilitiesMod.settings.DisableHarvestAll)
+        {
+            if (!__instance.def.plant.IsTree)
+            {
+                Command_Action harvestAllCommand = new()
+                {
+                    icon = KUA_HarvestGrown,
+                    defaultLabel = "KUA_HarvestAll".Translate(),
+                    defaultDesc = "KUA_HarvestAllDesc".Translate(),
+                    action = () =>
+                    {
+                        List<FloatMenuOption> items =
+                        [
+                            new("KUA_HarvestAllOnScreen".Translate(), () =>
+                            {
+                                if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
+                                {
+                                    DesignateAnyOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.HarvestPlant);
+                                }
+
+                                DesignateAnyOnScreen([__instance], __instance.Map, DesignationDefOf.HarvestPlant);
+                            }),
+
+                            new("KUA_HarvestAllOnMap".Translate(), () =>
+                            {
+                                if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
+                                {
+                                    __instance.Map.DesignateAnyOnMap(things.OfType<Plant>(), DesignationDefOf.HarvestPlant);
+                                }
+
+                                __instance.Map.DesignateAnyOnMap([__instance], DesignationDefOf.HarvestPlant);
+                            })
+                        ];
+
+                        Find.WindowStack.Add(new FloatMenu(items));
+                    }
+                };
+                gizmos.Add(harvestAllCommand);
+            }
+            else
+            {
+                Command_Action harvestAllWoodCommand = new()
+                {
+                    icon = KUA_HarvestGrownWood,
+                    defaultLabel = "KUA_HarvestAllWood".Translate(),
+                    defaultDesc = "KUA_HarvestAllWoodDesc".Translate(),
+                    action = () =>
+                    {
+                        List<FloatMenuOption> items =
+                        [
+                            new("KUA_HarvestAllWoodOnScreen".Translate(), () =>
+                            {
+                                if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
+                                {
+                                    DesignateAnyOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.CutPlant, false);
+                                }
+
+                                DesignateAnyOnScreen([__instance], __instance.Map, DesignationDefOf.CutPlant, false);
+                            }),
+
+                            new("KUA_HarvestAllWoodOnMap".Translate(), () =>
+                            {
+                                if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
+                                {
+                                    __instance.Map.DesignateAnyOnMap(things.OfType<Plant>(), DesignationDefOf.CutPlant, false);
+                                }
+
+                                __instance.Map.DesignateAnyOnMap([__instance], DesignationDefOf.CutPlant, false);
+                            })
+                        ];
+
+                        Find.WindowStack.Add(new FloatMenu(items));
+                    }
+                };
+                gizmos.Add(harvestAllWoodCommand);
+            }
         }
 
         __result = gizmos;

@@ -121,4 +121,18 @@
     <KUA_ClaimedDoors>Claimed {0} doors</KUA_ClaimedDoors>
 
     <KAU_PlantGrownLevel>Consider plants grown at this level {0}%</KAU_PlantGrownLevel>
+
+    <KUA_HarvestAll>Harvest all</KUA_HarvestAll>
+    <KUA_HarvestAllDesc>Marks harvestable plants to be harvested regardless of growth level.</KUA_HarvestAllDesc>
+
+    <KUA_HarvestAllWood>Chop all wood</KUA_HarvestAllWood>
+    <KUA_HarvestAllWoodDesc>Marks trees to be chopped down for wood regardless of growth level.</KUA_HarvestAllWoodDesc>
+
+    <KUA_HarvestAllOnScreen>Harvest all on screen (any growth)</KUA_HarvestAllOnScreen>
+    <KUA_HarvestAllOnMap>Harvest all on map (any growth)</KUA_HarvestAllOnMap>
+
+    <KUA_HarvestAllWoodOnScreen>Chop all wood on screen (any growth)</KUA_HarvestAllWoodOnScreen>
+    <KUA_HarvestAllWoodOnMap>Chop all wood on map (any growth)</KUA_HarvestAllWoodOnMap>
+
+    <KAU_ToggleHarvestAll>Disable Harvest All Designator and Gizmos</KAU_ToggleHarvestAll>
 </LanguageData>

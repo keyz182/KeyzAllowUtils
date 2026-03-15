@@ -17,6 +17,7 @@ public class Settings : ModSettings
     public bool DisableAllShortcuts = false;
     public bool DisableMeleeRequirementForFinishOff = false;
     public bool DisableHarvest = false;
+    public bool DisableHarvestAll = false;
     public bool DisableCut = false;
     public bool DisableSelection = false;
     public bool DisableFertileZone = false;
@@ -56,6 +57,7 @@ public class Settings : ModSettings
             options.CheckboxLabeled("KAU_ToggleFinishOff".Translate(), ref DisableFinishOff);
             options.CheckboxLabeled("KAU_ToggleStripMine".Translate(), ref DisableStripMine);
             options.CheckboxLabeled("KAU_ToggleHarvest".Translate(), ref DisableHarvest);
+            options.CheckboxLabeled("KAU_ToggleHarvestAll".Translate(), ref DisableHarvestAll);
             options.CheckboxLabeled("KAU_ToggleCut".Translate(), ref DisableCut);
             options.CheckboxLabeled("KAU_ToggleSelection".Translate(), ref DisableSelection);
             options.CheckboxLabeled("KAU_ToggleFertileZone".Translate(), ref DisableFertileZone);
@@ -117,6 +119,7 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref DisableFinishOff, "DisableFinishOff", false);
         Scribe_Values.Look(ref DisableStripMine, "DisableStripMine", false);
         Scribe_Values.Look(ref DisableHarvest, "DisableHarvest", false);
+        Scribe_Values.Look(ref DisableHarvestAll, "DisableHarvestAll", false);
         Scribe_Values.Look(ref DisableCut, "DisableCut", false);
         Scribe_Values.Look(ref DisableSelection, "DisableSelection", false);
         Scribe_Values.Look(ref DisableFertileZone, "DisableFertileZone", false);

@@ -55,6 +55,18 @@
 
     <KeyBindingDef>
         <category>KAU_AllowUtilities</category>
+        <defName>KAU_HarvestAll</defName>
+        <label>Harvest all (any growth)</label>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_HarvestAllWood</defName>
+        <label>Chop all wood (any growth)</label>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
         <defName>KAU_StripMine</defName>
         <label>Strip Mine</label>
     </KeyBindingDef>
