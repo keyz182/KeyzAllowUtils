@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using KeyzAllowUtilities.HarmonyPatches;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -36,7 +37,7 @@ public class Designator_CutGrown : Designator_PlantsCut
     {
         if(!base.CanDesignateThing(t)) return false;
         if (t is not Plant plant) return false;
-        return plant.Growth < KeyzAllowUtilitiesMod.settings.PlantGrownLevel && !Mathf.Approximately(plant.Growth, KeyzAllowUtilitiesMod.settings.PlantGrownLevel);
+        return !Plant_Patches.IsFullyGrown(plant);
     }
 
     public override void DesignateThing(Thing t)

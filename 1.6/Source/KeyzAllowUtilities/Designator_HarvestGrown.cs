@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using HarmonyLib;
+using KeyzAllowUtilities.HarmonyPatches;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -50,7 +51,7 @@ public class Designator_HarvestGrown : Designator_Plants
 
         if(Map.designationManager.AllDesignationsOn(plant).Any(des=>des.def == DesignationDefOf.HarvestPlant)) return "KAU_AlreadyDesignated".Translate();
 
-        if (plant.Growth < KeyzAllowUtilitiesMod.settings.PlantGrownLevel && !Mathf.Approximately(plant.Growth, KeyzAllowUtilitiesMod.settings.PlantGrownLevel))
+        if (!Plant_Patches.IsFullyGrown(plant))
         {
             return "KAU_NotFullyGrown".Translate();
         }

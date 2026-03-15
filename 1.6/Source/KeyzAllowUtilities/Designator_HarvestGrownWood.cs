@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using HarmonyLib;
+using KeyzAllowUtilities.HarmonyPatches;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -40,7 +41,7 @@ public class Designator_HarvestGrownWood : Designator_PlantsHarvestWood
         if (!report.Accepted) return report;
 
         if (t is not Plant tree) return false;
-        return !(tree.Growth < KeyzAllowUtilitiesMod.settings.PlantGrownLevel) || Mathf.Approximately(tree.Growth, KeyzAllowUtilitiesMod.settings.PlantGrownLevel);
+        return Plant_Patches.IsFullyGrown(tree);
     }
 
     public override void DesignateThing(Thing t)

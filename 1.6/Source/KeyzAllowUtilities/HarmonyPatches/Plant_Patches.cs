@@ -14,13 +14,21 @@ public static class Plant_Patches
     public static readonly Texture2D KUA_HarvestGrown = ContentFinder<Texture2D>.Get("UI/KUA_HarvestGrown");
     public static readonly Texture2D KUA_CutGrown = ContentFinder<Texture2D>.Get("UI/KUA_CutGrown");
 
+    public static bool IsFullyGrown(Plant plant)
+    {
+        float level = KeyzAllowUtilitiesMod.settings.PlantGrownLevel;
+        if (level >= 1f)
+            return plant.LifeStage == PlantLifeStage.Mature;
+        return plant.Growth >= level;
+    }
+
     public static void DesignateFullyGrownOnScreen(IEnumerable<Plant> things, Map map, DesignationDef designation, bool checkIfHarvestable = true)
     {
         IEnumerable<Thing> plants = map.ThingsOnScreen((thing => thing.def.category == ThingCategory.Plant && ThingSelectionUtility.SelectableByMapClick(thing) )).OfDefs(things.Select(t=>t.def).Distinct());
 
         foreach (Plant plant in plants.OnlySelectableThings().NotFogged().OfType<Plant>().NearestTo(map.GetCenterOfScreenOnMap()))
         {
-            if (Mathf.Approximately(plant.Growth, 1f) && (!checkIfHarvestable || plant.HarvestableNow))
+            if (IsFullyGrown(plant) && (!checkIfHarvestable || plant.HarvestableNow))
             {
                 plant.Map.designationManager.RemoveAllDesignationsOn(plant);
                 plant.Map.designationManager.AddDesignation(new Designation((LocalTargetInfo) plant, designation));
@@ -32,7 +40,7 @@ public static class Plant_Patches
     {
         foreach (Plant plant in map.listerThings.AllThings.OfDefs(things.Select(t=>t.def).Distinct()).OnlySelectableThings().NotFogged().OfType<Plant>())
         {
-            if (Mathf.Approximately(plant.Growth, 1f) && (!checkIfHarvestable || plant.HarvestableNow))
+            if (IsFullyGrown(plant) && (!checkIfHarvestable || plant.HarvestableNow))
             {
                 plant.Map.designationManager.RemoveAllDesignationsOn(plant);
                 plant.Map.designationManager.AddDesignation(new Designation((LocalTargetInfo) plant, designation));
