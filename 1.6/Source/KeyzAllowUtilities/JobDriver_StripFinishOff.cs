@@ -20,7 +20,4 @@ public class JobDriver_StripFinishOff : JobDriver_FinishOff
         slayer.records.Increment(RecordDefOf.BodiesStripped);
     }
 
-    private const int PrepareSwingDuration = 120;
-    private const float VictimSkullMoteChance = 0.25f;
-    private const float OpportunityTargetMaxRange = 8f;
 }

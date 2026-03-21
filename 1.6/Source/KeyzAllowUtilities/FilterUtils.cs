@@ -105,10 +105,10 @@ public static class FilterUtils
         return thing => funcs.Any(f => f(thing));
     }
 
-    public static Lazy<MethodInfo> _GetMapRect = new(() => AccessTools.Method(typeof(ThingSelectionUtility), "GetMapRect"));
-    public static CellRect GetMapRect(Rect rect)
+    private static readonly Lazy<MethodInfo> _getMapRect = new(() => AccessTools.Method(typeof(ThingSelectionUtility), "GetMapRect"));
+    private static CellRect GetMapRect(Rect rect)
     {
-        return (CellRect) _GetMapRect.Value.Invoke(null, [rect]);
+        return (CellRect) _getMapRect.Value.Invoke(null, [rect]);
     }
 
     public static void SelectOnScreen(Thing thing, bool checkStuff, IEnumerable<Thing> selected)

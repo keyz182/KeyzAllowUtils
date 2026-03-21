@@ -83,10 +83,9 @@ public class Designator_FinishOff : Designator
 
     public override void SelectedUpdate() => GenUI.RenderMouseoverBracket();
 
-    private static HashSet<Thing> seenThings = new();
     public override void RenderHighlight(List<IntVec3> dragCells)
     {
-        seenThings.Clear();
+        var seenThings = new HashSet<Thing>();
         foreach (IntVec3 dragCell in dragCells)
         {
             if (Map.designationManager.HasMapDesignationAt(dragCell))
@@ -109,6 +108,5 @@ public class Designator_FinishOff : Designator
                 }
             }
         }
-        seenThings.Clear();
     }
 }

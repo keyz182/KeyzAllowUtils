@@ -108,7 +108,4 @@ public class JobDriver_FinishOff : JobDriver
         return victim is not { Spawned: true } || victim.Dead || !victim.Downed;// || !HugsLibUtility.HasDesignation(pawn, AllowToolDefOf.FinishOffDesignation);
     }
 
-    private const int PrepareSwingDuration = 60;
-    private const float VictimSkullMoteChance = 0.25f;
-    private const float OpportunityTargetMaxRange = 8f;
 }
