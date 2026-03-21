@@ -155,7 +155,7 @@ public static class FilterUtils
 
         public IEnumerable<T> OfDefs(IEnumerable<Def> defs)
         {
-            var defSet = defs as IReadOnlySet<Def> ?? defs.ToHashSet();
+            HashSet<Def> defSet = defs as HashSet<Def> ?? defs.ToHashSet();
             return list.Where(t => t.def != null && defSet.Contains(t.def));
         }
 
