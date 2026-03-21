@@ -155,7 +155,8 @@ public static class FilterUtils
 
         public IEnumerable<T> OfDefs(IEnumerable<Def> defs)
         {
-            return list.Where(t => t.def != null && defs.Contains(t.def));
+            var defSet = defs as IReadOnlySet<Def> ?? defs.ToHashSet();
+            return list.Where(t => t.def != null && defSet.Contains(t.def));
         }
 
         public IEnumerable<T> OnlySelectableThings()
