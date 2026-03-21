@@ -1,18 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Configuration>
   <Excluded>
+    <exclude>.claude</exclude>
     <exclude>.editorconfig</exclude>
     <exclude>.git</exclude>
-    <exclude>.github</exclude>
-    <exclude>qodana.yaml</exclude>
-    <exclude>qodana.sarif.json</exclude>
-    <exclude>qodana.sarif.baseline.json</exclude>
     <exclude>1.6/Source</exclude>
     <exclude>Assets</exclude>
+    <exclude>Common/Textures/UI/KAU_StripMine.svg</exclude>
+    <exclude>Common/Textures/UI/KAU_StripMineDiagram.svg</exclude>
     <exclude>modlist.xml</exclude>
-    <exclude>release.bat</exclude>
     <exclude>release.sh</exclude>
-    <exclude>.gitattributes</exclude>
-    <exclude>.gitignore</exclude>
   </Excluded>
 </Configuration>
