@@ -164,7 +164,7 @@ public static class Thing_Patches
                         if (Event.current == null || Event.current.button == 0)
                         {
                             currentMap.designationManager.RemoveDesignation(des);
-                            currentMap.designationManager.RemoveAllDesignationsOfDef(DesignationDefOf.Haul);
+                            currentMap.designationManager.TryRemoveDesignationOn(__instance, DesignationDefOf.Haul);
                         }
                         else
                         {
