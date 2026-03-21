@@ -2,7 +2,7 @@
 
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net48</TargetFramework>
+        <TargetFrameworks>net48;net8.0</TargetFrameworks>
         <LangVersion>latest</LangVersion>
         <RootNamespace>KeyzAllowUtilities.Tests</RootNamespace>
         <AssemblyName>KeyzAllowUtilities.Tests</AssemblyName>
@@ -10,7 +10,7 @@
         <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
-    <ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
         <Reference Include="Assembly-CSharp">
             <HintPath Condition="Exists('../../../../../RimWorldWin64_Data/Managed/Assembly-CSharp.dll')">../../../../../RimWorldWin64_Data/Managed/Assembly-CSharp.dll</HintPath>
             <HintPath Condition="Exists('../../../../../RimWorldLinux_Data/Managed/Assembly-CSharp.dll')">../../../../../RimWorldLinux_Data/Managed/Assembly-CSharp.dll</HintPath>
@@ -22,6 +22,17 @@
             <HintPath Condition="Exists('../../../../../RimWorldLinux_Data/Managed/UnityEngine.CoreModule.dll')">../../../../../RimWorldLinux_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
             <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/UnityEngine.CoreModule.dll')">../../../../../Contents/Resources/Data/Managed/UnityEngine.CoreModule.dll</HintPath>
             <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+    <!-- net8.0: copy game DLLs to test output so the .NET 8 runtime can load them -->
+    <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+        <Reference Include="Assembly-CSharp">
+            <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/Assembly-CSharp.dll')">../../../../../Contents/Resources/Data/Managed/Assembly-CSharp.dll</HintPath>
+            <Private>True</Private>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/UnityEngine.CoreModule.dll')">../../../../../Contents/Resources/Data/Managed/UnityEngine.CoreModule.dll</HintPath>
+            <Private>True</Private>
         </Reference>
     </ItemGroup>
     <ItemGroup>
