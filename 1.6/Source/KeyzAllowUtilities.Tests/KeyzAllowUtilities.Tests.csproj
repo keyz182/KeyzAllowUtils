@@ -44,4 +44,8 @@
     <ItemGroup>
         <ProjectReference Include="../KeyzAllowUtilities/KeyzAllowUtilities.csproj" />
     </ItemGroup>
+    <Target Name="RunTestsAfterBuild" AfterTargets="Build" Condition="'$(TargetFramework)' == 'net8.0'">
+        <Exec Command="dotnet test --no-build --framework net8.0 --logger console;verbosity=minimal"
+              WorkingDirectory="$(MSBuildProjectDirectory)" />
+    </Target>
 </Project>

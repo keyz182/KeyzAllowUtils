@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading;
 using JetBrains.Annotations;
 using KeyzAllowUtilities;
 using Verse;
@@ -10,6 +12,25 @@ namespace KeyzAllowUtilities.Tests
     [TestSubject(typeof(FilterUtils))]
     public class FilterUtilsTest
     {
+        // ThingDef..ctor() → BuildableDef..ctor() → BaseContent..cctor() →
+        // ShaderDatabase..cctor() → UnityEngine.Resources.Load() (Unity ECall) — crashes
+        // outside the Unity runtime. GetUninitializedObject skips all constructors so the
+        // shader path is never touched. defNameHash must be unique per instance because
+        // Def.GetHashCode() returns defNameHash and Def.Equals() compares defNameHash + type;
+        // two defs with defNameHash=0 are treated as equal by HashSet<Def>.
+        private static int _defNameCounter;
+        private static ThingDef MakeThingDef()
+        {
+            var def = (ThingDef)RuntimeHelpers.GetUninitializedObject(typeof(ThingDef));
+            var n = Interlocked.Increment(ref _defNameCounter);
+            def.defName = $"TestDef_{n}";
+            // Def.GetHashCode() returns defNameHash and Def.Equals() compares defNameHash +
+            // type. All GetUninitializedObject instances have defNameHash=0 and collide in
+            // HashSet<Def>, so assign a unique value to make each test def distinct.
+            def.defNameHash = n;
+            return def;
+        }
+
         [Fact]
         public void NotFogged_WhenListIsEmpty_ReturnsEmpty()
         {
@@ -64,7 +85,7 @@ namespace KeyzAllowUtilities.Tests
         {
             var things = new List<Thing>();
 
-            var result = things.OfDef(new ThingDef()).ToList();
+            var result = things.OfDef(MakeThingDef()).ToList();
 
             Assert.Empty(result);
         }
@@ -74,7 +95,7 @@ namespace KeyzAllowUtilities.Tests
         {
             var thingWithNullDef = new Thing(); // def is null by default
 
-            var result = new List<Thing> { thingWithNullDef }.OfDef(new ThingDef()).ToList();
+            var result = new List<Thing> { thingWithNullDef }.OfDef(MakeThingDef()).ToList();
 
             Assert.Empty(result);
         }
@@ -82,7 +103,7 @@ namespace KeyzAllowUtilities.Tests
         [Fact]
         public void OfDef_WhenDefMatches_IsIncluded()
         {
-            var def = new ThingDef();
+            var def = MakeThingDef();
             var thing = new Thing { def = def };
 
             var result = new List<Thing> { thing }.OfDef(def).ToList();
@@ -94,8 +115,8 @@ namespace KeyzAllowUtilities.Tests
         [Fact]
         public void OfDef_WhenDefDoesNotMatch_IsExcluded()
         {
-            var def = new ThingDef();
-            var otherDef = new ThingDef();
+            var def = MakeThingDef();
+            var otherDef = MakeThingDef();
             var thing = new Thing { def = def };
 
             var result = new List<Thing> { thing }.OfDef(otherDef).ToList();
@@ -109,7 +130,7 @@ namespace KeyzAllowUtilities.Tests
         public void OfDefs_WhenListIsEmpty_ReturnsEmpty()
         {
             var things = new List<Thing>();
-            var defs = new List<Def> { new ThingDef() };
+            var defs = new List<Def> { MakeThingDef() };
 
             var result = things.OfDefs(defs).ToList();
 
@@ -120,7 +141,7 @@ namespace KeyzAllowUtilities.Tests
         public void OfDefs_WhenThingHasNullDef_IsExcluded()
         {
             var thingWithNullDef = new Thing(); // def is null by default
-            var defs = new List<Def> { new ThingDef() };
+            var defs = new List<Def> { MakeThingDef() };
 
             var result = new List<Thing> { thingWithNullDef }.OfDefs(defs).ToList();
 
@@ -130,7 +151,7 @@ namespace KeyzAllowUtilities.Tests
         [Fact]
         public void OfDefs_WhenDefInSet_IsIncluded()
         {
-            var def = new ThingDef();
+            var def = MakeThingDef();
             var thing = new Thing { def = def };
             var defs = new List<Def> { def };
 
@@ -143,8 +164,8 @@ namespace KeyzAllowUtilities.Tests
         [Fact]
         public void OfDefs_WhenDefNotInSet_IsExcluded()
         {
-            var def = new ThingDef();
-            var otherDef = new ThingDef();
+            var def = MakeThingDef();
+            var otherDef = MakeThingDef();
             var thing = new Thing { def = def };
             var defs = new List<Def> { otherDef };
 
@@ -158,7 +179,7 @@ namespace KeyzAllowUtilities.Tests
         {
             // OfDefs uses `defs as HashSet<Def> ?? defs.ToHashSet()` to avoid re-allocation.
             // Passing a HashSet<Def> directly exercises the fast-path; result must be the same.
-            var def = new ThingDef();
+            var def = MakeThingDef();
             var thing = new Thing { def = def };
             var defSet = new HashSet<Def> { def };
 
@@ -216,8 +237,10 @@ namespace KeyzAllowUtilities.Tests
             var result = new List<Thing> { a, b }.NearestTo(origin).ToList();
 
             Assert.Equal(2, result.Count);
-            Assert.Contains(a, result);
-            Assert.Contains(b, result);
+            // Thing.Equals(Thing) accesses internal game state and NPEs outside the Unity
+            // runtime; use reference equality via the predicate overload instead.
+            Assert.Contains(result, x => ReferenceEquals(x, a));
+            Assert.Contains(result, x => ReferenceEquals(x, b));
         }
 
         // ── MapOrHolderMap ─────────────────────────────────────────────────────
