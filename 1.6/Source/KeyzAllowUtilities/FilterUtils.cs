@@ -96,11 +96,13 @@ public static class FilterUtils
 
     public static Func<Thing, bool> MakeFilter(IEnumerable<Thing> things, bool checkStuff)
     {
-        return things
+        List<Func<Thing, bool>> funcs = things
             .Select(thing => FilterCondition.Of(thing, checkStuff))
             .Distinct()
             .Select(condition => condition.MakeFilter())
-            .Aggregate((Thing _) => false, (lhs, rhs) => thing => lhs(thing) || rhs(thing));
+            .ToList();
+        if (funcs.Count == 0) return _ => false;
+        return thing => funcs.Any(f => f(thing));
     }
 
     public static Lazy<MethodInfo> _GetMapRect = new(() => AccessTools.Method(typeof(ThingSelectionUtility), "GetMapRect"));
