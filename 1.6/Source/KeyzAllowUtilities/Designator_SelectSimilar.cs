@@ -11,7 +11,7 @@ namespace KeyzAllowUtilities;
 public class Designator_SelectSimilar : Designator
 {
     private readonly List<Thing> similarTo = [];
-    private Func<Thing, bool> filter = null;
+    private Func<Thing, bool> filterIgnoreStuff = null;
     private Func<Thing, bool> filterWithStuff = null;
 
     public override bool Disabled
@@ -45,7 +45,7 @@ public class Designator_SelectSimilar : Designator
         }
 
         bool ignoreStuff = Event.current?.shift ?? false;
-        ref Func<Thing, bool> selectedFilter = ref (ignoreStuff ? ref filter : ref filterWithStuff);
+        ref Func<Thing, bool> selectedFilter = ref (ignoreStuff ? ref filterIgnoreStuff : ref filterWithStuff);
 
         selectedFilter ??= FilterUtils.MakeFilter(similarTo, checkStuff: !ignoreStuff);
 
@@ -98,7 +98,7 @@ public class Designator_SelectSimilar : Designator
     public override void Deselected()
     {
         similarTo.Clear();
-        filter = null;
+        filterIgnoreStuff = null;
         filterWithStuff = null;
     }
 

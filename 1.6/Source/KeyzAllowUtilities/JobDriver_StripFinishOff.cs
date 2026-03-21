@@ -11,16 +11,13 @@ public class JobDriver_StripFinishOff : JobDriver_FinishOff
         {
             strippable.Strip(true);
         }
-        slayer.records.Increment(RecordDefOf.BodiesStripped);
     }
 
     public override void DoExecution(Pawn slayer, Pawn victim)
     {
         DoStrip(slayer, victim);
         base.DoExecution(slayer, victim);
+        slayer.records.Increment(RecordDefOf.BodiesStripped);
     }
 
-    private const int PrepareSwingDuration = 120;
-    private const float VictimSkullMoteChance = 0.25f;
-    private const float OpportunityTargetMaxRange = 8f;
 }

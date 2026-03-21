@@ -50,6 +50,16 @@ The mod includes settings to customize:
 ## Compatibility
 This mod primarily adds new functionality without modifying core game systems, making it generally compatible with other mods.
 
+## Development
+
+### Running Tests
+
+```bash
+dotnet test 1.6/Source/KeyzAllowUtilities.Tests/KeyzAllowUtilities.Tests.csproj --framework net8.0
+```
+
+Tests target `net8.0` so they run natively on macOS and Linux without Mono. The production mod assembly still targets `net48` for RimWorld compatibility.
+
 ## Disclaimer
 Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.
 

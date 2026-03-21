@@ -96,17 +96,19 @@ public static class FilterUtils
 
     public static Func<Thing, bool> MakeFilter(IEnumerable<Thing> things, bool checkStuff)
     {
-        return things
+        List<Func<Thing, bool>> funcs = things
             .Select(thing => FilterCondition.Of(thing, checkStuff))
             .Distinct()
             .Select(condition => condition.MakeFilter())
-            .Aggregate((Thing _) => false, (lhs, rhs) => thing => lhs(thing) || rhs(thing));
+            .ToList();
+        if (funcs.Count == 0) return _ => false;
+        return thing => funcs.Any(f => f(thing));
     }
 
-    public static Lazy<MethodInfo> _GetMapRect = new(() => AccessTools.Method(typeof(ThingSelectionUtility), "GetMapRect"));
-    public static CellRect GetMapRect(Rect rect)
+    private static readonly Lazy<MethodInfo> _getMapRect = new(() => AccessTools.Method(typeof(ThingSelectionUtility), "GetMapRect"));
+    private static CellRect GetMapRect(Rect rect)
     {
-        return (CellRect) _GetMapRect.Value.Invoke(null, [rect]);
+        return (CellRect) _getMapRect.Value.Invoke(null, [rect]);
     }
 
     public static void SelectOnScreen(Thing thing, bool checkStuff, IEnumerable<Thing> selected)
@@ -155,8 +157,12 @@ public static class FilterUtils
 
         public IEnumerable<T> OfDefs(IEnumerable<Def> defs)
         {
-            return list.Where(t => t.def != null && defs.Contains(t.def));
+            HashSet<Def> defSet = defs as HashSet<Def> ?? defs.ToHashSet();
+            return list.Where(t => t.def != null && defSet.Contains(t.def));
         }
+
+        public HashSet<Def> ToDefSet() =>
+            list.Select(t => (Def)t.def).Where(d => d != null).ToHashSet();
 
         public IEnumerable<T> OnlySelectableThings()
         {
@@ -240,5 +246,8 @@ public static class FilterUtils
 
             return things.Where(filter);
         }
+
+        public IEnumerable<Plant> SelectablePlantsOnScreen() =>
+            onMap.ThingsOnScreen(t => t.def.category == ThingCategory.Plant).OfType<Plant>();
     }
 }

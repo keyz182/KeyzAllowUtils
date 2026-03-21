@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using RimWorld;
@@ -25,49 +26,49 @@ public static class Plant_Patches
 
     public static void DesignateFullyGrownOnScreen(IEnumerable<Plant> things, Map map, DesignationDef designation, bool checkIfHarvestable = true)
     {
-        IEnumerable<Thing> plants = map.ThingsOnScreen((thing => thing.def.category == ThingCategory.Plant && ThingSelectionUtility.SelectableByMapClick(thing) )).OfDefs(things.Select(t=>t.def).Distinct());
-
-        foreach (Plant plant in plants.OnlySelectableThings().NotFogged().OfType<Plant>().NearestTo(map.GetCenterOfScreenOnMap()))
-        {
-            if (IsFullyGrown(plant) && (!checkIfHarvestable || plant.HarvestableNow))
-            {
-                plant.Map.designationManager.RemoveAllDesignationsOn(plant);
-                plant.Map.designationManager.AddDesignation(new Designation((LocalTargetInfo) plant, designation));
-            }
-        }
+        IEnumerable<Plant> plants = map.SelectablePlantsOnScreen()
+            .OfDefs(things.ToDefSet())
+            .OnlySelectableThings()
+            .NotFogged()
+            .NearestTo(map.GetCenterOfScreenOnMap());
+        ApplyPlantDesignation(plants, p => IsFullyGrown(p) && (!checkIfHarvestable || p.HarvestableNow), designation);
     }
 
     public static void DesignateFullyGrownOnMap(this Map map, IEnumerable<Plant> things, DesignationDef designation, bool checkIfHarvestable = true)
     {
-        foreach (Plant plant in map.listerThings.AllThings.OfDefs(things.Select(t=>t.def).Distinct()).OnlySelectableThings().NotFogged().OfType<Plant>())
-        {
-            if (IsFullyGrown(plant) && (!checkIfHarvestable || plant.HarvestableNow))
-            {
-                plant.Map.designationManager.RemoveAllDesignationsOn(plant);
-                plant.Map.designationManager.AddDesignation(new Designation((LocalTargetInfo) plant, designation));
-            }
-        }
+        IEnumerable<Plant> plants = map.listerThings.AllThings
+            .OfDefs(things.ToDefSet())
+            .OnlySelectableThings()
+            .NotFogged()
+            .OfType<Plant>();
+        ApplyPlantDesignation(plants, p => IsFullyGrown(p) && (!checkIfHarvestable || p.HarvestableNow), designation);
     }
 
     public static void DesignateAnyOnScreen(IEnumerable<Plant> things, Map map, DesignationDef designation, bool checkIfHarvestable = true)
     {
-        IEnumerable<Thing> plants = map.ThingsOnScreen((thing => thing.def.category == ThingCategory.Plant && ThingSelectionUtility.SelectableByMapClick(thing))).OfDefs(things.Select(t => t.def).Distinct());
-
-        foreach (Plant plant in plants.OnlySelectableThings().NotFogged().OfType<Plant>().NearestTo(map.GetCenterOfScreenOnMap()))
-        {
-            if (!checkIfHarvestable || plant.HarvestableNow)
-            {
-                plant.Map.designationManager.RemoveAllDesignationsOn(plant);
-                plant.Map.designationManager.AddDesignation(new Designation((LocalTargetInfo)plant, designation));
-            }
-        }
+        IEnumerable<Plant> plants = map.SelectablePlantsOnScreen()
+            .OfDefs(things.ToDefSet())
+            .OnlySelectableThings()
+            .NotFogged()
+            .NearestTo(map.GetCenterOfScreenOnMap());
+        ApplyPlantDesignation(plants, p => !checkIfHarvestable || p.HarvestableNow, designation);
     }
 
     public static void DesignateAnyOnMap(this Map map, IEnumerable<Plant> things, DesignationDef designation, bool checkIfHarvestable = true)
     {
-        foreach (Plant plant in map.listerThings.AllThings.OfDefs(things.Select(t => t.def).Distinct()).OnlySelectableThings().NotFogged().OfType<Plant>())
+        IEnumerable<Plant> plants = map.listerThings.AllThings
+            .OfDefs(things.ToDefSet())
+            .OnlySelectableThings()
+            .NotFogged()
+            .OfType<Plant>();
+        ApplyPlantDesignation(plants, p => !checkIfHarvestable || p.HarvestableNow, designation);
+    }
+
+    private static void ApplyPlantDesignation(IEnumerable<Plant> plants, Func<Plant, bool> predicate, DesignationDef designation)
+    {
+        foreach (Plant plant in plants)
         {
-            if (!checkIfHarvestable || plant.HarvestableNow)
+            if (predicate(plant))
             {
                 plant.Map.designationManager.RemoveAllDesignationsOn(plant);
                 plant.Map.designationManager.AddDesignation(new Designation((LocalTargetInfo)plant, designation));
@@ -202,20 +203,20 @@ public static class Plant_Patches
                             {
                                 if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
                                 {
-                                    DesignateAnyOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.HarvestPlant);
+                                    DesignateAnyOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.HarvestPlant, false);
                                 }
 
-                                DesignateAnyOnScreen([__instance], __instance.Map, DesignationDefOf.HarvestPlant);
+                                DesignateAnyOnScreen([__instance], __instance.Map, DesignationDefOf.HarvestPlant, false);
                             }),
 
                             new("KUA_HarvestAllOnMap".Translate(), () =>
                             {
                                 if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
                                 {
-                                    __instance.Map.DesignateAnyOnMap(things.OfType<Plant>(), DesignationDefOf.HarvestPlant);
+                                    __instance.Map.DesignateAnyOnMap(things.OfType<Plant>(), DesignationDefOf.HarvestPlant, false);
                                 }
 
-                                __instance.Map.DesignateAnyOnMap([__instance], DesignationDefOf.HarvestPlant);
+                                __instance.Map.DesignateAnyOnMap([__instance], DesignationDefOf.HarvestPlant, false);
                             })
                         ];
 

@@ -38,13 +38,13 @@ public class WorkGiver_FinishOff : WorkGiver_Scanner
     {
         if (t is not Pawn target)
         {
-            JobFailReason.Is("Not a pawn");
+            JobFailReason.Is("KAU_NotAPawn".Translate());
             return null;
         }
 
         if (!IsValidTarget(target, pawn))
         {
-            JobFailReason.Is("Not friendly or downed", null);
+            JobFailReason.Is("KAU_NotFriendlyOrDowned".Translate(), null);
             return null;
         }
 

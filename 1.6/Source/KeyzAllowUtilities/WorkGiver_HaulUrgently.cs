@@ -28,15 +28,15 @@ public class WorkGiver_HaulUrgently: WorkGiver_Scanner
 
         int toTake = Math.Min(Math.Max(10, searchPool.Count / 10), searchPool.Count);
 
-        IEnumerable<Thing> thingsOut = searchPool.TakeRandom(toTake);
-        searchPool.RemoveAll(t => thingsOut.Contains(t));
+        var thingsOut = searchPool.TakeRandom(toTake).ToHashSet();
+        searchPool.RemoveAll(thingsOut.Contains);
 
-        return pawn.Map.designationManager.SpawnedDesignationsOfDef(KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation).Where(d => d.target.Thing != null).Select(d => d.target.Thing);
+        return thingsOut;
     }
 
     public override bool ShouldSkip(Pawn pawn, bool forced = false)
     {
-        return base.ShouldSkip(pawn, forced) && (KeyzAllowUtilitiesMod.settings.DisableHaulUrgently || !pawn.Map.designationManager.SpawnedDesignationsOfDef(KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation).Any());
+        return base.ShouldSkip(pawn, forced) || (KeyzAllowUtilitiesMod.settings.DisableHaulUrgently || !pawn.Map.designationManager.SpawnedDesignationsOfDef(KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation).Any());
     }
 
     public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
