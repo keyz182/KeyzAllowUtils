@@ -202,20 +202,20 @@ public static class Plant_Patches
                             {
                                 if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
                                 {
-                                    DesignateAnyOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.HarvestPlant);
+                                    DesignateAnyOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.HarvestPlant, false);
                                 }
 
-                                DesignateAnyOnScreen([__instance], __instance.Map, DesignationDefOf.HarvestPlant);
+                                DesignateAnyOnScreen([__instance], __instance.Map, DesignationDefOf.HarvestPlant, false);
                             }),
 
                             new("KUA_HarvestAllOnMap".Translate(), () =>
                             {
                                 if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
                                 {
-                                    __instance.Map.DesignateAnyOnMap(things.OfType<Plant>(), DesignationDefOf.HarvestPlant);
+                                    __instance.Map.DesignateAnyOnMap(things.OfType<Plant>(), DesignationDefOf.HarvestPlant, false);
                                 }
 
-                                __instance.Map.DesignateAnyOnMap([__instance], DesignationDefOf.HarvestPlant);
+                                __instance.Map.DesignateAnyOnMap([__instance], DesignationDefOf.HarvestPlant, false);
                             })
                         ];
 
