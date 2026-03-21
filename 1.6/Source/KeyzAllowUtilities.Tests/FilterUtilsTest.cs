@@ -33,5 +33,28 @@ namespace KeyzAllowUtilities.Tests
 
             Assert.NotNull(result);
         }
+
+        [Fact]
+        public void ToDefSet_WhenListIsEmpty_ReturnsEmptyHashSet()
+        {
+            var things = new List<Thing>();
+
+            HashSet<Def> result = things.ToDefSet();
+
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public void ToDefSet_ReturnsHashSetOfNonNullDefs()
+        {
+            // ToDefSet() materialises Thing.def values into a HashSet<Def>, skipping nulls.
+            // Constructing real ThingDefs requires a running game; this test verifies
+            // behaviour on a list containing a Thing with no def (null).
+            var thingWithNullDef = new Thing(); // def is null by default
+
+            var result = new List<Thing> { thingWithNullDef }.ToDefSet();
+
+            Assert.Empty(result);
+        }
     }
 }

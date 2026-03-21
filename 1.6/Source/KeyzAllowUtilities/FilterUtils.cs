@@ -161,6 +161,9 @@ public static class FilterUtils
             return list.Where(t => t.def != null && defSet.Contains(t.def));
         }
 
+        public HashSet<Def> ToDefSet() =>
+            list.Select(t => (Def)t.def).Where(d => d != null).ToHashSet();
+
         public IEnumerable<T> OnlySelectableThings()
         {
             return list.Where(ThingSelectionUtility.SelectableByMapClick);
@@ -243,5 +246,8 @@ public static class FilterUtils
 
             return things.Where(filter);
         }
+
+        public IEnumerable<Plant> SelectablePlantsOnScreen() =>
+            onMap.ThingsOnScreen(t => t.def.category == ThingCategory.Plant).OfType<Plant>();
     }
 }
