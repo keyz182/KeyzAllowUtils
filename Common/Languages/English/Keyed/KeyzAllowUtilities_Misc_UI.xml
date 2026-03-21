@@ -135,4 +135,7 @@
     <KUA_HarvestAllWoodOnMap>Chop all wood on map (any growth)</KUA_HarvestAllWoodOnMap>
 
     <KAU_ToggleHarvestAll>Disable Harvest All Designator and Gizmos</KAU_ToggleHarvestAll>
+
+    <KAU_NotAPawn>Not a pawn</KAU_NotAPawn>
+    <KAU_NotFriendlyOrDowned>Not friendly or downed</KAU_NotFriendlyOrDowned>
 </LanguageData>

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection;
-using HarmonyLib;
-using KeyzAllowUtilities.HarmonyPatches;
+﻿using KeyzAllowUtilities.HarmonyPatches;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -18,7 +15,6 @@ public class Designator_HarvestGrown : Designator_Plants
     }
 
     public override bool Visible => !KeyzAllowUtilitiesMod.settings.DisableHarvest;
-    public static Lazy<FieldInfo> CanDesignateStumpsNow => new(()=>AccessTools.Field(typeof(Designator_HarvestGrown), nameof(CanDesignateStumpsNow)));
     protected override DesignationDef Designation => DesignationDefOf.CutPlant;
 
     public override DrawStyleCategoryDef DrawStyleCategory => DrawStyleCategoryDefOf.FilledRectangle;
