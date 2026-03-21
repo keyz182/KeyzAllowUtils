@@ -25,7 +25,7 @@ public static class Plant_Patches
 
     public static void DesignateFullyGrownOnScreen(IEnumerable<Plant> things, Map map, DesignationDef designation, bool checkIfHarvestable = true)
     {
-        IEnumerable<Thing> plants = map.ThingsOnScreen((thing => thing.def.category == ThingCategory.Plant && ThingSelectionUtility.SelectableByMapClick(thing) )).OfDefs(things.Select(t=>t.def).Distinct());
+        IEnumerable<Thing> plants = map.ThingsOnScreen((thing => thing.def.category == ThingCategory.Plant && ThingSelectionUtility.SelectableByMapClick(thing) )).OfDefs(things.Select(t => t.def).Where(d => d != null).ToHashSet());
 
         foreach (Plant plant in plants.OnlySelectableThings().NotFogged().OfType<Plant>().NearestTo(map.GetCenterOfScreenOnMap()))
         {
@@ -39,7 +39,7 @@ public static class Plant_Patches
 
     public static void DesignateFullyGrownOnMap(this Map map, IEnumerable<Plant> things, DesignationDef designation, bool checkIfHarvestable = true)
     {
-        foreach (Plant plant in map.listerThings.AllThings.OfDefs(things.Select(t=>t.def).Distinct()).OnlySelectableThings().NotFogged().OfType<Plant>())
+        foreach (Plant plant in map.listerThings.AllThings.OfDefs(things.Select(t => t.def).Where(d => d != null).ToHashSet()).OnlySelectableThings().NotFogged().OfType<Plant>())
         {
             if (IsFullyGrown(plant) && (!checkIfHarvestable || plant.HarvestableNow))
             {
@@ -51,7 +51,7 @@ public static class Plant_Patches
 
     public static void DesignateAnyOnScreen(IEnumerable<Plant> things, Map map, DesignationDef designation, bool checkIfHarvestable = true)
     {
-        IEnumerable<Thing> plants = map.ThingsOnScreen((thing => thing.def.category == ThingCategory.Plant && ThingSelectionUtility.SelectableByMapClick(thing))).OfDefs(things.Select(t => t.def).Distinct());
+        IEnumerable<Thing> plants = map.ThingsOnScreen((thing => thing.def.category == ThingCategory.Plant && ThingSelectionUtility.SelectableByMapClick(thing))).OfDefs(things.Select(t => t.def).Where(d => d != null).ToHashSet());
 
         foreach (Plant plant in plants.OnlySelectableThings().NotFogged().OfType<Plant>().NearestTo(map.GetCenterOfScreenOnMap()))
         {
@@ -65,7 +65,7 @@ public static class Plant_Patches
 
     public static void DesignateAnyOnMap(this Map map, IEnumerable<Plant> things, DesignationDef designation, bool checkIfHarvestable = true)
     {
-        foreach (Plant plant in map.listerThings.AllThings.OfDefs(things.Select(t => t.def).Distinct()).OnlySelectableThings().NotFogged().OfType<Plant>())
+        foreach (Plant plant in map.listerThings.AllThings.OfDefs(things.Select(t => t.def).Where(d => d != null).ToHashSet()).OnlySelectableThings().NotFogged().OfType<Plant>())
         {
             if (!checkIfHarvestable || plant.HarvestableNow)
             {
