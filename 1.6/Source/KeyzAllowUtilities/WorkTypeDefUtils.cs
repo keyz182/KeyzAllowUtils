@@ -16,6 +16,7 @@ public static class WorkTypeDefUtils
     {
         if(state) def.Show();
         else def.Hide();
+        RestaggerWorkColumnHeaders();
         InvalidateWorkTabLayout();
     }
     public static void Hide(this WorkTypeDef def)
@@ -30,6 +31,36 @@ public static class WorkTypeDefUtils
         VisibleCacheFrame.Value?.SetValue(def, -1);
     }
 
+    /// <summary>
+    /// Vanilla sets moveWorkTypeLabelDown by alternating a boolean across visible
+    /// work type columns at startup (PawnColumnDefGenerator.ImpliedPawnColumnDefs).
+    /// When we hide/show columns at runtime, the stagger pattern breaks — two
+    /// adjacent columns can end up with the same Y offset, causing header text
+    /// overlap. This method re-applies the alternating pattern to currently-visible
+    /// work type columns.
+    /// </summary>
+    private static void RestaggerWorkColumnHeaders()
+    {
+        try
+        {
+            var workTableDef = PawnTableDefOf.Work;
+            if (workTableDef == null) return;
+
+            bool down = false;
+            foreach (var colDef in workTableDef.columns)
+            {
+                if (colDef.workType == null) continue;
+                if (!colDef.workType.VisibleCurrently) continue;
+                down = !down;
+                colDef.moveWorkTypeLabelDown = down;
+            }
+        }
+        catch
+        {
+            // Non-critical
+        }
+    }
+
     private static void InvalidateWorkTabLayout()
     {
         try
@@ -39,16 +70,10 @@ public static class WorkTypeDefUtils
 
             if (UnityData.IsInMainThread)
             {
-                // On the main thread (settings UI), rebuild the table synchronously.
-                // This handles the case where the tab is already in the window stack
-                // and PostOpen() won't fire again.
                 workTab.Notify_ResolutionChanged();
             }
             else
             {
-                // On a background thread (game startup/load), we can't call GUI
-                // methods. Null the table so PostOpen() recreates it when the tab
-                // is next opened.
                 WorkTabTable.Value?.SetValue(workTab, null);
             }
         }

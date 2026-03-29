@@ -10,5 +10,6 @@
     <exclude>Common/Textures/UI/KAU_StripMineDiagram.svg</exclude>
     <exclude>modlist.xml</exclude>
     <exclude>release.sh</exclude>
+    <exclude>steam_update_post.txt</exclude>
   </Excluded>
 </Configuration>
