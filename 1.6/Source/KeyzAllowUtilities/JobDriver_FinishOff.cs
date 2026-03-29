@@ -41,7 +41,14 @@ public class JobDriver_FinishOff : JobDriver
 
                 job.verbToUse.TryStartCastOn(victim, false, true, false, false);
 
-                ThoughtUtility.GiveThoughtsForPawnExecuted(victim, pawn, PawnExecutionKind.GenericBrutal);
+                // Only give execution thoughts for victims where GiveThoughtsForPawnExecuted
+                // produces semantically correct output: prisoners, guests, and player-faction
+                // colonists. Hostile enemies fall through to the ExecutedColonist branch
+                // internally, which would incorrectly give a "witnessed settler execution" mood.
+                if (victim.IsPrisoner || victim.HostFaction != null || victim.Faction == Faction.OfPlayer)
+                {
+                    ThoughtUtility.GiveThoughtsForPawnExecuted(victim, pawn, PawnExecutionKind.GenericBrutal);
+                }
 
                 if (victim.RaceProps is { intelligence: Intelligence.Animal })
                 {
