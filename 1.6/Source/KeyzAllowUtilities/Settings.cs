@@ -29,6 +29,11 @@ public class Settings : ModSettings
 
     public void DoWindowContents(Rect wrect)
     {
+        bool prevHaulUrgently = DisableHaulUrgently;
+        bool prevFinishOff = DisableFinishOff;
+        bool prevHarvest = DisableHarvest;
+        bool prevCut = DisableCut;
+
         Rect contentScrollContainerRect = new(
             wrect.xMin,
             wrect.yMin,
@@ -70,6 +75,14 @@ public class Settings : ModSettings
 
             options.Gap();
             options.GapLine();
+
+            if (prevHaulUrgently != DisableHaulUrgently
+                || prevFinishOff != DisableFinishOff
+                || prevHarvest != DisableHarvest
+                || prevCut != DisableCut)
+            {
+                ValidateDesignators();
+            }
         }
         catch (Exception e)
         {
