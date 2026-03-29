@@ -31,7 +31,8 @@ public static class WorkTypeDefUtils
     {
         try
         {
-            if (MainButtonDefOf.Work?.TabWindow is not MainTabWindow_PawnTable workTab) return;
+            var workButtonDef = DefDatabase<MainButtonDef>.GetNamedSilentFail("Work");
+            if (workButtonDef?.TabWindow is not MainTabWindow_PawnTable workTab) return;
             WorkTabTable.Value?.SetValue(workTab, null);
         }
         catch

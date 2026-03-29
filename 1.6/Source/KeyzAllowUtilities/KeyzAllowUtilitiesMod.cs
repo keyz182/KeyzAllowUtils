@@ -40,7 +40,7 @@ public class KeyzAllowUtilitiesMod : Mod
         }
         catch (Exception e)
         {
-            ModLog.Warning($"Failed to integrate with PUAH: {e.Message}");
+            ModLog.Warn($"Failed to integrate with PUAH: {e.Message}");
         }
     }
 
