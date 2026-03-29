@@ -52,7 +52,7 @@ public class Designator_HaulUrgently : Designator
 
     public override void DesignateSingleCell(IntVec3 c)
     {
-        Thing haulable = GetFirstUgentHaulable(c,Map);
+        Thing haulable = GetFirstUgentHaulable(c, Map);
         if (haulable != null)
             DesignateThing(haulable);
     }
@@ -70,8 +70,15 @@ public class Designator_HaulUrgently : Designator
 
     public override void DesignateThing(Thing t)
     {
-        Map.designationManager.AddDesignation(new Designation((LocalTargetInfo) t, Designation));
-        Map.designationManager.AddDesignation(new Designation((LocalTargetInfo) t, DesignationDefOf.Haul));
+        DesignationManager designationManager = Map.designationManager;
+
+        designationManager.AddDesignation(new Designation((LocalTargetInfo) t, Designation));
+
+        if (designationManager.DesignationOn(t, DesignationDefOf.Haul) == null)
+        {
+            designationManager.AddDesignation(new Designation((LocalTargetInfo) t, DesignationDefOf.Haul));
+        }
+
         t.SetForbidden(false, false);
     }
 
