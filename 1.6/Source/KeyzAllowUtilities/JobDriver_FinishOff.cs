@@ -41,10 +41,7 @@ public class JobDriver_FinishOff : JobDriver
 
                 job.verbToUse.TryStartCastOn(victim, false, true, false, false);
 
-                if (!victim.HostileTo(Faction.OfPlayer))
-                {
-                    ThoughtUtility.GiveThoughtsForPawnExecuted(victim, pawn, PawnExecutionKind.GenericBrutal);
-                }
+                ThoughtUtility.GiveThoughtsForPawnExecuted(victim, pawn, PawnExecutionKind.GenericBrutal);
 
                 if (victim.RaceProps is { intelligence: Intelligence.Animal })
                 {
