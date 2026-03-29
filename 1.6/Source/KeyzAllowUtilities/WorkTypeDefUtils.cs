@@ -9,6 +9,7 @@ namespace KeyzAllowUtilities;
 public static class WorkTypeDefUtils
 {
     public static Lazy<FieldInfo> Visible = new(()=>AccessTools.Field(typeof(WorkTypeDef), "visible"));
+    private static Lazy<FieldInfo> WorkTabTable = new(()=>AccessTools.Field(typeof(MainTabWindow_PawnTable), "table"));
 
     public static void Toggle(this WorkTypeDef def, bool state)
     {
@@ -32,10 +33,21 @@ public static class WorkTypeDefUtils
         {
             var workButtonDef = DefDatabase<MainButtonDef>.GetNamedSilentFail("Work");
             if (workButtonDef?.TabWindow is not MainTabWindow_PawnTable workTab) return;
-            // Rebuild the column layout synchronously. This works whether the tab is
-            // currently open or closed — unlike nulling the table, which skips the
-            // rebuild if PostOpen() isn't called again (tab already in window stack).
-            workTab.Notify_ResolutionChanged();
+
+            if (UnityData.IsInMainThread)
+            {
+                // On the main thread (settings UI), rebuild the table synchronously.
+                // This handles the case where the tab is already in the window stack
+                // and PostOpen() won't fire again.
+                workTab.Notify_ResolutionChanged();
+            }
+            else
+            {
+                // On a background thread (game startup/load), we can't call GUI
+                // methods. Null the table so PostOpen() recreates it when the tab
+                // is next opened.
+                WorkTabTable.Value?.SetValue(workTab, null);
+            }
         }
         catch
         {
