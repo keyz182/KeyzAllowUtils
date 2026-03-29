@@ -107,6 +107,22 @@ public class Settings : ModSettings
                     map.designationManager.RemoveAllDesignationsOfDef(KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation);
                 }
             }
+
+            if (DisableHarvest && !Find.Maps.NullOrEmpty())
+            {
+                foreach (Map map in Find.Maps)
+                {
+                    map.designationManager.RemoveAllDesignationsOfDef(DesignationDefOf.HarvestPlant);
+                }
+            }
+
+            if (DisableCut && !Find.Maps.NullOrEmpty())
+            {
+                foreach (Map map in Find.Maps)
+                {
+                    map.designationManager.RemoveAllDesignationsOfDef(DesignationDefOf.CutPlant);
+                }
+            }
         }
     }
 
