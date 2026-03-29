@@ -9,7 +9,6 @@ namespace KeyzAllowUtilities;
 public static class WorkTypeDefUtils
 {
     public static Lazy<FieldInfo> Visible = new(()=>AccessTools.Field(typeof(WorkTypeDef), "visible"));
-    private static Lazy<FieldInfo> WorkTabTable = new(()=>AccessTools.Field(typeof(MainTabWindow_PawnTable), "table"));
 
     public static void Toggle(this WorkTypeDef def, bool state)
     {
@@ -33,7 +32,10 @@ public static class WorkTypeDefUtils
         {
             var workButtonDef = DefDatabase<MainButtonDef>.GetNamedSilentFail("Work");
             if (workButtonDef?.TabWindow is not MainTabWindow_PawnTable workTab) return;
-            WorkTabTable.Value?.SetValue(workTab, null);
+            // Rebuild the column layout synchronously. This works whether the tab is
+            // currently open or closed — unlike nulling the table, which skips the
+            // rebuild if PostOpen() isn't called again (tab already in window stack).
+            workTab.Notify_ResolutionChanged();
         }
         catch
         {
