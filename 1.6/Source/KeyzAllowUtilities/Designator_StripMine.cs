@@ -38,7 +38,9 @@ public class Designator_StripMine : Designator_Mine
 
     public override void DoExtraGuiControls(float leftX, float bottomY)
     {
-        Rect winRect = new(leftX, Mathf.Clamp(bottomY - ControlWindowBottomOffset, ControlWindowHeight, 1000f), ControlWindowWidth, ControlWindowHeight);
+        float safeY = Mathf.Clamp(bottomY - ControlWindowBottomOffset, 0f, UI.screenHeight - ControlWindowHeight);
+        float safeX = Mathf.Clamp(leftX, 0f, UI.screenWidth - ControlWindowWidth);
+        Rect winRect = new(safeX, safeY, ControlWindowWidth, ControlWindowHeight);
         Find.WindowStack.ImmediateWindow(73445, winRect, WindowLayer.GameUI, (Action) (() =>
         {
             Rect rect = new Rect(0, 0, ControlWindowWidth, ControlWindowHeight);
