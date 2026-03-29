@@ -41,9 +41,8 @@ public class WorkGiver_HaulUrgently: WorkGiver_Scanner
 
     public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
     {
+        if (t.MapHeld?.designationManager.DesignationOn(t, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation) == null) return null;
         if (!HaulAIUtility.PawnCanAutomaticallyHaulFast(pawn, t, forced)) return null;
-        Job job = JobOnThingDelegate(pawn, t, forced);
-
-        return job;
+        return JobOnThingDelegate(pawn, t, forced);
     }
 }
