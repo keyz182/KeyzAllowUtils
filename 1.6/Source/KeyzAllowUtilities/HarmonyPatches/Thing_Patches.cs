@@ -138,10 +138,9 @@ public static class Thing_Patches
                         }
                         if (Event.current == null || Event.current.button == 0)
                         {
-                            if (!__instance.IsInValidBestStorage() && !currentMap.designationManager.HasMapDesignationOn(__instance))
+                            if (!__instance.IsInValidBestStorage() && currentMap.designationManager.DesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation) == null)
                             {
-                                currentMap.designationManager.AddDesignation(new Designation(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
-                                currentMap.designationManager.AddDesignation(new Designation(__instance, DesignationDefOf.Haul));
+                                haulUrgently.DesignateThing(__instance);
                             }
                         }
                         else
