@@ -10,6 +10,7 @@ public static class WorkTypeDefUtils
 {
     public static Lazy<FieldInfo> Visible = new(()=>AccessTools.Field(typeof(WorkTypeDef), "visible"));
     private static Lazy<FieldInfo> WorkTabTable = new(()=>AccessTools.Field(typeof(MainTabWindow_PawnTable), "table"));
+    private static Lazy<FieldInfo> VisibleCacheFrame = new(()=>AccessTools.Field(typeof(WorkTypeDef), "cachedFrameVisibleCurrently"));
 
     public static void Toggle(this WorkTypeDef def, bool state)
     {
@@ -20,11 +21,13 @@ public static class WorkTypeDefUtils
     public static void Hide(this WorkTypeDef def)
     {
         Visible.Value.SetValue(def, false);
+        VisibleCacheFrame.Value?.SetValue(def, -1);
     }
 
     public static void Show(this WorkTypeDef def)
     {
         Visible.Value.SetValue(def, true);
+        VisibleCacheFrame.Value?.SetValue(def, -1);
     }
 
     private static void InvalidateWorkTabLayout()
