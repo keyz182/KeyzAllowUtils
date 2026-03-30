@@ -43,6 +43,51 @@ public class WorkGiver_HaulUrgently: WorkGiver_Scanner
     {
         if (t.MapHeld?.designationManager.DesignationOn(t, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation) == null) return null;
         if (!HaulAIUtility.PawnCanAutomaticallyHaulFast(pawn, t, forced)) return null;
-        return JobOnThingDelegate(pawn, t, forced);
+        return TryMakeGenebankJob(pawn, t) ?? JobOnThingDelegate(pawn, t, forced);
+    }
+
+    private static Job TryMakeGenebankJob(Pawn pawn, Thing t)
+    {
+        if (!ModsConfig.BiotechActive || t is not Genepack genepack)
+            return null;
+
+        if (!genepack.AutoLoad)
+            return null;
+
+        Thing genebank = FindGeneBank(pawn, genepack);
+        if (genebank == null)
+            return null;
+
+        return JobMaker.MakeJob(JobDefOf.CarryGenepackToContainer, genepack, genebank, genebank.InteractionCell);
+    }
+
+    private static Thing FindGeneBank(Pawn pawn, Genepack genepack)
+    {
+        if (genepack.targetContainer != null)
+        {
+            if (genepack.targetContainer.Map == pawn.Map)
+            {
+                var targetComp = genepack.targetContainer.TryGetComp<CompGenepackContainer>();
+                if (targetComp != null && !targetComp.Full)
+                    return genepack.targetContainer;
+            }
+            return null;
+        }
+
+        return GenClosest.ClosestThingReachable(
+            pawn.Position,
+            pawn.Map,
+            ThingRequest.ForGroup(ThingRequestGroup.GenepackHolder),
+            PathEndMode.Touch,
+            TraverseParms.For(pawn),
+            validator: candidate =>
+            {
+                if (candidate.IsForbidden(pawn))
+                    return false;
+                if (!pawn.CanReserve(candidate))
+                    return false;
+                var comp = candidate.TryGetComp<CompGenepackContainer>();
+                return comp is { Full: false, autoLoad: true };
+            });
     }
 }
