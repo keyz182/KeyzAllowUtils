@@ -58,7 +58,9 @@ public class WorkGiver_HaulUrgently: WorkGiver_Scanner
         if (genebank == null)
             return null;
 
-        return JobMaker.MakeJob(JobDefOf.CarryGenepackToContainer, genepack, genebank, genebank.InteractionCell);
+        var job = JobMaker.MakeJob(JobDefOf.CarryGenepackToContainer, genepack, genebank, genebank.InteractionCell);
+        job.count = 1;
+        return job;
     }
 
     private static Thing FindGeneBank(Pawn pawn, Genepack genepack)
