@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using RimWorld;
@@ -14,8 +15,13 @@ public static class Pawn_Patches
     public static readonly Texture2D KUA_ToggleFinishOff = ContentFinder<Texture2D>.Get("UI/KUA_ToggleFinishOff");
     public static readonly Texture2D KUA_ToggleFinishOffDisable = ContentFinder<Texture2D>.Get("UI/KUA_ToggleFinishOffDisable");
 
-    public static Designator_FinishOff finishOff =>
-        DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators.FirstOrDefault(d => d is Designator_FinishOff) as Designator_FinishOff;
+    public static Lazy<string> KUA_ToggleFinishOff_Label = new(() => "KUA_ToggleFinishOff".Translate());
+    public static Lazy<string> KUA_ToggleFinishOffDesc_Label = new(() => "KUA_ToggleFinishOffDesc".Translate());
+    public static Lazy<string> KUA_ToggleFinishOffDisable_Label = new(() => "KUA_ToggleFinishOffDisable".Translate());
+    public static Lazy<string> KUA_ToggleFinishOffDisableDesc_Label = new(() => "KUA_ToggleFinishOffDisableDesc".Translate());
+
+    public static Lazy<Designator_FinishOff> FinishOff = new(() => DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators
+        .OfType<Designator_FinishOff>().FirstOrDefault());
 
     [HarmonyPatch(nameof(Pawn.GetGizmos))]
     [HarmonyPostfix]
@@ -36,13 +42,13 @@ public static class Pawn_Patches
                 gizmos.Add(new Command_Action()
                 {
                     icon = KUA_ToggleFinishOff,
-                    defaultLabel = "KUA_ToggleFinishOff".Translate(),
-                    defaultDesc = "KUA_ToggleFinishOffDesc".Translate(),
+                    defaultLabel = KUA_ToggleFinishOff_Label.Value,
+                    defaultDesc = KUA_ToggleFinishOffDesc_Label.Value,
                     action = () =>
                     {
                         if (Event.current.shift)
                         {
-                            Find.DesignatorManager.Select(finishOff);
+                            Find.DesignatorManager.Select(FinishOff.Value);
                             return;
                         }
                         __instance.MapOrHolderMap().designationManager.AddDesignation(new Designation(__instance, KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation));
@@ -54,11 +60,11 @@ public static class Pawn_Patches
         {
             gizmos.Add( new Command_Action()
             {
-                icon = KUA_ToggleFinishOffDisable, defaultLabel = "KUA_ToggleFinishOffDisable".Translate(), defaultDesc = "KUA_ToggleFinishOffDisableDesc".Translate(), action = () =>
+                icon = KUA_ToggleFinishOffDisable, defaultLabel = KUA_ToggleFinishOffDisable_Label.Value, defaultDesc = KUA_ToggleFinishOffDisableDesc_Label.Value, action = () =>
                 {
                     if (Event.current.shift)
                     {
-                        Find.DesignatorManager.Select(finishOff);
+                        Find.DesignatorManager.Select(FinishOff.Value);
                         return;
                     }
                     __instance.MapOrHolderMap().designationManager.RemoveDesignation(des);

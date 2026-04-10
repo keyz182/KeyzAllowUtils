@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using RimWorld.Planet;
@@ -12,14 +13,14 @@ namespace KeyzAllowUtilities;
 
 public class KeyHandler(Map map) : MapComponent(map)
 {
-    public static Designator_SelectSimilar selectSimilar =>
-        DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators.FirstOrDefault(d => d is Designator_SelectSimilar) as Designator_SelectSimilar;
+    public static Lazy<Designator_SelectSimilar> SelectSimilar = new(() => DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators
+        .OfType<Designator_SelectSimilar>().FirstOrDefault());
 
-    public static Designator_FinishOff finishOff =>
-        DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators.FirstOrDefault(d => d is Designator_FinishOff) as Designator_FinishOff;
+    public static Lazy<Designator_FinishOff> FinishOff = new(() => DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators
+        .OfType<Designator_FinishOff>().FirstOrDefault());
 
-    public static Designator_HaulUrgently haulUrgently =>
-        DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators.FirstOrDefault(d => d is Designator_HaulUrgently) as Designator_HaulUrgently;
+    public static Lazy<Designator_HaulUrgently> HaulUrgently = new(() => DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators
+        .OfType<Designator_HaulUrgently>().FirstOrDefault());
 
 
     public override void FinalizeInit()
@@ -55,23 +56,23 @@ public class KeyHandler(Map map) : MapComponent(map)
             Event.current.Use();
         }else if (!KeyzAllowUtilitiesMod.settings.DisableSelection && KeyzAllowUtilitesDefOf.KAU_SelectSimilar.KeyDownEvent)
         {
-            if (selectSimilar != null)
+            if (SelectSimilar.Value != null)
             {
-                Find.DesignatorManager.Select(selectSimilar);
+                Find.DesignatorManager.Select(SelectSimilar.Value);
             }
             Event.current.Use();
         }else if (!KeyzAllowUtilitiesMod.settings.DisableFinishOff && KeyzAllowUtilitesDefOf.KAU_FinishOff.KeyDownEvent)
         {
-            if (finishOff != null)
+            if (FinishOff.Value != null)
             {
-                Find.DesignatorManager.Select(finishOff);
+                Find.DesignatorManager.Select(FinishOff.Value);
             }
             Event.current.Use();
         }else if (!KeyzAllowUtilitiesMod.settings.DisableHaulUrgently && KeyzAllowUtilitesDefOf.KAU_HaulUrgentlySelection.KeyDownEvent)
         {
-            if (haulUrgently != null)
+            if (HaulUrgently.Value != null)
             {
-                Find.DesignatorManager.Select(haulUrgently);
+                Find.DesignatorManager.Select(HaulUrgently.Value);
             }
             Event.current.Use();
         }

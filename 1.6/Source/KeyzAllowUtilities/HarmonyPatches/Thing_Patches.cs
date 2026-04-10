@@ -47,17 +47,24 @@ public static class Thing_Patches
     public static Lazy<string> KUA_ToggleHaulUrgentlyOnScreen = new(() => "KUA_ToggleHaulUrgentlyOnScreen".Translate());
     public static Lazy<string> KUA_ToggleHaulUrgentlyOnMap = new(() => "KUA_ToggleHaulUrgentlyOnMap".Translate());
 
-    public static Designator_HaulUrgently haulUrgently =>
-        DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators.FirstOrDefault(d => d is Designator_HaulUrgently) as Designator_HaulUrgently;
+    public static Lazy<Designator_HaulUrgently> HaulUrgently = new(() => DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators
+        .OfType<Designator_HaulUrgently>().FirstOrDefault());
 
     [HarmonyPatch(nameof(Thing.GetGizmos))]
     [HarmonyPostfix]
     public static void GetGizmos_Patch(Thing __instance, ref IEnumerable<Gizmo> __result)
     {
-        List<Gizmo> gizmos = __result.ToList();
+        if (KeyzAllowUtilitiesMod.settings.DisableSelection
+            && KeyzAllowUtilitiesMod.settings.DisableHaulUrgently
+            && KeyzAllowUtilitiesMod.settings.DisableNoHauling
+            && KeyzAllowUtilitiesMod.settings.DisableClaimAll)
+            return;
+
         Map currentMap = __instance.MapOrHolderMap();
         if (currentMap == null)
             return;
+
+        List<Gizmo> gizmos = __result.ToList();
 
         if (!KeyzAllowUtilitiesMod.settings.DisableSelection)
         {
@@ -133,14 +140,14 @@ public static class Thing_Patches
                     {
                         if (Event.current.shift)
                         {
-                            Find.DesignatorManager.Select(haulUrgently);
+                            Find.DesignatorManager.Select(HaulUrgently.Value);
                             return;
                         }
                         if (Event.current == null || Event.current.button == 0)
                         {
                             if (!__instance.IsInValidBestStorage() && currentMap.designationManager.DesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation) == null)
                             {
-                                haulUrgently.DesignateThing(__instance);
+                                HaulUrgently.Value.DesignateThing(__instance);
                             }
                         }
                         else

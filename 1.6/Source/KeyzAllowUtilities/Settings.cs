@@ -145,7 +145,7 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref MaxSelect, "MaxSelect", 300);
         Scribe_Values.Look(ref DisableHaulUrgently, "DisableHaulUrgently", false);
         Scribe_Values.Look(ref DisableNoHauling, "DisableNoHauling", false);
-        Scribe_Values.Look(ref DisableNoHauling, "DisableClaimAll", false);
+        Scribe_Values.Look(ref DisableClaimAll, "DisableClaimAll", false);
         Scribe_Values.Look(ref DisableFinishOff, "DisableFinishOff", false);
         Scribe_Values.Look(ref DisableStripMine, "DisableStripMine", false);
         Scribe_Values.Look(ref DisableHarvest, "DisableHarvest", false);

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using HarmonyLib;
 using RimWorld;
 using Verse;
@@ -23,18 +22,24 @@ public static class Zone_Growing_Patch
         }
         if (_fertileExpand == null) return;
 
-        List<Gizmo> gizmos = __result.ToList();
-        Gizmo othergizmo = gizmos.FirstOrDefault(g => g is Designator_ZoneAdd_Growing_Expand);
-        if (othergizmo == null)
-        {
-            gizmos.Add(_fertileExpand);
-        }
-        else
-        {
-            gizmos.Insert(gizmos.IndexOf(othergizmo) + 1, _fertileExpand);
-        }
-
-        __result = gizmos;
+        __result = InsertFertileExpand(__result, _fertileExpand);
     }
 
+    private static IEnumerable<Gizmo> InsertFertileExpand(IEnumerable<Gizmo> gizmos, Gizmo fertileExpand)
+    {
+        bool inserted = false;
+        foreach (Gizmo g in gizmos)
+        {
+            yield return g;
+            if (!inserted && g is Designator_ZoneAdd_Growing_Expand)
+            {
+                yield return fertileExpand;
+                inserted = true;
+            }
+        }
+        if (!inserted)
+        {
+            yield return fertileExpand;
+        }
+    }
 }
