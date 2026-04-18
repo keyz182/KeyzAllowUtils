@@ -8,6 +8,15 @@
 - **(version)** v1.0.1 - ([9060cd3](https://github.com/keyz182/KeyzAllowUtils/commit/9060cd3b4b033721a4795801a18a1232feac86e5)) - github-actions[bot]
 
 - - -
+## [v1.0.2](https://github.com/keyz182/KeyzAllowUtils/compare/8177ad806ab0a6c8bcf702942f88e2432af27554..v1.0.2) - 2026-04-18
+#### Documentation
+- update changelog for v1.0.1 - ([8177ad8](https://github.com/keyz182/KeyzAllowUtils/commit/8177ad806ab0a6c8bcf702942f88e2432af27554)) - github-actions[bot]
+#### Miscellaneous Chores
+- updated steam description - ([9d85864](https://github.com/keyz182/KeyzAllowUtils/commit/9d85864732d50b02de7df16ab265f5cfd38617d7)) - [@keyz182](https://github.com/keyz182)
+- add steam mod description - ([63f1f4f](https://github.com/keyz182/KeyzAllowUtils/commit/63f1f4f22b94f016eb406ead4712646640761b17)) - [@keyz182](https://github.com/keyz182)
+
+- - -
+
 
 ## [v1.0.0](https://github.com/keyz182/KeyzAllowUtils/compare/344a4df83e1333d5e2f2daef0c0504bae8829ac0..v1.0.0) - 2026-04-18
 #### Bug Fixes
