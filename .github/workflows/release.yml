@@ -42,39 +42,31 @@ jobs:
       - name: Clean pre-flight artifacts
         run: git checkout -- 1.6/Assemblies/
 
+      # Requires a v* base tag to exist (bootstrap: git tag v1.0.0 && git push origin v1.0.0).
+      # cog bump --auto reads conventional commits since the last tag and bumps accordingly.
+      # pre_bump_hooks (cog.toml) rebuild the DLL with the stamped version and stage it.
       - name: Bump version and update changelog
         id: version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if [ -z "$(git tag --list)" ]; then
-            git tag v1.0.0
-            cog changelog > CHANGELOG.md
-            git add CHANGELOG.md
-            git commit -m "docs: add changelog"
-            git push origin main
-            git push origin refs/tags/v1.0.0
-            echo "version=v1.0.0" >> "$GITHUB_OUTPUT"
-            echo "bumped=true" >> "$GITHUB_OUTPUT"
-          else
-            BEFORE=$(git describe --tags --abbrev=0)
-            if cog bump --auto; then
-              AFTER=$(git describe --tags --abbrev=0)
-              if [ "$BEFORE" = "$AFTER" ]; then
-                echo "No version change ($BEFORE) — skipping release"
-                echo "bumped=false" >> "$GITHUB_OUTPUT"
-              else
-                cog changelog > CHANGELOG.md
-                git add CHANGELOG.md
-                git commit -m "docs: update changelog for ${AFTER}"
-                git push origin main
-                git push origin "refs/tags/${AFTER}"
-                echo "version=$AFTER" >> "$GITHUB_OUTPUT"
-                echo "bumped=true" >> "$GITHUB_OUTPUT"
-              fi
-            else
+          BEFORE=$(git describe --tags --abbrev=0)
+          if cog bump --auto; then
+            AFTER=$(git describe --tags --abbrev=0)
+            if [ "$BEFORE" = "$AFTER" ]; then
+              echo "No version change ($BEFORE) — skipping release"
               echo "bumped=false" >> "$GITHUB_OUTPUT"
+            else
+              cog changelog > CHANGELOG.md
+              git add CHANGELOG.md
+              git commit -m "docs: update changelog for ${AFTER}"
+              git push origin main
+              git push origin "refs/tags/${AFTER}"
+              echo "version=$AFTER" >> "$GITHUB_OUTPUT"
+              echo "bumped=true" >> "$GITHUB_OUTPUT"
             fi
+          else
+            echo "bumped=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Package mod
