@@ -1,0 +1,109 @@
+[h1]Keyz' Allow Utilities[/h1]
+A utility mod that adds various quality-of-life improvements for managing items and plants across your colony map. This mod focuses on enhancing selection, allow/forbid controls, and plant management features.
+
+[i]Note: this is not a fork of the original Allow Tools - it's a from scratch implementation with a focus on performance.
+That said - Thanks to UnlimitedHugs for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=761421485]Allow Tools[/url] - the inspiration for this. It used to be one of  the most used mods when I played :)[/i]
+
+[h2]Features[/h2]
+
+[h3]Pick Up And Haul Compatible[/h3]
+
+[h3]Selection Tools[/h3]
+A Select Similar tool in the Orders menu.
+A new gizmo (button) appears when selecting items that allows you to:
+[list]
+[*]Select all similar items made from the same stuff in a rectangle
+[*]Right Click -> Select all similar items made from the same stuff visible on your current screen view
+[*]Right Click -> Select all similar items made from the same stuff across the entire map
+[/list]
+
+Hold shift to instead:
+[list]
+[*]Select all similar items in a rectangle
+[*]Right Click -> Select all similar items visible on your current screen view
+[*]Right Click -> Select all similar items across the entire map
+[/list]
+
+[h3]Allow/Forbid Controls[/h3]
+[list]
+[*]Right-click Forbid Gizmo with options to:
+    [list]
+    [*]Toggle allow/forbid status for similar items on screen
+    [*]Toggle allow/forbid status for similar items across the entire map
+    [/list]
+[*]Convenient Hotkeys:
+    [list]
+    [*][b]Home key[/b] - Allow all items across the map
+    [*][b]End key[/b] - Forbid all items across the map
+    [/list]
+[/list]
+
+[h3]Plant Management[/h3]
+A new designator to create or expand growing zones that only targets fertile ground (fertility >= 1.4, such as rich soil).
+
+Two new gizmos for efficient plant management:
+
+[b]Harvest Fully Grown[/b]
+[list]
+[*]Designate only fully mature plants for harvesting on screen
+[*]Designate only fully mature plants for harvesting across the entire map
+[/list]
+
+[b]Cut Fully Grown[/b]
+[list]
+[*]Designate only fully mature plants for cutting on screen
+[*]Designate only fully mature plants for cutting across the entire map
+[/list]
+
+[h3]Misc[/h3]
+
+All keybinds can be found and changed under Options => Controls => Modify, then scroll down to "Allow Utilities".
+
+[b]Finish Off (min 5 melee)[/b]
+A Finish Off tool in the Orders menu.
+Hold shift to instead Strip first then finish off.
+[list]
+[*]Gizmo on downed pawns to finish off
+[*]Right click to finish off
+[/list]
+
+[b]Haul Urgently[/b]
+A Haul Urgently tool in the Orders menu.
+[list]
+[*]Designate items to haul urgently in area
+[*]Gizmo to haul an item urgently
+[*]Right click the gizmo to haul all on screen or map urgently
+[/list]
+
+[h3]Debug Tools[/h3]
+Available in the debug actions menu (requires debug mode):
+[list]
+[*]Grow plants to maturity in a selected area
+[*]Replant an entire area
+[*]Grow specific plant types in an area
+[*]Clear all items in an area
+[*]Clear all plants in an area
+[*] (default off) mod setting to log the origin of def errors
+[/list]
+
+[h2]Configuration[/h2]
+The mod includes settings to customize:
+[list]
+[*]Maximum number of items that can be selected at once
+[/list]
+
+[h2]Thanks[/h2]
+[list]
+[*]Ludeon for the Game[/*]
+[*]Marnador for the [url=https://github.com/spdskatr/RWModdingResources/raw/master/RimWordFont.ttf]Rimworld Font[/url][/*]
+[*]@Null-Fault for language fixes[/*]
+[*]@fourging for claimable door fixes[/*]
+[*]@ましろ for Lifter patches[/*]
+[*]@llunak for gizmo fixes[/*]
+[*]@a-certain-existence for select similar filter overhaul[/*]
+[/list]
+
+
+[url=https://ko-fi.com/keyz182][img]https://keyz182.github.io/wp-content/uploads/kofi-sml.png[/img][/url]
+
+[url=https://github.com/keyz182/KeyzAllowUtils][img]https://img.shields.io/static/v1?label=KeyzAllowUtilities&message=Fork%20me%20on%20github&color=d2e885&logo=github[/img][/url]
