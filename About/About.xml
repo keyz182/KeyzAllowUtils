@@ -6,7 +6,7 @@
         <li>1.6</li>
     </supportedVersions>
     <packageId>keyz182.KeyzAllowUtilities</packageId>
-    <modVersion>1.0.0</modVersion>
+    <modVersion>0.1.0</modVersion>
     <description>Tools for allowing things map wide. More to come.</description>
     <url>https://steamcommunity.com/id/keyz182/myworkshopfiles/?appid=294100</url>
 	<modDependencies>
