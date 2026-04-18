@@ -7,12 +7,9 @@ on:
     branches: [main]
 
 jobs:
-  restore:
-    name: Restore NuGet packages
+  build:
+    name: Build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: 1.6/Source
 
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
@@ -24,8 +21,7 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore NuGet packages
-        run: dotnet restore KeyzAllowUtilities.Tests/KeyzAllowUtilities.Tests.csproj
+        run: dotnet restore 1.6/Source/KeyzAllowUtilities/KeyzAllowUtilities.csproj
 
-      # Build and test require RimWorld game DLLs (Assembly-CSharp.dll, UnityEngine.CoreModule.dll)
-      # which cannot be distributed. Run tests locally:
-      #   dotnet test KeyzAllowUtilities.Tests/KeyzAllowUtilities.Tests.csproj --framework net8.0
+      - name: Build (net48 with Krafs stubs)
+        run: dotnet build 1.6/Source/KeyzAllowUtilities/KeyzAllowUtilities.csproj -c Release --no-restore -p:TargetFramework=net48

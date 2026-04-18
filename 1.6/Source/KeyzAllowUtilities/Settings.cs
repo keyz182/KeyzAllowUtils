@@ -55,6 +55,7 @@ public class Settings : ModSettings
             Text.Font = GameFont.Medium;
             options.Label("General Settings");
             Text.Font = orig;
+            options.Label($"Version: {KeyzAllowUtilitiesMod.Version}");
             options.Gap();
 
             options.Label("KeyzAllowUtilities_Settings_MaxSelect".Translate(MaxSelect));

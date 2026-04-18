@@ -10,11 +10,9 @@
         <OutputPath>../../Assemblies/</OutputPath>
         <ZipFilePath>../../../$(AssemblyName).zip</ZipFilePath>
         <ReleasePath>../../../Release</ReleasePath>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <SteamModsPath>$(RIMWORLD_STEAM_MODS_PATH)</SteamModsPath>
-        <AssemblyVersion>1.0.0</AssemblyVersion>
-        <FileVersion>1.0.0</FileVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <Optimize>false</Optimize>
@@ -61,6 +59,10 @@
             <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/UnityEngine.InputLegacyModule.dll')">../../../../../Contents/Resources/Data/Managed/UnityEngine.InputLegacyModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
+    </ItemGroup>
+    <!-- CI fallback: when game DLLs aren't available, use stub reference assemblies -->
+    <ItemGroup Condition="'$(TargetFramework)' == 'net48' And !Exists('../../../../../Contents/Resources/Data/Managed/Assembly-CSharp.dll') And !Exists('../../../../../RimWorldWin64_Data/Managed/Assembly-CSharp.dll') And !Exists('../../../../../RimWorldLinux_Data/Managed/Assembly-CSharp.dll')">
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*" />
     </ItemGroup>
     <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
         <Reference Include="Assembly-CSharp">

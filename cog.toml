@@ -1,0 +1,24 @@
+tag_prefix = "v"
+branch_whitelist = ["main"]
+ignore_merge_commits = true
+
+pre_bump_hooks = [
+    "sed -i 's|<modVersion>.*</modVersion>|<modVersion>{{version}}</modVersion>|' About/About.xml",
+    "dotnet build 1.6/Source/KeyzAllowUtilities/KeyzAllowUtilities.csproj -c Release -p:Version={{version}}",
+    "git add About/About.xml 1.6/Assemblies/KeyzAllowUtilities.dll",
+]
+
+[changelog]
+path = "CHANGELOG.md"
+template = "remote"
+remote = "github.com"
+repository = "KeyzAllowUtils"
+owner = "keyz182"
+
+[commit_types.docs]
+bump_patch = true
+changelog_title = "Documentation"
+
+[[changelog.authors]]
+signature = "Kieran David Evans"
+username = "keyz182"

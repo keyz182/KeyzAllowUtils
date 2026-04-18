@@ -6,11 +6,13 @@ namespace KeyzAllowUtilities;
 
 public class KeyzAllowUtilitiesMod : Mod
 {
+    public static readonly string Version = typeof(KeyzAllowUtilitiesMod).Assembly.GetName().Version?.ToString(3) ?? "dev";
+
     public static Settings settings;
 
     public KeyzAllowUtilitiesMod(ModContentPack content) : base(content)
     {
-        ModLog.Log("Loading KeyzAllowUtilities");
+        ModLog.Log($"Loading KeyzAllowUtilities v{Version}");
         settings = GetSettings<Settings>();
 #if DEBUG
         Harmony.DEBUG = true;
