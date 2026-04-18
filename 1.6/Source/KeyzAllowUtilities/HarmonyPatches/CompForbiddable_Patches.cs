@@ -33,19 +33,23 @@ public static class CompForbiddable_Patches
                 {
                     if(__instance.parent.Map == null) return;
 
-                    FloatMenuOption AllowAll = new FloatMenuOption("KUA_AllowAll".Translate(), () =>
-                    {
-                        KeyHandler.AllowAll(__instance.parent.Map, false, __instance.parent.def);
-                    });
+                    List<FloatMenuOption> options =
+                    [
+                        new FloatMenuOption("KUA_AllowAll".Translate(), () =>
+                        {
+                            KeyHandler.AllowAll(__instance.parent.Map, false, __instance.parent.def);
+                        }),
+                        new FloatMenuOption("KUA_AllowAllExcludingCorpses".Translate(), () =>
+                        {
+                            KeyHandler.AllowAll(__instance.parent.Map, false, __instance.parent.def, excludeCorpses: true);
+                        }),
+                        new FloatMenuOption("KUA_ForbidAll".Translate(), () =>
+                        {
+                            KeyHandler.AllowAll(__instance.parent.Map, true, __instance.parent.def);
+                        })
+                    ];
 
-                    FloatMenuOption ForbidAll = new FloatMenuOption("KUA_ForbidAll".Translate(), () =>
-                    {
-                        KeyHandler.AllowAll(__instance.parent.Map, true, __instance.parent.def);
-                    });
-
-                    FloatMenu menu = new FloatMenu([AllowAll, ForbidAll]);
-
-                    Find.WindowStack.Add(menu);
+                    Find.WindowStack.Add(new FloatMenu(options));
                 };
                 gizmos[i] = newCmd;
             }

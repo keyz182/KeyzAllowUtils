@@ -213,6 +213,11 @@ public static class Thing_Patches
             }
         }
 
+        if (!KeyzAllowUtilitiesMod.settings.DisableSelectStored && __instance is ISlotGroupParent slotGroupParent)
+        {
+            gizmos.Add(FilterUtils.MakeSelectStoredGizmo(slotGroupParent));
+        }
+
         if (!KeyzAllowUtilitiesMod.settings.DisableClaimAll && __instance is Building_Door door)
         {
             // Only show the "Claim all doors" button when the selected door is unclaimed

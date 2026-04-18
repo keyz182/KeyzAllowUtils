@@ -22,6 +22,8 @@ public class Settings : ModSettings
     public bool DisableCut = false;
     public bool DisableSelection = false;
     public bool DisableFertileZone = false;
+    public bool ExcludeCorpsesFromAllowAll = true;
+    public bool DisableSelectStored = false;
     public float PlantGrownLevel = 1f;
 
     private float ScrollViewHeight = 0;
@@ -69,6 +71,8 @@ public class Settings : ModSettings
             options.CheckboxLabeled("KAU_ToggleFertileZone".Translate(), ref DisableFertileZone);
             options.CheckboxLabeled("KAU_ToggleAllowFinishOffOnFriendly".Translate(), ref AllowFinishOffOnFriendly);
             options.CheckboxLabeled("KAU_ToggleDisableAllowShortcuts".Translate(), ref DisableAllowShortcuts);
+            options.CheckboxLabeled("KAU_ExcludeCorpsesFromAllowAll".Translate(), ref ExcludeCorpsesFromAllowAll);
+            options.CheckboxLabeled("KAU_DisableSelectStored".Translate(), ref DisableSelectStored);
             options.CheckboxLabeled("KAU_ToggleDisableAllShortcuts".Translate(), ref DisableAllShortcuts);
             options.CheckboxLabeled("KAU_DisableMeleeRequirementForFinishOff".Translate(), ref DisableMeleeRequirementForFinishOff);
             PlantGrownLevel = options.SliderLabeled("KAU_PlantGrownLevel".Translate(PlantGrownLevel*100), PlantGrownLevel, 0f, 1f);
@@ -153,6 +157,8 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref DisableCut, "DisableCut", false);
         Scribe_Values.Look(ref DisableSelection, "DisableSelection", false);
         Scribe_Values.Look(ref DisableFertileZone, "DisableFertileZone", false);
+        Scribe_Values.Look(ref ExcludeCorpsesFromAllowAll, "ExcludeCorpsesFromAllowAll", true);
+        Scribe_Values.Look(ref DisableSelectStored, "DisableSelectStored", false);
         Scribe_Values.Look(ref AllowFinishOffOnFriendly, "AllowFinishOffOnFriendly", false);
         Scribe_Values.Look(ref DisableAllowShortcuts, "DisableAllowShortcuts", false);
         Scribe_Values.Look(ref DisableAllShortcuts, "DisableAllShortcuts", false);

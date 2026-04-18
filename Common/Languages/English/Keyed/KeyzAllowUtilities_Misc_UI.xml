@@ -3,8 +3,10 @@
     <KeyzAllowUtilities_SettingsCategory>Keyz' Allow Utilities</KeyzAllowUtilities_SettingsCategory>
     <KeyzAllowUtilities_Settings_MaxSelect>Max selected items: [{0}]</KeyzAllowUtilities_Settings_MaxSelect>
     <KUA_AllowAll>Allow all across map</KUA_AllowAll>
+    <KUA_AllowAllExcludingCorpses>Allow all across map (except corpses)</KUA_AllowAllExcludingCorpses>
     <KUA_ForbidAll>Forbid all across map</KUA_ForbidAll>
     <KUA_Allowed>{0} things allowed</KUA_Allowed>
+    <KUA_AllowedExcludingCorpses>{0} things allowed (corpses excluded)</KUA_AllowedExcludingCorpses>
     <KUA_Forbidden>{0} things forbidden</KUA_Forbidden>
     <KUA_MultiSelect>Selection tools</KUA_MultiSelect>
     <KUA_MultiSelectDesc>Various selection tools for this item type. Hold shift to ignore stuff</KUA_MultiSelectDesc>
@@ -72,6 +74,8 @@
 
     <KAU_ToggleNoHauling>Disable No Hauling Designator and Gizmos</KAU_ToggleNoHauling>
     <KAU_ToggleDisableAllowShortcuts>Disable Allow/Forbid hotkeys</KAU_ToggleDisableAllowShortcuts>
+    <KAU_ExcludeCorpsesFromAllowAll>Exclude corpses from Allow All (Shift+Allow to include)</KAU_ExcludeCorpsesFromAllowAll>
+    <KAU_DisableSelectStored>Disable Select Stored gizmo</KAU_DisableSelectStored>
 
     <KUA_SelectSimilar>Select similar</KUA_SelectSimilar>
     <KUA_SelectSimilarDesc>Selects items similar to those already selected</KUA_SelectSimilarDesc>
@@ -115,6 +119,9 @@
 
     <KUA_CutBlighted>Cut blighted</KUA_CutBlighted>
     <KUA_CutBlightedDesc>Cut only blighted plants</KUA_CutBlightedDesc>
+
+    <KUA_SelectStored>Select stored</KUA_SelectStored>
+    <KUA_SelectStoredDesc>Select all items in this storage. Hold Shift to add to current selection.</KUA_SelectStoredDesc>
 
     <KUA_ClaimAllDoors>Claim all doors</KUA_ClaimAllDoors>
     <KUA_ClaimAllDoorsDesc>Claim all doors that can currently be claimed by the player on the map</KUA_ClaimAllDoorsDesc>

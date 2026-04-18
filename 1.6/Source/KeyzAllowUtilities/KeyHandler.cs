@@ -48,7 +48,8 @@ public class KeyHandler(Map map) : MapComponent(map)
 
         if (!KeyzAllowUtilitiesMod.settings.DisableAllowShortcuts && KeyzAllowUtilitesDefOf.KAU_Allow.KeyDownEvent)
         {
-            AllowAll(map);
+            bool excludeCorpses = KeyzAllowUtilitiesMod.settings.ExcludeCorpsesFromAllowAll && !Event.current.shift;
+            AllowAll(map, excludeCorpses: excludeCorpses);
             Event.current.Use();
         }else if (!KeyzAllowUtilitiesMod.settings.DisableAllowShortcuts && KeyzAllowUtilitesDefOf.KAU_Forbid.KeyDownEvent)
         {
@@ -78,10 +79,10 @@ public class KeyHandler(Map map) : MapComponent(map)
         }
     }
 
-    public static void AllowAll(Map map, bool forbid = false, Def ofDef = null)
+    public static void AllowAll(Map map, bool forbid = false, Def ofDef = null, bool excludeCorpses = false)
     {
         int countOfForbiddables = 0;
-        foreach (CompForbiddable compForbiddable in map.ForbiddableThings(ofDef))
+        foreach (CompForbiddable compForbiddable in map.ForbiddableThings(ofDef, excludeCorpses))
         {
             if (compForbiddable.Forbidden != forbid) // Dont' count anything already set to what we want
             {
@@ -89,9 +90,14 @@ public class KeyHandler(Map map) : MapComponent(map)
                 countOfForbiddables += compForbiddable.parent.stackCount;
             }
         }
-        if(!forbid)
-            Messages.Message("KUA_Allowed".Translate(countOfForbiddables), MessageTypeDefOf.NeutralEvent);
+        if (!forbid)
+        {
+            string messageKey = excludeCorpses ? "KUA_AllowedExcludingCorpses" : "KUA_Allowed";
+            Messages.Message(messageKey.Translate(countOfForbiddables), MessageTypeDefOf.NeutralEvent);
+        }
         else
+        {
             Messages.Message("KUA_Forbidden".Translate(countOfForbiddables), MessageTypeDefOf.NeutralEvent);
+        }
     }
 }

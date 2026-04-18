@@ -202,11 +202,13 @@ public static class FilterUtils
             }
         }
 
-        public IEnumerable<CompForbiddable> ForbiddableThings(Def ofDef = null)
+        public IEnumerable<CompForbiddable> ForbiddableThings(Def ofDef = null, bool excludeCorpses = false)
         {
             IEnumerable<ThingWithComps> things = ofDef == null ? map.listerThings.AllThings.OfType<ThingWithComps>() : map.listerThings.AllThings.OfType<ThingWithComps>().Where(t => t.def == ofDef);
             things = things.Where(t => t.HasComp<CompForbiddable>()).Where(t => !map.fogGrid.IsFogged(t.Position));
             things = things.Where(t => t.def is { EverHaulable: true });
+            if (excludeCorpses)
+                things = things.Where(t => t is not Corpse);
             return things.Select(t => t.GetComp<CompForbiddable>());
         }
 
@@ -249,5 +251,38 @@ public static class FilterUtils
 
         public IEnumerable<Plant> SelectablePlantsOnScreen() =>
             onMap.ThingsOnScreen(t => t.def.category == ThingCategory.Plant).OfType<Plant>();
+    }
+
+    public static Command_Action MakeSelectStoredGizmo(ISlotGroupParent slotGroupParent)
+    {
+        return new Command_Action
+        {
+            icon = StorageGizmoTextures.KUA_SelectStoredIcon,
+            defaultLabel = StorageGizmoTextures.KUA_SelectStored.Value,
+            defaultDesc = StorageGizmoTextures.KUA_SelectStoredDesc.Value,
+            action = () =>
+            {
+                SlotGroup slotGroup = slotGroupParent.GetSlotGroup();
+                if (slotGroup == null) return;
+
+                if (!Event.current.shift)
+                    Find.Selector.ClearSelection();
+
+                foreach (Thing item in slotGroup.HeldThings)
+                {
+                    Find.Selector.Select(item, forceDesignatorDeselect: false);
+                }
+            }
+        };
+    }
+
+    [StaticConstructorOnStartup]
+    public static class StorageGizmoTextures
+    {
+        public static readonly Texture2D KUA_SelectStoredIcon = ContentFinder<Texture2D>.Get("UI/KUA_SelectStored", reportFailure: false)
+                                                                ?? ContentFinder<Texture2D>.Get("UI/KUA_MultiSelect");
+
+        public static readonly Lazy<string> KUA_SelectStored = new(() => "KUA_SelectStored".Translate());
+        public static readonly Lazy<string> KUA_SelectStoredDesc = new(() => "KUA_SelectStoredDesc".Translate());
     }
 }
