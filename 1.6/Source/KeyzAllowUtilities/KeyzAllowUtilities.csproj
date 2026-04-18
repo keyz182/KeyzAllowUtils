@@ -111,6 +111,9 @@
       <Content Include="..\..\..\CHANGELOG.md">
         <Link>KeyzAllowUtils\CHANGELOG.md</Link>
       </Content>
+      <Content Include="..\..\..\cog.toml">
+        <Link>KeyzAllowUtils\cog.toml</Link>
+      </Content>
       <Content Include="..\..\..\release.sh">
         <Link>KeyzAllowUtils\release.sh</Link>
       </Content>

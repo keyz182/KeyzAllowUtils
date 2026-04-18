@@ -15,10 +15,6 @@ remote = "github.com"
 repository = "KeyzAllowUtils"
 owner = "keyz182"
 
-[commit_types.docs]
-bump_patch = true
-changelog_title = "Documentation"
-
 [[changelog.authors]]
 signature = "Kieran David Evans"
 username = "keyz182"
