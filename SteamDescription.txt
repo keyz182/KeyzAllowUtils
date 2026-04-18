@@ -24,56 +24,82 @@ Hold shift to instead:
 [*]Right Click -> Select all similar items across the entire map
 [/list]
 
+[b]Select Stored[/b]
+A gizmo on storage buildings (shelves, etc.) and stockpile zones that selects all items inside, so you can bulk forbid/allow/haul them. Hold Shift to add to your current selection instead of replacing it.
+
 [h3]Allow/Forbid Controls[/h3]
 [list]
 [*]Right-click Forbid Gizmo with options to:
-    [list]
-    [*]Toggle allow/forbid status for similar items on screen
-    [*]Toggle allow/forbid status for similar items across the entire map
-    [/list]
+   [list]
+   [*]Allow all of this type across the map
+   [*]Allow all of this type across the map (except corpses)
+   [*]Forbid all of this type across the map
+   [/list]
 [*]Convenient Hotkeys:
-    [list]
-    [*][b]Home key[/b] - Allow all items across the map
-    [*][b]End key[/b] - Forbid all items across the map
-    [/list]
+   [list]
+   [*][b]Home key[/b] - Allow all items across the map (excludes corpses by default; hold Shift to include)
+   [*][b]End key[/b] - Forbid all items across the map
+   [/list]
 [/list]
 
-[h3]Plant Management[/h3]
-A new designator to create or expand growing zones that only targets fertile ground (fertility >= 1.4, such as rich soil).
-
-Two new gizmos for efficient plant management:
-
-[b]Harvest Fully Grown[/b]
-[list]
-[*]Designate only fully mature plants for harvesting on screen
-[*]Designate only fully mature plants for harvesting across the entire map
-[/list]
-
-[b]Cut Fully Grown[/b]
-[list]
-[*]Designate only fully mature plants for cutting on screen
-[*]Designate only fully mature plants for cutting across the entire map
-[/list]
-
-[h3]Misc[/h3]
-
-All keybinds can be found and changed under Options => Controls => Modify, then scroll down to "Allow Utilities".
-
-[b]Finish Off (min 5 melee)[/b]
-A Finish Off tool in the Orders menu.
-Hold shift to instead Strip first then finish off.
-[list]
-[*]Gizmo on downed pawns to finish off
-[*]Right click to finish off
-[/list]
-
-[b]Haul Urgently[/b]
+[h3]Haul Urgently[/h3]
 A Haul Urgently tool in the Orders menu.
 [list]
 [*]Designate items to haul urgently in area
 [*]Gizmo to haul an item urgently
 [*]Right click the gizmo to haul all on screen or map urgently
+[*]Hold Shift to enter designator mode for area selection
 [/list]
+
+[h3]Do Not Haul[/h3]
+A gizmo on haulable items to prevent them from being hauled to stockpiles. This does not prevent items being hauled to work — e.g. resources to a toolbench, or being used by a recipe.
+
+[h3]Plant Management[/h3]
+A new designator to create or expand growing zones that only targets fertile ground (fertility >= 1.4, such as rich soil).
+
+[b]Harvest Fully Grown[/b]
+[list]
+[*]Designate mature plants for harvesting on screen
+[*]Designate mature plants for harvesting across the entire map
+[/list]
+
+[b]Cut Fully Grown[/b]
+[list]
+[*]Designate mature plants for cutting on screen
+[*]Designate mature plants for cutting across the entire map
+[/list]
+
+[b]Harvest All / Chop All Wood[/b]
+[list]
+[*]Designate plants for harvesting regardless of growth level
+[*]Designate trees for chopping regardless of growth level
+[/list]
+
+[b]Cut Blighted[/b]
+Designate only blighted plants for cutting.
+
+The growth threshold for "fully grown" is configurable in settings (default 100%).
+
+[h3]Misc[/h3]
+
+All keybinds can be found and changed under Options => Controls => Modify, then scroll down to "Allow Utilities".
+
+[b]Finish Off[/b]
+A Finish Off tool in the Orders menu (requires melee skill by default, configurable in settings).
+Hold shift to strip first then finish off.
+[list]
+[*]Gizmo on downed pawns to finish off
+[*]Right click to finish off
+[/list]
+
+[b]Claim All Doors[/b]
+A gizmo on unclaimed doors to claim all claimable doors on the map at once.
+
+[b]Strip Mine[/b]
+A Strip Mine tool in the Orders menu that mines in a grid pattern rather than everything.
+
+[b]Floor Picker[/b]
+A designator that lets you grab a floor type from the map and place it elsewhere.
 
 [h3]Debug Tools[/h3]
 Available in the debug actions menu (requires debug mode):
@@ -90,6 +116,11 @@ Available in the debug actions menu (requires debug mode):
 The mod includes settings to customize:
 [list]
 [*]Maximum number of items that can be selected at once
+[*]Plant growth threshold for harvest/cut designators
+[*]Toggle individual features on/off (haul urgently, do not haul, finish off, strip mine, harvest, cut, selection tools, fertile zone, claim all doors, select stored, and more)
+[*]Exclude corpses from Allow All by default (Shift+Allow to include)
+[*]Disable melee requirement for Finish Off
+[*]Disable all keyboard shortcuts
 [/list]
 
 [h2]Thanks[/h2]

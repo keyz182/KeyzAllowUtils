@@ -114,6 +114,9 @@
       <Content Include="..\..\..\release.sh">
         <Link>KeyzAllowUtils\release.sh</Link>
       </Content>
+      <Content Include="..\..\..\SteamDescription.txt">
+        <Link>KeyzAllowUtils\SteamDescription.txt</Link>
+      </Content>
       <Content Include="..\..\..\_PublisherPlus.xml">
         <Link>KeyzAllowUtils\_PublisherPlus.xml</Link>
       </Content>
