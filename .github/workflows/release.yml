@@ -37,6 +37,11 @@ jobs:
       - name: Build (pre-flight)
         run: dotnet build 1.6/Source/KeyzAllowUtilities/KeyzAllowUtilities.csproj -c Release -p:TargetFramework=net48
 
+      # Pre-flight build modifies the committed DLL — discard so cog sees a
+      # clean tree. The pre_bump_hooks will rebuild with the version stamp.
+      - name: Clean pre-flight artifacts
+        run: git checkout -- 1.6/Assemblies/
+
       - name: Bump version and update changelog
         id: version
         env:
