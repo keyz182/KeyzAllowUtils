@@ -1,3 +1,13 @@
+## [v1.2.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.1.0..v1.2.0) - 2026-04-18
+#### Documentation
+- update changelog for v1.1.0 - ([f3cfc82](https://github.com/keyz182/KeyzAllowUtils/commit/f3cfc82703ddd7080f0c2857f6db7b2e7b50d38b)) - github-actions[bot]
+#### Features
+- granular select-similar options and settings UI reorganisation - ([e4b5f1c](https://github.com/keyz182/KeyzAllowUtils/commit/e4b5f1c147f7233450c55b1d313d27c94d668860)) - [@keyz182](https://github.com/keyz182)
+#### Miscellaneous Chores
+- **(version)** v1.2.0 - ([d7ad4fa](https://github.com/keyz182/KeyzAllowUtils/commit/d7ad4fa073e98cfe718469c34402512d53945913)) - github-actions[bot]
+
+- - -
+
 ## [v1.1.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.0.2..v1.1.0) - 2026-04-18
 #### Documentation
 - update changelog for v1.0.2 - ([5db74f7](https://github.com/keyz182/KeyzAllowUtils/commit/5db74f7850f7b8956172c2a2ed5382939c14abe8)) - github-actions[bot]
@@ -9,14 +19,6 @@
 - no release on docs tag - ([e3f1e5c](https://github.com/keyz182/KeyzAllowUtils/commit/e3f1e5c1a9575d907cc2edcd3e96e71e0549bcba)) - [@keyz182](https://github.com/keyz182)
 
 - - -
-## [v1.2.0](https://github.com/keyz182/KeyzAllowUtils/compare/f3cfc82703ddd7080f0c2857f6db7b2e7b50d38b..v1.2.0) - 2026-04-18
-#### Documentation
-- update changelog for v1.1.0 - ([f3cfc82](https://github.com/keyz182/KeyzAllowUtils/commit/f3cfc82703ddd7080f0c2857f6db7b2e7b50d38b)) - github-actions[bot]
-#### Features
-- granular select-similar options and settings UI reorganisation - ([e4b5f1c](https://github.com/keyz182/KeyzAllowUtils/commit/e4b5f1c147f7233450c55b1d313d27c94d668860)) - [@keyz182](https://github.com/keyz182)
-
-- - -
-
 
 ## [v1.0.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.0.1..v1.0.2) - 2026-04-18
 #### Documentation
