@@ -7,7 +7,7 @@
     </supportedVersions>
     <packageId>keyz182.KeyzAllowUtilities</packageId>
     <modVersion>1.0.0</modVersion>
-    <description>Tools for allowing things map wide. More to come.</description>
+    <description>Utility gizmos for bulk allow/forbid, selection, haul urgently, and more.</description>
     <url>https://steamcommunity.com/id/keyz182/myworkshopfiles/?appid=294100</url>
 	<modDependencies>
         <li>
