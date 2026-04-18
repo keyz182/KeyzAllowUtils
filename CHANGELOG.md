@@ -7,6 +7,15 @@
 - **(version)** v1.2.0 - ([d7ad4fa](https://github.com/keyz182/KeyzAllowUtils/commit/d7ad4fa073e98cfe718469c34402512d53945913)) - github-actions[bot]
 
 - - -
+## [v1.2.1](https://github.com/keyz182/KeyzAllowUtils/compare/237053177104301a56f365abec92384e264aa80f..v1.2.1) - 2026-04-18
+#### Bug Fixes
+- don't strip vanilla Haul designation when cancelling Haul Urgently - ([15336d2](https://github.com/keyz182/KeyzAllowUtils/commit/15336d287ed24d69114541491e41d20b8557c475)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update Steam description for granular selection and settings sections - ([c8d5028](https://github.com/keyz182/KeyzAllowUtils/commit/c8d50284731f10a27a99e28f85b24607f22d1acb)) - [@keyz182](https://github.com/keyz182)
+- update changelog for v1.2.0 - ([2370531](https://github.com/keyz182/KeyzAllowUtils/commit/237053177104301a56f365abec92384e264aa80f)) - github-actions[bot]
+
+- - -
+
 
 ## [v1.1.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.0.2..v1.1.0) - 2026-04-18
 #### Documentation
