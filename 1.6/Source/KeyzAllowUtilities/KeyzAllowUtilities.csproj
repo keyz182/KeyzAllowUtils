@@ -108,6 +108,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Include="..\..\..\CHANGELOG.md">
+        <Link>KeyzAllowUtils\CHANGELOG.md</Link>
+      </Content>
       <Content Include="..\..\..\release.sh">
         <Link>KeyzAllowUtils\release.sh</Link>
       </Content>
