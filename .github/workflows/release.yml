@@ -33,8 +33,9 @@ jobs:
 
       # Build runs before the version bump so a broken build never creates a
       # tag. The pre_bump_hooks in cog.toml rebuild with the stamped version.
+      # Only net48 — net8.0 needs real game DLLs which aren't available in CI.
       - name: Build (pre-flight)
-        run: dotnet build 1.6/Source/KeyzAllowUtilities/KeyzAllowUtilities.csproj -c Release
+        run: dotnet build 1.6/Source/KeyzAllowUtilities/KeyzAllowUtilities.csproj -c Release -p:TargetFramework=net48
 
       - name: Bump version and update changelog
         id: version
