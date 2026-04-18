@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
     <KeyzAllowUtilities_SettingsCategory>Keyz' Allow Utilities</KeyzAllowUtilities_SettingsCategory>
+    <KAU_SettingsTitle>Keyz' Allow Utilities</KAU_SettingsTitle>
+    <KAU_Section_Selection>Selection &amp; Allowing</KAU_Section_Selection>
+    <KAU_Section_Hauling>Hauling</KAU_Section_Hauling>
+    <KAU_Section_Plants>Plants</KAU_Section_Plants>
+    <KAU_Section_Combat>Combat</KAU_Section_Combat>
+    <KAU_Section_Mining>Mining</KAU_Section_Mining>
+    <KAU_Section_Shortcuts>Shortcuts</KAU_Section_Shortcuts>
     <KeyzAllowUtilities_Settings_MaxSelect>Max selected items: [{0}]</KeyzAllowUtilities_Settings_MaxSelect>
     <KUA_AllowAll>Allow all across map</KUA_AllowAll>
     <KUA_AllowAllExcludingCorpses>Allow all across map (except corpses)</KUA_AllowAllExcludingCorpses>
@@ -69,6 +76,9 @@
     <KAU_ToggleHarvest>Disable Harvest Designator and Gizmos</KAU_ToggleHarvest>
     <KAU_ToggleCut>Disable Cut Designator and Gizmos</KAU_ToggleCut>
     <KAU_ToggleSelection>Disable Selection Gizmos</KAU_ToggleSelection>
+    <KAU_DisableSelectOnScreen>Disable "Select on screen"</KAU_DisableSelectOnScreen>
+    <KAU_DisableSelectOnMap>Disable "Select on map"</KAU_DisableSelectOnMap>
+    <KAU_DisableSelectInRect>Disable "Select in rect"</KAU_DisableSelectInRect>
 
     <KAU_ToggleFertileZone>Disable Fertile Grow Zone Designator</KAU_ToggleFertileZone>
 

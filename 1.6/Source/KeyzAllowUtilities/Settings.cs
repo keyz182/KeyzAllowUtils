@@ -21,6 +21,9 @@ public class Settings : ModSettings
     public bool DisableHarvestAll = false;
     public bool DisableCut = false;
     public bool DisableSelection = false;
+    public bool DisableSelectOnScreen = false;
+    public bool DisableSelectOnMap = false;
+    public bool DisableSelectInRect = false;
     public bool DisableFertileZone = false;
     public bool ExcludeCorpsesFromAllowAll = true;
     public bool DisableSelectStored = false;
@@ -50,35 +53,74 @@ public class Settings : ModSettings
         {
             options.Begin(contentScrollContainerRect);
 
-            options.GapLine();
             GameFont orig = Text.Font;
-            Text.Font = GameFont.Medium;
-            options.Label("General Settings");
-            Text.Font = orig;
             options.Label($"Version: {KeyzAllowUtilitiesMod.Version}");
-            options.Gap();
 
+            // Selection & Allowing
+            options.GapLine();
+            Text.Font = GameFont.Small;
+            options.Label("KAU_Section_Selection".Translate());
+            Text.Font = orig;
             options.Label("KeyzAllowUtilities_Settings_MaxSelect".Translate(MaxSelect));
             options.IntAdjuster(ref MaxSelect, 10, 0);
+            options.CheckboxLabeled("KAU_ToggleSelection".Translate(), ref DisableSelection);
+            if (!DisableSelection)
+            {
+                options.Indent();
+                options.ColumnWidth -= Listing.ColumnSpacing;
+                options.CheckboxLabeled("KAU_DisableSelectOnScreen".Translate(), ref DisableSelectOnScreen);
+                options.CheckboxLabeled("KAU_DisableSelectOnMap".Translate(), ref DisableSelectOnMap);
+                options.CheckboxLabeled("KAU_DisableSelectInRect".Translate(), ref DisableSelectInRect);
+                options.ColumnWidth += Listing.ColumnSpacing;
+                options.Outdent();
+            }
+            options.CheckboxLabeled("KAU_DisableSelectStored".Translate(), ref DisableSelectStored);
+            options.CheckboxLabeled("KAU_DisableClaimAll".Translate(), ref DisableClaimAll);
+            options.CheckboxLabeled("KAU_ExcludeCorpsesFromAllowAll".Translate(), ref ExcludeCorpsesFromAllowAll);
+
+            // Hauling
+            options.GapLine();
+            Text.Font = GameFont.Small;
+            options.Label("KAU_Section_Hauling".Translate());
+            Text.Font = orig;
             options.CheckboxLabeled("KAU_ToggleHaulUrgently".Translate(), ref DisableHaulUrgently);
             options.CheckboxLabeled("KAU_ToggleNoHauling".Translate(), ref DisableNoHauling);
-            options.CheckboxLabeled("KAU_DisableClaimAll".Translate(), ref DisableClaimAll);
-            options.CheckboxLabeled("KAU_ToggleFinishOff".Translate(), ref DisableFinishOff);
-            options.CheckboxLabeled("KAU_ToggleStripMine".Translate(), ref DisableStripMine);
+
+            // Plants
+            options.GapLine();
+            Text.Font = GameFont.Small;
+            options.Label("KAU_Section_Plants".Translate());
+            Text.Font = orig;
             options.CheckboxLabeled("KAU_ToggleHarvest".Translate(), ref DisableHarvest);
             options.CheckboxLabeled("KAU_ToggleHarvestAll".Translate(), ref DisableHarvestAll);
             options.CheckboxLabeled("KAU_ToggleCut".Translate(), ref DisableCut);
-            options.CheckboxLabeled("KAU_ToggleSelection".Translate(), ref DisableSelection);
             options.CheckboxLabeled("KAU_ToggleFertileZone".Translate(), ref DisableFertileZone);
-            options.CheckboxLabeled("KAU_ToggleAllowFinishOffOnFriendly".Translate(), ref AllowFinishOffOnFriendly);
-            options.CheckboxLabeled("KAU_ToggleDisableAllowShortcuts".Translate(), ref DisableAllowShortcuts);
-            options.CheckboxLabeled("KAU_ExcludeCorpsesFromAllowAll".Translate(), ref ExcludeCorpsesFromAllowAll);
-            options.CheckboxLabeled("KAU_DisableSelectStored".Translate(), ref DisableSelectStored);
-            options.CheckboxLabeled("KAU_ToggleDisableAllShortcuts".Translate(), ref DisableAllShortcuts);
-            options.CheckboxLabeled("KAU_DisableMeleeRequirementForFinishOff".Translate(), ref DisableMeleeRequirementForFinishOff);
             PlantGrownLevel = options.SliderLabeled("KAU_PlantGrownLevel".Translate(PlantGrownLevel*100), PlantGrownLevel, 0f, 1f);
 
-            options.Gap();
+            // Combat
+            options.GapLine();
+            Text.Font = GameFont.Small;
+            options.Label("KAU_Section_Combat".Translate());
+            Text.Font = orig;
+            options.CheckboxLabeled("KAU_ToggleFinishOff".Translate(), ref DisableFinishOff);
+            options.CheckboxLabeled("KAU_ToggleAllowFinishOffOnFriendly".Translate(), ref AllowFinishOffOnFriendly);
+            options.CheckboxLabeled("KAU_DisableMeleeRequirementForFinishOff".Translate(), ref DisableMeleeRequirementForFinishOff);
+
+            // Mining
+            options.GapLine();
+            Text.Font = GameFont.Small;
+            options.Label("KAU_Section_Mining".Translate());
+            Text.Font = orig;
+            options.CheckboxLabeled("KAU_ToggleStripMine".Translate(), ref DisableStripMine);
+
+            // Shortcuts
+            options.GapLine();
+            Text.Font = GameFont.Small;
+            options.Label("KAU_Section_Shortcuts".Translate());
+            Text.Font = orig;
+            options.CheckboxLabeled("KAU_ToggleDisableAllowShortcuts".Translate(), ref DisableAllowShortcuts);
+            options.CheckboxLabeled("KAU_ToggleDisableAllShortcuts".Translate(), ref DisableAllShortcuts);
+
             options.GapLine();
 
             if (prevHaulUrgently != DisableHaulUrgently
@@ -157,6 +199,9 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref DisableHarvestAll, "DisableHarvestAll", false);
         Scribe_Values.Look(ref DisableCut, "DisableCut", false);
         Scribe_Values.Look(ref DisableSelection, "DisableSelection", false);
+        Scribe_Values.Look(ref DisableSelectOnScreen, "DisableSelectOnScreen", false);
+        Scribe_Values.Look(ref DisableSelectOnMap, "DisableSelectOnMap", false);
+        Scribe_Values.Look(ref DisableSelectInRect, "DisableSelectInRect", false);
         Scribe_Values.Look(ref DisableFertileZone, "DisableFertileZone", false);
         Scribe_Values.Look(ref ExcludeCorpsesFromAllowAll, "ExcludeCorpsesFromAllowAll", true);
         Scribe_Values.Look(ref DisableSelectStored, "DisableSelectStored", false);

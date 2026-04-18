@@ -66,7 +66,10 @@ public static class Thing_Patches
 
         List<Gizmo> gizmos = __result.ToList();
 
-        if (!KeyzAllowUtilitiesMod.settings.DisableSelection)
+        if (!KeyzAllowUtilitiesMod.settings.DisableSelection
+            && !(KeyzAllowUtilitiesMod.settings.DisableSelectOnScreen
+                 && KeyzAllowUtilitiesMod.settings.DisableSelectOnMap
+                 && KeyzAllowUtilitiesMod.settings.DisableSelectInRect))
         {
             Command_Action command_Action = new()
             {
@@ -75,48 +78,34 @@ public static class Thing_Patches
                 defaultDesc = KUA_MultiSelectDesc.Value,
                 action = () =>
                 {
+                    var settings = KeyzAllowUtilitiesMod.settings;
+                    bool checkStuff = Event.current is not { shift: true }
+                                      && __instance.def.MadeFromStuff;
+
+                    List<FloatMenuOption> items = BuildSelectMenuItems(
+                        __instance, currentMap, checkStuff, settings);
+
+                    if (items.Count == 0)
+                        return;
+
                     if (Event.current == null || Event.current.button == 0)
                     {
-                        if (SelectDesignator.Value != null)
-                            Find.DesignatorManager.Select(SelectDesignator.Value);
-                    }
-                    else
-                    {
-                        List<FloatMenuOption> items = [];
-
-                        if (Event.current.shift || !__instance.def.MadeFromStuff)
+                        if (items.Count == 1)
                         {
-                            items.Add(new FloatMenuOption(KUA_SelectOnScreen.Value, () =>
-                            {
-                                FilterUtils.SelectOnScreen(__instance, false, Find.Selector.SelectedObjects.OfType<Thing>());
-                            }));
-                            items.Add(new FloatMenuOption(KUA_SelectOnMap.Value, () =>
-                            {
-                                currentMap.SelectOnMap(__instance, false, Find.Selector.SelectedObjects.OfType<Thing>());
-                            }));
-                            items.Add(new FloatMenuOption(KUA_SelectInRect.Value, () =>
-                            {
-                                if (SelectDesignator.Value != null)
-                                    Find.DesignatorManager.Select(SelectDesignator.Value);
-                            }));
+                            items[0].action();
+                        }
+                        else if (!settings.DisableSelectInRect)
+                        {
+                            if (SelectDesignator.Value != null)
+                                Find.DesignatorManager.Select(SelectDesignator.Value);
                         }
                         else
                         {
-                            items.Add(new FloatMenuOption("KUA_SelectOnScreenWithStuff".Translate(__instance.Stuff.LabelAsStuff), () =>
-                            {
-                                FilterUtils.SelectOnScreen(__instance, true, Find.Selector.SelectedObjects.OfType<Thing>());
-                            }));
-                            items.Add(new FloatMenuOption("KUA_SelectOnMapWithStuff".Translate(__instance.Stuff.LabelAsStuff), () =>
-                            {
-                                currentMap.SelectOnMap(__instance, true, Find.Selector.SelectedObjects.OfType<Thing>());
-                            }));
-                            items.Add(new FloatMenuOption(KUA_SelectInRect.Value, () =>
-                            {
-                                if (SelectDesignator.Value != null)
-                                    Find.DesignatorManager.Select(SelectDesignator.Value);
-                            }));
+                            Find.WindowStack.Add(new FloatMenu(items));
                         }
-
+                    }
+                    else
+                    {
                         Find.WindowStack.Add(new FloatMenu(items));
                     }
                 }
@@ -287,5 +276,41 @@ public static class Thing_Patches
         {
             return !thing.def.designateHaulable && thing.def.EverHaulable && thing is not Building;
         }
+    }
+
+    private static List<FloatMenuOption> BuildSelectMenuItems(
+        Thing thing, Map map, bool checkStuff, Settings settings)
+    {
+        List<FloatMenuOption> items = [];
+        IEnumerable<Thing> selected = Find.Selector.SelectedObjects.OfType<Thing>();
+
+        if (!settings.DisableSelectOnScreen)
+        {
+            string label = checkStuff
+                ? "KUA_SelectOnScreenWithStuff".Translate(thing.Stuff.LabelAsStuff)
+                : KUA_SelectOnScreen.Value;
+            items.Add(new FloatMenuOption(label, () =>
+                FilterUtils.SelectOnScreen(thing, checkStuff, selected)));
+        }
+
+        if (!settings.DisableSelectOnMap)
+        {
+            string label = checkStuff
+                ? "KUA_SelectOnMapWithStuff".Translate(thing.Stuff.LabelAsStuff)
+                : KUA_SelectOnMap.Value;
+            items.Add(new FloatMenuOption(label, () =>
+                map.SelectOnMap(thing, checkStuff, selected)));
+        }
+
+        if (!settings.DisableSelectInRect)
+        {
+            items.Add(new FloatMenuOption(KUA_SelectInRect.Value, () =>
+            {
+                if (SelectDesignator.Value != null)
+                    Find.DesignatorManager.Select(SelectDesignator.Value);
+            }));
+        }
+
+        return items;
     }
 }
