@@ -7,6 +7,17 @@
 - add steam mod description - ([63f1f4f](https://github.com/keyz182/KeyzAllowUtils/commit/63f1f4f22b94f016eb406ead4712646640761b17)) - [@keyz182](https://github.com/keyz182)
 
 - - -
+## [v1.1.0](https://github.com/keyz182/KeyzAllowUtils/compare/5db74f7850f7b8956172c2a2ed5382939c14abe8..v1.1.0) - 2026-04-18
+#### Documentation
+- update changelog for v1.0.2 - ([5db74f7](https://github.com/keyz182/KeyzAllowUtils/commit/5db74f7850f7b8956172c2a2ed5382939c14abe8)) - github-actions[bot]
+#### Features
+- dynamic RimWorld path discovery via MSBuild inline C# task - ([1525f99](https://github.com/keyz182/KeyzAllowUtils/commit/1525f99bc18b88ab57724c2c06c10b52fd63fd89)) - [@keyz182](https://github.com/keyz182)
+#### Miscellaneous Chores
+- Add rebuilt binaries - ([37b21c1](https://github.com/keyz182/KeyzAllowUtils/commit/37b21c1bfb9a5e0644346eecb2f422b661a6397e)) - [@keyz182](https://github.com/keyz182)
+- no release on docs tag - ([e3f1e5c](https://github.com/keyz182/KeyzAllowUtils/commit/e3f1e5c1a9575d907cc2edcd3e96e71e0549bcba)) - [@keyz182](https://github.com/keyz182)
+
+- - -
+
 
 ## [v1.0.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.0.0..v1.0.1) - 2026-04-18
 #### Bug Fixes
