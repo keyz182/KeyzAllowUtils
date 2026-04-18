@@ -12,5 +12,6 @@
     <exclude>Common/Textures/UI/KAU_StripMineDiagram.svg</exclude>
     <exclude>modlist.xml</exclude>
     <exclude>release.sh</exclude>
+    <exclude>SteamDescription.txt</exclude>
   </Excluded>
 </Configuration>

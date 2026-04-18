@@ -24,6 +24,8 @@ Hold shift to instead:
 [*]Right Click -> Select all similar items across the entire map
 [/list]
 
+Each of the three selection modes (on screen, on map, in rect) can be individually disabled in settings. When only one mode remains, left-click triggers it directly instead of showing a menu.
+
 [b]Select Stored[/b]
 A gizmo on storage buildings (shelves, etc.) and stockpile zones that selects all items inside, so you can bulk forbid/allow/haul them. Hold Shift to add to your current selection instead of replacing it.
 
@@ -113,14 +115,14 @@ Available in the debug actions menu (requires debug mode):
 [/list]
 
 [h2]Configuration[/h2]
-The mod includes settings to customize:
+Settings are organised into sections for easy navigation:
 [list]
-[*]Maximum number of items that can be selected at once
-[*]Plant growth threshold for harvest/cut designators
-[*]Toggle individual features on/off (haul urgently, do not haul, finish off, strip mine, harvest, cut, selection tools, fertile zone, claim all doors, select stored, and more)
-[*]Exclude corpses from Allow All by default (Shift+Allow to include)
-[*]Disable melee requirement for Finish Off
-[*]Disable all keyboard shortcuts
+[*][b]Selection & Allowing[/b] — Max selected items, selection gizmo toggles (on screen / on map / in rect), select stored, claim all, corpse exclusion
+[*][b]Hauling[/b] — Haul urgently, do not haul
+[*][b]Plants[/b] — Harvest, harvest all, cut, fertile zone, growth threshold
+[*][b]Combat[/b] — Finish off, friendly fire, melee requirement
+[*][b]Mining[/b] — Strip mine
+[*][b]Shortcuts[/b] — Allow/forbid hotkeys, disable all shortcuts
 [/list]
 
 [h2]Thanks[/h2]
