@@ -1,0 +1,177 @@
+<Project>
+  <!--
+    RimWorld Path Discovery (build-time / inline C# task)
+
+    Only runs when Directory.Build.props did NOT resolve RimWorldManagedDir
+    (i.e. the project is not inside the game tree and no env override was set).
+
+    Scans known Steam library locations per platform. No drive enumeration.
+  -->
+
+  <UsingTask TaskName="FindRimWorld"
+             TaskFactory="RoslynCodeTaskFactory"
+             AssemblyFile="$(MSBuildToolsPath)/Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <ProjectDir ParameterType="System.String" Required="true" />
+      <RimWorldManagedDir ParameterType="System.String" Output="true" />
+      <SteamAppsDir ParameterType="System.String" Output="true" />
+      <SteamWorkshopDir ParameterType="System.String" Output="true" />
+      <DiscoveryMethod ParameterType="System.String" Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System" />
+      <Using Namespace="System.Collections.Generic" />
+      <Using Namespace="System.IO" />
+      <Using Namespace="System.Linq" />
+      <Using Namespace="System.Runtime.InteropServices" />
+      <Code Type="Fragment" Language="cs">
+<![CDATA[
+// Platform-specific Managed/ subdirectories to probe inside a RimWorld install
+var managedSubPaths = new[]
+{
+    Path.Combine("RimWorldWin64_Data", "Managed"),
+    Path.Combine("RimWorldLinux_Data", "Managed"),
+    Path.Combine("Contents", "Resources", "Data", "Managed"),
+    // macOS: RimWorldMac.app lives inside the Steam common/RimWorld/ directory
+    Path.Combine("RimWorldMac.app", "Contents", "Resources", "Data", "Managed"),
+};
+
+// Try to resolve Managed/ path from a candidate game root directory
+string TryResolveManagedDir(string candidateRoot)
+{
+    foreach (var sub in managedSubPaths)
+    {
+        var managed = Path.Combine(candidateRoot, sub);
+        if (File.Exists(Path.Combine(managed, "Assembly-CSharp.dll")))
+            return managed;
+    }
+    return null;
+}
+
+// Derive the steamapps/ directory by walking up from a known path
+string DeriveSteamAppsDir(string fromPath)
+{
+    var dir = new DirectoryInfo(fromPath);
+    while (dir != null)
+    {
+        if (dir.Name.Equals("steamapps", StringComparison.OrdinalIgnoreCase))
+            return dir.FullName;
+        dir = dir.Parent;
+    }
+    return null;
+}
+
+// === Strategy 1: Walk up from project directory ===
+var current = new DirectoryInfo(ProjectDir);
+for (int i = 0; i < 8 && current != null; i++)
+{
+    current = current.Parent;
+    if (current == null) break;
+
+    // macOS: detect .app bundle
+    if (current.Name.EndsWith(".app", StringComparison.OrdinalIgnoreCase))
+    {
+        var managed = TryResolveManagedDir(current.FullName);
+        if (managed != null)
+        {
+            RimWorldManagedDir = managed;
+            DiscoveryMethod = "parent-walk (.app bundle)";
+            break;
+        }
+    }
+
+    // Windows/Linux: detect UnityPlayer
+    if (File.Exists(Path.Combine(current.FullName, "UnityPlayer.dll"))
+        || File.Exists(Path.Combine(current.FullName, "UnityPlayer.so")))
+    {
+        var managed = TryResolveManagedDir(current.FullName);
+        if (managed != null)
+        {
+            RimWorldManagedDir = managed;
+            DiscoveryMethod = "parent-walk (UnityPlayer)";
+            break;
+        }
+    }
+}
+
+// === Strategy 2: Known Steam library locations ===
+if (string.IsNullOrEmpty(RimWorldManagedDir))
+{
+    var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+    var steamPaths = new List<string>();
+
+    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+    {
+        steamPaths.Add(Path.Combine("C:", "Program Files (x86)", "Steam", "steamapps"));
+        steamPaths.Add(Path.Combine("C:", "Program Files", "Steam", "steamapps"));
+    }
+    else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+    {
+        steamPaths.Add(Path.Combine(home, "Library", "Application Support", "Steam", "steamapps"));
+    }
+    else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+    {
+        steamPaths.Add(Path.Combine(home, ".local", "share", "Steam", "steamapps"));
+        steamPaths.Add(Path.Combine(home, ".steam", "debian-installation", "steamapps"));
+        steamPaths.Add(Path.Combine(home, "snap", "steam", "common", ".local", "share", "Steam", "steamapps"));
+    }
+
+    foreach (var steamApps in steamPaths)
+    {
+        if (!Directory.Exists(steamApps)) continue;
+
+        var rimworldDir = Path.Combine(steamApps, "common", "RimWorld");
+        if (!Directory.Exists(rimworldDir)) continue;
+
+        var managed = TryResolveManagedDir(rimworldDir);
+        if (managed != null)
+        {
+            RimWorldManagedDir = managed;
+            DiscoveryMethod = "steam-path (" + steamApps + ")";
+            break;
+        }
+    }
+}
+
+// === Derive Steam paths from whatever we found ===
+if (!string.IsNullOrEmpty(RimWorldManagedDir))
+{
+    SteamAppsDir = DeriveSteamAppsDir(RimWorldManagedDir);
+    if (!string.IsNullOrEmpty(SteamAppsDir))
+    {
+        var workshop = Path.Combine(SteamAppsDir, "workshop", "content", "294100");
+        if (Directory.Exists(workshop))
+            SteamWorkshopDir = workshop;
+    }
+}
+]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <!-- Only run the inline task if Directory.Build.props didn't resolve the path -->
+  <Target Name="ResolveRimWorldPaths"
+          BeforeTargets="ResolveAssemblyReferences"
+          Condition="'$(RimWorldManagedDir)' == ''">
+    <FindRimWorld ProjectDir="$(MSBuildProjectDirectory)">
+      <Output TaskParameter="RimWorldManagedDir" PropertyName="RimWorldManagedDir" />
+      <Output TaskParameter="SteamAppsDir" PropertyName="SteamAppsDir" />
+      <Output TaskParameter="SteamWorkshopDir" PropertyName="SteamWorkshopDir" />
+      <Output TaskParameter="DiscoveryMethod" PropertyName="_RimWorldDiscoveryMethod" />
+    </FindRimWorld>
+
+    <Message Text="RimWorld found via $(_RimWorldDiscoveryMethod): $(RimWorldManagedDir)"
+             Importance="normal"
+             Condition="'$(RimWorldManagedDir)' != ''" />
+    <Message Text="RimWorld not found — will fall back to Krafs.Rimworld.Ref if available"
+             Importance="high"
+             Condition="'$(RimWorldManagedDir)' == ''" />
+  </Target>
+
+  <!--
+    When the inline task finds the game at build-time but .props didn't know at restore-time,
+    SteamWorkshopDir/SteamAppsDir are only available in targets that run after ResolveRimWorldPaths.
+    For projects that need SteamWorkshopDir (PUAH), the .props static probe should cover the
+    in-tree case. The out-of-tree case is handled here.
+  -->
+</Project>

@@ -10,7 +10,6 @@
         <OutputPath>../../../Compatibility/mehni.pickupandhaul/1.6/Assemblies</OutputPath>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-        <SteamModsPath>$(RIMWORLD_STEAM_MODS_PATH)</SteamModsPath>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <Optimize>false</Optimize>
@@ -22,34 +21,29 @@
         <DebugSymbols>false</DebugSymbols>
         <Optimize>true</Optimize>
     </PropertyGroup>
-    <ItemGroup>
+    <!-- Game DLL references — path resolved by Directory.Build.props/targets -->
+    <ItemGroup Condition="'$(RimWorldManagedDir)' != ''">
         <Reference Include="Assembly-CSharp">
-            <HintPath Condition="Exists('../../../../../RimWorldWin64_Data/Managed/Assembly-CSharp.dll')">../../../../../RimWorldWin64_Data/Managed/Assembly-CSharp.dll</HintPath>
-            <HintPath Condition="Exists('../../../../../RimWorldLinux_Data/Managed/Assembly-CSharp.dll')">../../../../../RimWorldLinux_Data/Managed/Assembly-CSharp.dll</HintPath>
-            <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/Assembly-CSharp.dll')">../../../../../Contents/Resources/Data/Managed/Assembly-CSharp.dll</HintPath>
+            <HintPath>$(RimWorldManagedDir)/Assembly-CSharp.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-            <HintPath Condition="Exists('../../../../../RimWorldWin64_Data/Managed/UnityEngine.CoreModule.dll')">../../../../../RimWorldWin64_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
-            <HintPath Condition="Exists('../../../../../RimWorldLinux_Data/Managed/UnityEngine.CoreModule.dll')">../../../../../RimWorldLinux_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
-            <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/UnityEngine.CoreModule.dll')">../../../../../Contents/Resources/Data/Managed/UnityEngine.CoreModule.dll</HintPath>
+            <HintPath>$(RimWorldManagedDir)/UnityEngine.CoreModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine.IMGUIModule">
-            <HintPath Condition="Exists('../../../../../RimWorldWin64_Data/Managed/UnityEngine.IMGUIModule.dll')">../../../../../RimWorldWin64_Data/Managed/UnityEngine.IMGUIModule.dll</HintPath>
-            <HintPath Condition="Exists('../../../../../RimWorldLinux_Data/Managed/UnityEngine.IMGUIModule.dll')">../../../../../RimWorldLinux_Data/Managed/UnityEngine.IMGUIModule.dll</HintPath>
-            <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/UnityEngine.IMGUIModule.dll')">../../../../../Contents/Resources/Data/Managed/UnityEngine.IMGUIModule.dll</HintPath>
+            <HintPath>$(RimWorldManagedDir)/UnityEngine.IMGUIModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine.TextRenderingModule">
-            <HintPath Condition="Exists('../../../../../RimWorldWin64_Data/Managed/UnityEngine.TextRenderingModule.dll')">../../../../../RimWorldWin64_Data/Managed/UnityEngine.TextRenderingModule.dll</HintPath>
-            <HintPath Condition="Exists('../../../../../RimWorldLinux_Data/Managed/UnityEngine.TextRenderingModule.dll')">../../../../../RimWorldLinux_Data/Managed/UnityEngine.TextRenderingModule.dll</HintPath>
-            <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/UnityEngine.TextRenderingModule.dll')">../../../../../Contents/Resources/Data/Managed/UnityEngine.TextRenderingModule.dll</HintPath>
+            <HintPath>$(RimWorldManagedDir)/UnityEngine.TextRenderingModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
+    </ItemGroup>
+    <!-- Workshop mod reference -->
+    <ItemGroup Condition="'$(SteamWorkshopDir)' != ''">
         <Reference Include="PickUpAndHaul">
-            <HintPath Condition="Exists('../../../../../../../workshop/content/294100/1279012058/1.6/Assemblies/PickUpAndHaul.dll')">../../../../../../../workshop/content/294100/1279012058/1.6/Assemblies/PickUpAndHaul.dll</HintPath>
-            <HintPath Condition="Exists('../../../../../../../../workshop/content/294100/1279012058/1.6/Assemblies/PickUpAndHaul.dll')">../../../../../../../../workshop/content/294100/1279012058/1.6/Assemblies/PickUpAndHaul.dll</HintPath>
+            <HintPath>$(SteamWorkshopDir)/1279012058/1.6/Assemblies/PickUpAndHaul.dll</HintPath>
             <Private>False</Private>
         </Reference>
     </ItemGroup>
@@ -60,8 +54,9 @@
         <PackageReference Include="Lib.Harmony" Version="2.*" ExcludeAssets="runtime" />
     </ItemGroup>
 
-    <ItemGroup Condition="'@(Reference->WithMetadataValue('Identity', 'Assembly-CSharp')->Metadata('HintPath')->Exists())' == ''">
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6-*" />
+    <!-- CI fallback: when game DLLs aren't available, use stub reference assemblies -->
+    <ItemGroup Condition="'$(RimWorldManagedDir)' == ''">
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*" />
     </ItemGroup>
 
     <ItemGroup>

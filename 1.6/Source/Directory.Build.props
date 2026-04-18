@@ -1,0 +1,54 @@
+<Project>
+  <!--
+    RimWorld Path Discovery (static / restore-time)
+
+    Sets RimWorldManagedDir via static Exists() probes so that:
+    1. Game DLL references resolve without hardcoded paths in each .csproj
+    2. Krafs.Rimworld.Ref is only restored when game DLLs are genuinely unavailable
+
+    Override hierarchy (highest wins):
+      dotnet build -p:RimWorldManagedDir=/path  >  RIMWORLD_PATH env var  >  static probe
+  -->
+
+  <PropertyGroup>
+    <!-- Relative base: 5 levels up from any project in 1.6/Source/ProjectName/ -->
+    <_GameRoot>$([MSBuild]::NormalizePath($(MSBuildProjectDirectory), '..', '..', '..', '..', '..'))</_GameRoot>
+
+    <!-- Priority 1: explicit CLI property (already set, nothing to do) -->
+
+    <!-- Priority 2: RIMWORLD_PATH environment variable -->
+    <_RimWorldEnvPath>$(RIMWORLD_PATH)</_RimWorldEnvPath>
+
+    <!-- Probe env var path for Managed/ subfolder per platform -->
+    <RimWorldManagedDir Condition="'$(RimWorldManagedDir)' == '' and '$(_RimWorldEnvPath)' != '' and Exists('$(_RimWorldEnvPath)/RimWorldWin64_Data/Managed/Assembly-CSharp.dll')">$(_RimWorldEnvPath)/RimWorldWin64_Data/Managed</RimWorldManagedDir>
+    <RimWorldManagedDir Condition="'$(RimWorldManagedDir)' == '' and '$(_RimWorldEnvPath)' != '' and Exists('$(_RimWorldEnvPath)/RimWorldLinux_Data/Managed/Assembly-CSharp.dll')">$(_RimWorldEnvPath)/RimWorldLinux_Data/Managed</RimWorldManagedDir>
+    <!-- macOS: env var might point to the .app bundle or the directory containing it -->
+    <RimWorldManagedDir Condition="'$(RimWorldManagedDir)' == '' and '$(_RimWorldEnvPath)' != '' and Exists('$(_RimWorldEnvPath)/Contents/Resources/Data/Managed/Assembly-CSharp.dll')">$(_RimWorldEnvPath)/Contents/Resources/Data/Managed</RimWorldManagedDir>
+    <!-- macOS: env var points to parent of .app (e.g. /path/to/RimWorld/) — look for RimWorldMac.app inside -->
+    <RimWorldManagedDir Condition="'$(RimWorldManagedDir)' == '' and '$(_RimWorldEnvPath)' != '' and Exists('$(_RimWorldEnvPath)/RimWorldMac.app/Contents/Resources/Data/Managed/Assembly-CSharp.dll')">$(_RimWorldEnvPath)/RimWorldMac.app/Contents/Resources/Data/Managed</RimWorldManagedDir>
+
+    <!-- Priority 3: static probe from project location (project inside game tree) -->
+    <!-- Windows 64-bit -->
+    <RimWorldManagedDir Condition="'$(RimWorldManagedDir)' == '' and Exists('$(_GameRoot)/RimWorldWin64_Data/Managed/Assembly-CSharp.dll')">$(_GameRoot)/RimWorldWin64_Data/Managed</RimWorldManagedDir>
+    <!-- Linux -->
+    <RimWorldManagedDir Condition="'$(RimWorldManagedDir)' == '' and Exists('$(_GameRoot)/RimWorldLinux_Data/Managed/Assembly-CSharp.dll')">$(_GameRoot)/RimWorldLinux_Data/Managed</RimWorldManagedDir>
+    <!-- macOS (.app bundle — _GameRoot lands on the .app directory itself) -->
+    <RimWorldManagedDir Condition="'$(RimWorldManagedDir)' == '' and Exists('$(_GameRoot)/Contents/Resources/Data/Managed/Assembly-CSharp.dll')">$(_GameRoot)/Contents/Resources/Data/Managed</RimWorldManagedDir>
+
+    <!-- Normalize to absolute path if set -->
+    <RimWorldManagedDir Condition="'$(RimWorldManagedDir)' != ''">$([System.IO.Path]::GetFullPath($(RimWorldManagedDir)))</RimWorldManagedDir>
+
+    <!--
+      Derive SteamWorkshopDir from _GameRoot when in-tree.
+      Structure: steamapps/common/RimWorld/[RimWorldMac.app/]Mods/ModName/1.6/Source/Project/
+      _GameRoot is 5 up from Project → lands on the .app or game root.
+      steamapps is 2 more up from there (past common/RimWorld) or 3 (past common/RimWorld/RimWorldMac.app).
+    -->
+    <!-- macOS: _GameRoot is the .app, so steamapps is 3 up -->
+    <_SteamAppsProbe Condition="'$(SteamWorkshopDir)' == '' and '$(_GameRoot)' != ''">$([MSBuild]::NormalizePath($(_GameRoot), '..', '..', '..'))</_SteamAppsProbe>
+    <SteamWorkshopDir Condition="'$(SteamWorkshopDir)' == '' and Exists('$(_SteamAppsProbe)/workshop/content/294100')">$([System.IO.Path]::GetFullPath('$(_SteamAppsProbe)/workshop/content/294100'))</SteamWorkshopDir>
+    <!-- Windows/Linux: _GameRoot is the game dir, steamapps is 2 up -->
+    <_SteamAppsProbe Condition="'$(SteamWorkshopDir)' == '' and '$(_GameRoot)' != ''">$([MSBuild]::NormalizePath($(_GameRoot), '..', '..'))</_SteamAppsProbe>
+    <SteamWorkshopDir Condition="'$(SteamWorkshopDir)' == '' and Exists('$(_SteamAppsProbe)/workshop/content/294100')">$([System.IO.Path]::GetFullPath('$(_SteamAppsProbe)/workshop/content/294100'))</SteamWorkshopDir>
+  </PropertyGroup>
+</Project>
