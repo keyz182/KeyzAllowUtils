@@ -1,4 +1,15 @@
-## [v1.2.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.0..v1.2.1) - 2026-04-18
+## [v1.2.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.1..v1.2.2) - 2026-04-30
+#### Bug Fixes
+- allow canceling - ([e5b9839](https://github.com/keyz182/KeyzAllowUtils/commit/e5b9839a6778cc95701bd4244ebfd558d06ca25b)) - [@keyz182](https://github.com/keyz182)
+- do not haul - ([71106cd](https://github.com/keyz182/KeyzAllowUtils/commit/71106cdbd5184f9792c861ca539863fcc564f3b1)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.2.1 - ([a6ead4a](https://github.com/keyz182/KeyzAllowUtils/commit/a6ead4a2f6760a63280d8da7dffc2928f1357812)) - github-actions[bot]
+#### Miscellaneous Chores
+- **(version)** v1.2.2 - ([3042f4b](https://github.com/keyz182/KeyzAllowUtils/commit/3042f4b064d4454e71f2ca6c6e9198d1df0ebcb9)) - github-actions[bot]
+
+- - -
+
+## [v1.2.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.0..v1.2.1) - 2026-04-30
 #### Bug Fixes
 - don't strip vanilla Haul designation when cancelling Haul Urgently - ([15336d2](https://github.com/keyz182/KeyzAllowUtils/commit/15336d287ed24d69114541491e41d20b8557c475)) - [@keyz182](https://github.com/keyz182)
 #### Documentation
@@ -8,17 +19,8 @@
 - **(version)** v1.2.1 - ([228da92](https://github.com/keyz182/KeyzAllowUtils/commit/228da9285d333b50ef0bf79f8402cd51f978eb61)) - github-actions[bot]
 
 - - -
-## [v1.2.2](https://github.com/keyz182/KeyzAllowUtils/compare/a6ead4a2f6760a63280d8da7dffc2928f1357812..v1.2.2) - 2026-04-30
-#### Bug Fixes
-- allow canceling - ([e5b9839](https://github.com/keyz182/KeyzAllowUtils/commit/e5b9839a6778cc95701bd4244ebfd558d06ca25b)) - [@keyz182](https://github.com/keyz182)
-- do not haul - ([71106cd](https://github.com/keyz182/KeyzAllowUtils/commit/71106cdbd5184f9792c861ca539863fcc564f3b1)) - [@keyz182](https://github.com/keyz182)
-#### Documentation
-- update changelog for v1.2.1 - ([a6ead4a](https://github.com/keyz182/KeyzAllowUtils/commit/a6ead4a2f6760a63280d8da7dffc2928f1357812)) - github-actions[bot]
 
-- - -
-
-
-## [v1.2.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.1.0..v1.2.0) - 2026-04-18
+## [v1.2.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.1.0..v1.2.0) - 2026-04-30
 #### Documentation
 - update changelog for v1.1.0 - ([f3cfc82](https://github.com/keyz182/KeyzAllowUtils/commit/f3cfc82703ddd7080f0c2857f6db7b2e7b50d38b)) - github-actions[bot]
 #### Features
@@ -28,7 +30,7 @@
 
 - - -
 
-## [v1.1.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.0.2..v1.1.0) - 2026-04-18
+## [v1.1.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.0.2..v1.1.0) - 2026-04-30
 #### Documentation
 - update changelog for v1.0.2 - ([5db74f7](https://github.com/keyz182/KeyzAllowUtils/commit/5db74f7850f7b8956172c2a2ed5382939c14abe8)) - github-actions[bot]
 #### Features
@@ -40,7 +42,7 @@
 
 - - -
 
-## [v1.0.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.0.1..v1.0.2) - 2026-04-18
+## [v1.0.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.0.1..v1.0.2) - 2026-04-30
 #### Documentation
 - update changelog for v1.0.1 - ([8177ad8](https://github.com/keyz182/KeyzAllowUtils/commit/8177ad806ab0a6c8bcf702942f88e2432af27554)) - github-actions[bot]
 #### Miscellaneous Chores
@@ -50,7 +52,7 @@
 
 - - -
 
-## [v1.0.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.0.0..v1.0.1) - 2026-04-18
+## [v1.0.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.0.0..v1.0.1) - 2026-04-30
 #### Bug Fixes
 - changelog template - ([3ff6af1](https://github.com/keyz182/KeyzAllowUtils/commit/3ff6af13293fedb715615140ad814f8a1a24b43a)) - [@keyz182](https://github.com/keyz182)
 #### Documentation
@@ -61,7 +63,7 @@
 
 - - -
 
-## [v1.0.0](https://github.com/keyz182/KeyzAllowUtils/compare/344a4df83e1333d5e2f2daef0c0504bae8829ac0..v1.0.0) - 2026-04-18
+## [v1.0.0](https://github.com/keyz182/KeyzAllowUtils/compare/344a4df83e1333d5e2f2daef0c0504bae8829ac0..v1.0.0) - 2026-04-30
 #### Bug Fixes
 - **(ci)** remove initial-tag special case from release workflow - ([082505a](https://github.com/keyz182/KeyzAllowUtils/commit/082505a0637096add806c7f31480ae946aaf74ca)) - [@keyz182](https://github.com/keyz182)
 - **(ci)** discard pre-flight DLL before cog bump - ([786aa7c](https://github.com/keyz182/KeyzAllowUtils/commit/786aa7cc3eb53e34f6af649752538a7a7d522ff5)) - [@keyz182](https://github.com/keyz182)
