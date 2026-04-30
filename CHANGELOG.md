@@ -8,6 +8,15 @@
 - **(version)** v1.2.1 - ([228da92](https://github.com/keyz182/KeyzAllowUtils/commit/228da9285d333b50ef0bf79f8402cd51f978eb61)) - github-actions[bot]
 
 - - -
+## [v1.2.2](https://github.com/keyz182/KeyzAllowUtils/compare/a6ead4a2f6760a63280d8da7dffc2928f1357812..v1.2.2) - 2026-04-30
+#### Bug Fixes
+- allow canceling - ([e5b9839](https://github.com/keyz182/KeyzAllowUtils/commit/e5b9839a6778cc95701bd4244ebfd558d06ca25b)) - [@keyz182](https://github.com/keyz182)
+- do not haul - ([71106cd](https://github.com/keyz182/KeyzAllowUtils/commit/71106cdbd5184f9792c861ca539863fcc564f3b1)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.2.1 - ([a6ead4a](https://github.com/keyz182/KeyzAllowUtils/commit/a6ead4a2f6760a63280d8da7dffc2928f1357812)) - github-actions[bot]
+
+- - -
+
 
 ## [v1.2.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.1.0..v1.2.0) - 2026-04-18
 #### Documentation
