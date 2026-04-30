@@ -4,6 +4,7 @@
         <defName>KAU_HaulUrgentlyDesignation</defName>
         <texturePath>UI/KUA_HaulDesignation</texturePath>
         <targetType>Thing</targetType>
+        <designateCancelable>true</designateCancelable>
     </DesignationDef>
 
     <DesignationDef>
