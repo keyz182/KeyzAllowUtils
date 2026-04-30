@@ -6,6 +6,7 @@ using HarmonyLib;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 
 namespace KeyzAllowUtilities.HarmonyPatches;
 
@@ -136,6 +137,8 @@ public static class Thing_Patches
                         {
                             if (!__instance.IsInValidBestStorage() && currentMap.designationManager.DesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation) == null)
                             {
+                                // Mutual exclusion: Haul Urgently wins over NoHaul
+                                currentMap.designationManager.TryRemoveDesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_NoHaulDesignation);
                                 HaulUrgently.Value.DesignateThing(__instance);
                             }
                         }
@@ -169,7 +172,7 @@ public static class Thing_Patches
             }
         }
 
-        if (!KeyzAllowUtilitiesMod.settings.DisableNoHauling && __instance is not Pawn && __instance.def.EverHaulable)
+        if (!KeyzAllowUtilitiesMod.settings.DisableNoHauling && __instance is not Pawn && __instance.def.EverHaulable && __instance.Spawned)
         {
             Designation des = __instance.MapOrHolderMap()?.designationManager?.DesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_NoHaulDesignation);
 
@@ -182,7 +185,11 @@ public static class Thing_Patches
                     defaultDesc = KUA_ToggleNoHaulUrgentlyDesc.Value,
                     action = () =>
                     {
+                        // Mutual exclusion: NoHaul wins over Haul Urgently
+                        currentMap.designationManager.TryRemoveDesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation);
                         currentMap.designationManager.AddDesignation(new Designation(__instance, KeyzAllowUtilitesDefOf.KAU_NoHaulDesignation));
+                        // Cancel any in-flight haul jobs on this thing so the gizmo feels responsive
+                        CancelHaulJobsTargeting(currentMap, __instance);
                     }
                 });
             }
@@ -311,5 +318,35 @@ public static class Thing_Patches
         }
 
         return items;
+    }
+
+    /// <summary>
+    /// Cancel any in-flight haul jobs targeting <paramref name="thing"/> on <paramref name="map"/>.
+    /// Called when the user toggles "Do Not Haul" on a thing — without this, a pawn that has
+    /// already been assigned a HaulToCell/HaulToContainer job will finish hauling the item to
+    /// storage before the new designation takes effect, which feels broken to the player.
+    /// </summary>
+    private static void CancelHaulJobsTargeting(Map map, Thing thing)
+    {
+        if (map?.mapPawns == null) return;
+        foreach (Pawn pawn in map.mapPawns.FreeColonistsSpawned)
+        {
+            Job job = pawn.CurJob;
+            if (job == null) continue;
+            if (job.def != JobDefOf.HaulToCell && job.def != JobDefOf.HaulToContainer) continue;
+
+            bool targets = job.targetA.Thing == thing;
+            if (!targets && job.targetQueueA != null)
+            {
+                foreach (LocalTargetInfo t in job.targetQueueA)
+                {
+                    if (t.Thing == thing) { targets = true; break; }
+                }
+            }
+            if (targets)
+            {
+                pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
+            }
+        }
     }
 }
