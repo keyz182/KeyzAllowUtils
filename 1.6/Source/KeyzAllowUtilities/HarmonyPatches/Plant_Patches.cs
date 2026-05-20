@@ -41,56 +41,65 @@ public static class Plant_Patches
         return plant.Growth >= level;
     }
 
-    public static void DesignateFullyGrownOnScreen(IEnumerable<Plant> things, Map map, DesignationDef designation, bool checkIfHarvestable = true)
+    public static int DesignateFullyGrownOnScreen(IEnumerable<Plant> things, Map map, DesignationDef designation, bool checkIfHarvestable = true)
     {
         IEnumerable<Plant> plants = map.SelectablePlantsOnScreen()
             .OfDefs(things.ToDefSet())
             .OnlySelectableThings()
             .NotFogged()
             .NearestTo(map.GetCenterOfScreenOnMap());
-        ApplyPlantDesignation(plants, p => IsFullyGrown(p) && (!checkIfHarvestable || p.HarvestableNow), designation);
+        return ApplyPlantDesignation(plants, p => IsFullyGrown(p) && (!checkIfHarvestable || p.HarvestableNow), designation);
     }
 
-    public static void DesignateFullyGrownOnMap(this Map map, IEnumerable<Plant> things, DesignationDef designation, bool checkIfHarvestable = true)
+    public static int DesignateFullyGrownOnMap(this Map map, IEnumerable<Plant> things, DesignationDef designation, bool checkIfHarvestable = true)
     {
         IEnumerable<Plant> plants = map.listerThings.AllThings
             .OfDefs(things.ToDefSet())
             .OnlySelectableThings()
             .NotFogged()
             .OfType<Plant>();
-        ApplyPlantDesignation(plants, p => IsFullyGrown(p) && (!checkIfHarvestable || p.HarvestableNow), designation);
+        return ApplyPlantDesignation(plants, p => IsFullyGrown(p) && (!checkIfHarvestable || p.HarvestableNow), designation);
     }
 
-    public static void DesignateAnyOnScreen(IEnumerable<Plant> things, Map map, DesignationDef designation, bool checkIfHarvestable = true)
+    public static int DesignateAnyOnScreen(IEnumerable<Plant> things, Map map, DesignationDef designation, bool checkIfHarvestable = true)
     {
         IEnumerable<Plant> plants = map.SelectablePlantsOnScreen()
             .OfDefs(things.ToDefSet())
             .OnlySelectableThings()
             .NotFogged()
             .NearestTo(map.GetCenterOfScreenOnMap());
-        ApplyPlantDesignation(plants, p => !checkIfHarvestable || p.HarvestableNow, designation);
+        return ApplyPlantDesignation(plants, p => !checkIfHarvestable || p.HarvestableNow, designation);
     }
 
-    public static void DesignateAnyOnMap(this Map map, IEnumerable<Plant> things, DesignationDef designation, bool checkIfHarvestable = true)
+    public static int DesignateAnyOnMap(this Map map, IEnumerable<Plant> things, DesignationDef designation, bool checkIfHarvestable = true)
     {
         IEnumerable<Plant> plants = map.listerThings.AllThings
             .OfDefs(things.ToDefSet())
             .OnlySelectableThings()
             .NotFogged()
             .OfType<Plant>();
-        ApplyPlantDesignation(plants, p => !checkIfHarvestable || p.HarvestableNow, designation);
+        return ApplyPlantDesignation(plants, p => !checkIfHarvestable || p.HarvestableNow, designation);
     }
 
-    private static void ApplyPlantDesignation(IEnumerable<Plant> plants, Func<Plant, bool> predicate, DesignationDef designation)
+    private static int ApplyPlantDesignation(IEnumerable<Plant> plants, Func<Plant, bool> predicate, DesignationDef designation)
     {
+        int count = 0;
         foreach (Plant plant in plants)
         {
             if (predicate(plant))
             {
                 plant.Map.designationManager.RemoveAllDesignationsOn(plant);
                 plant.Map.designationManager.AddDesignation(new Designation((LocalTargetInfo)plant, designation));
+                count++;
             }
         }
+        return count;
+    }
+
+    public static void ReportDesignated(int count)
+    {
+        if (count <= 0) return;
+        Messages.Message("KUA_DesignatedCount".Translate(count), MessageTypeDefOf.NeutralEvent, historical: false);
     }
 
     public static bool TryGetSelectedOfCategory(ThingCategory category, out List<Thing> things)
@@ -139,22 +148,26 @@ public static class Plant_Patches
                         [
                             new(KUA_HarvestOnScreen_Label.Value, () =>
                             {
+                                int n = 0;
                                 if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
                                 {
-                                    DesignateFullyGrownOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.HarvestPlant);
+                                    n += DesignateFullyGrownOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.HarvestPlant);
                                 }
 
-                                DesignateFullyGrownOnScreen([__instance], __instance.Map, DesignationDefOf.HarvestPlant);
+                                n += DesignateFullyGrownOnScreen([__instance], __instance.Map, DesignationDefOf.HarvestPlant);
+                                ReportDesignated(n);
                             }),
 
                             new(KUA_HarvestOnMap_Label.Value, () =>
                             {
+                                int n = 0;
                                 if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
                                 {
-                                    __instance.Map.DesignateFullyGrownOnMap(things.OfType<Plant>(), DesignationDefOf.HarvestPlant);
+                                    n += __instance.Map.DesignateFullyGrownOnMap(things.OfType<Plant>(), DesignationDefOf.HarvestPlant);
                                 }
 
-                                __instance.Map.DesignateFullyGrownOnMap([__instance], DesignationDefOf.HarvestPlant);
+                                n += __instance.Map.DesignateFullyGrownOnMap([__instance], DesignationDefOf.HarvestPlant);
+                                ReportDesignated(n);
                             })
                         ];
 
@@ -181,22 +194,26 @@ public static class Plant_Patches
                         [
                             new(KUA_CutGrownOnScreen_Label.Value, () =>
                             {
+                                int n = 0;
                                 if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
                                 {
-                                    DesignateFullyGrownOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.CutPlant, false);
+                                    n += DesignateFullyGrownOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.CutPlant, false);
                                 }
 
-                                DesignateFullyGrownOnScreen([__instance], __instance.Map, DesignationDefOf.CutPlant, false);
+                                n += DesignateFullyGrownOnScreen([__instance], __instance.Map, DesignationDefOf.CutPlant, false);
+                                ReportDesignated(n);
                             }),
 
                             new(KUA_CutGrownOnMap_Label.Value, () =>
                             {
+                                int n = 0;
                                 if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
                                 {
-                                    __instance.Map.DesignateFullyGrownOnMap(things.OfType<Plant>(), DesignationDefOf.CutPlant, false);
+                                    n += __instance.Map.DesignateFullyGrownOnMap(things.OfType<Plant>(), DesignationDefOf.CutPlant, false);
                                 }
 
-                                __instance.Map.DesignateFullyGrownOnMap([__instance], DesignationDefOf.CutPlant, false);
+                                n += __instance.Map.DesignateFullyGrownOnMap([__instance], DesignationDefOf.CutPlant, false);
+                                ReportDesignated(n);
                             })
                         ];
 
@@ -222,22 +239,26 @@ public static class Plant_Patches
                         [
                             new(KUA_HarvestAllOnScreen_Label.Value, () =>
                             {
+                                int n = 0;
                                 if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
                                 {
-                                    DesignateAnyOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.HarvestPlant, false);
+                                    n += DesignateAnyOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.HarvestPlant, false);
                                 }
 
-                                DesignateAnyOnScreen([__instance], __instance.Map, DesignationDefOf.HarvestPlant, false);
+                                n += DesignateAnyOnScreen([__instance], __instance.Map, DesignationDefOf.HarvestPlant, false);
+                                ReportDesignated(n);
                             }),
 
                             new(KUA_HarvestAllOnMap_Label.Value, () =>
                             {
+                                int n = 0;
                                 if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
                                 {
-                                    __instance.Map.DesignateAnyOnMap(things.OfType<Plant>(), DesignationDefOf.HarvestPlant, false);
+                                    n += __instance.Map.DesignateAnyOnMap(things.OfType<Plant>(), DesignationDefOf.HarvestPlant, false);
                                 }
 
-                                __instance.Map.DesignateAnyOnMap([__instance], DesignationDefOf.HarvestPlant, false);
+                                n += __instance.Map.DesignateAnyOnMap([__instance], DesignationDefOf.HarvestPlant, false);
+                                ReportDesignated(n);
                             })
                         ];
 
@@ -259,22 +280,26 @@ public static class Plant_Patches
                         [
                             new(KUA_HarvestAllWoodOnScreen_Label.Value, () =>
                             {
+                                int n = 0;
                                 if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
                                 {
-                                    DesignateAnyOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.CutPlant, false);
+                                    n += DesignateAnyOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.CutPlant, false);
                                 }
 
-                                DesignateAnyOnScreen([__instance], __instance.Map, DesignationDefOf.CutPlant, false);
+                                n += DesignateAnyOnScreen([__instance], __instance.Map, DesignationDefOf.CutPlant, false);
+                                ReportDesignated(n);
                             }),
 
                             new(KUA_HarvestAllWoodOnMap_Label.Value, () =>
                             {
+                                int n = 0;
                                 if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
                                 {
-                                    __instance.Map.DesignateAnyOnMap(things.OfType<Plant>(), DesignationDefOf.CutPlant, false);
+                                    n += __instance.Map.DesignateAnyOnMap(things.OfType<Plant>(), DesignationDefOf.CutPlant, false);
                                 }
 
-                                __instance.Map.DesignateAnyOnMap([__instance], DesignationDefOf.CutPlant, false);
+                                n += __instance.Map.DesignateAnyOnMap([__instance], DesignationDefOf.CutPlant, false);
+                                ReportDesignated(n);
                             })
                         ];
 

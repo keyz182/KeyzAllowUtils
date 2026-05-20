@@ -24,7 +24,6 @@
                     <li>KeyzAllowUtilities.Designator_HarvestGrownWood</li>
                     <li>KeyzAllowUtilities.Designator_HarvestAll</li>
                     <li>KeyzAllowUtilities.Designator_HarvestAllWood</li>
-                    <li>RimWorld.Designator_Open</li>
                 </value>
             </li>
             <!-- Grabbed from original Allow Tool - puts the tool in the place people expect -->
@@ -46,5 +45,17 @@
             <!--     <xpath>/Defs/DesignationCategoryDef[defName="Orders"]/specialDesignatorClasses/li[text()="Designator_Unforbid"]</xpath> -->
             <!-- </li> -->
         </operations>
+    </Operation>
+    <!-- Gate vanilla Designator_Open: skip when Ancient urban ruins (packageId: XMB.AncientUrbanrUins.MO) is loaded — AUR ships its own Open designator and colliding causes a duplicate entry. -->
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Ancient urban ruins</li>
+        </mods>
+        <nomatch Class="PatchOperationAdd">
+            <xpath>/Defs/DesignationCategoryDef[defName="Orders"]/specialDesignatorClasses</xpath>
+            <value>
+                <li>RimWorld.Designator_Open</li>
+            </value>
+        </nomatch>
     </Operation>
 </Patch>

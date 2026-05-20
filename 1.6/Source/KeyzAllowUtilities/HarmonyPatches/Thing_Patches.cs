@@ -250,28 +250,34 @@ public static class Thing_Patches
         items.Add(new FloatMenuOption(KUA_ToggleHaulUrgentlyOnScreen.Value, () =>
         {
             FilterUtils.SelectAnyOnScreen(__instance.MapOrHolderMap(), __instance.Position, Filter);
+            int n = 0;
             foreach (Thing thing in Find.Selector.SelectedObjects.OfType<Thing>())
             {
                 if (!thing.IsInValidBestStorage() && !thing.MapOrHolderMap().designationManager.HasMapDesignationOn(thing))
                 {
                     thing.MapOrHolderMap().designationManager.AddDesignation(new Designation(thing, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
                     thing.MapOrHolderMap().designationManager.AddDesignation(new Designation(thing, DesignationDefOf.Haul));
+                    n++;
                 }
             }
             Find.Selector.ClearSelection();
+            Plant_Patches.ReportDesignated(n);
         }));
         items.Add(new FloatMenuOption(KUA_ToggleHaulUrgentlyOnMap.Value, () =>
         {
             __instance.MapOrHolderMap().SelectAnyOnMap(__instance.Position, Filter);
+            int n = 0;
             foreach (Thing thing in Find.Selector.SelectedObjects.OfType<Thing>())
             {
                 if (!thing.IsInValidBestStorage() && !thing.MapOrHolderMap().designationManager.HasMapDesignationOn(thing))
                 {
                     thing.MapOrHolderMap().designationManager.AddDesignation(new Designation(thing, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
                     thing.MapOrHolderMap().designationManager.AddDesignation(new Designation(thing, DesignationDefOf.Haul));
+                    n++;
                 }
             }
             Find.Selector.ClearSelection();
+            Plant_Patches.ReportDesignated(n);
         }));
 
         Find.WindowStack.Add(new FloatMenu(items));
