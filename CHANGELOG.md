@@ -8,6 +8,14 @@
 - **(version)** v1.2.2 - ([3042f4b](https://github.com/keyz182/KeyzAllowUtils/commit/3042f4b064d4454e71f2ca6c6e9198d1df0ebcb9)) - github-actions[bot]
 
 - - -
+## [v1.2.3](https://github.com/keyz182/KeyzAllowUtils/compare/3b6fc53931106ba2f98e02b1c1237fbddd3578e3..v1.2.3) - 2026-05-20
+#### Bug Fixes
+- Hide des when AUR is enabled, show selected counts. - ([f374028](https://github.com/keyz182/KeyzAllowUtils/commit/f374028aa557a0aff57efc2ec275d5fc873772e4)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.2.2 - ([3b6fc53](https://github.com/keyz182/KeyzAllowUtils/commit/3b6fc53931106ba2f98e02b1c1237fbddd3578e3)) - github-actions[bot]
+
+- - -
+
 
 ## [v1.2.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.0..v1.2.1) - 2026-04-30
 #### Bug Fixes
