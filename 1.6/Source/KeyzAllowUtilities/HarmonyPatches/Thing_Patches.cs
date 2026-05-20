@@ -256,7 +256,8 @@ public static class Thing_Patches
                 if (!thing.IsInValidBestStorage() && !thing.MapOrHolderMap().designationManager.HasMapDesignationOn(thing))
                 {
                     thing.MapOrHolderMap().designationManager.AddDesignation(new Designation(thing, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
-                    thing.MapOrHolderMap().designationManager.AddDesignation(new Designation(thing, DesignationDefOf.Haul));
+                    // See Designator_HaulUrgently.DesignateThing — issue #24: do not add vanilla
+                    // DesignationDefOf.Haul. ListerHaulables already tracks free-standing haulables.
                     n++;
                 }
             }
@@ -272,7 +273,8 @@ public static class Thing_Patches
                 if (!thing.IsInValidBestStorage() && !thing.MapOrHolderMap().designationManager.HasMapDesignationOn(thing))
                 {
                     thing.MapOrHolderMap().designationManager.AddDesignation(new Designation(thing, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
-                    thing.MapOrHolderMap().designationManager.AddDesignation(new Designation(thing, DesignationDefOf.Haul));
+                    // See Designator_HaulUrgently.DesignateThing — issue #24: do not add vanilla
+                    // DesignationDefOf.Haul. ListerHaulables already tracks free-standing haulables.
                     n++;
                 }
             }
