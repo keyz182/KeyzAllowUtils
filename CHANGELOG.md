@@ -1,3 +1,13 @@
+## [v1.2.4](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.3..v1.2.4) - 2026-05-20
+#### Bug Fixes
+- keep items in ListerHaulables after vanilla Cancel (#24) - ([202a3c5](https://github.com/keyz182/KeyzAllowUtils/commit/202a3c5b0f1b536128da3ab77871cfc27e04406d)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.2.3 - ([c75b39b](https://github.com/keyz182/KeyzAllowUtils/commit/c75b39bb0740f1103dda66738fd65eeb4c701c49)) - github-actions[bot]
+#### Miscellaneous Chores
+- **(version)** v1.2.4 - ([5d92724](https://github.com/keyz182/KeyzAllowUtils/commit/5d927240ceae9a95e5b5b4374eb81208c6948e54)) - github-actions[bot]
+
+- - -
+
 ## [v1.2.3](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.2..v1.2.3) - 2026-05-20
 #### Bug Fixes
 - Hide des when AUR is enabled, show selected counts. - ([f374028](https://github.com/keyz182/KeyzAllowUtils/commit/f374028aa557a0aff57efc2ec275d5fc873772e4)) - [@keyz182](https://github.com/keyz182)
@@ -7,14 +17,6 @@
 - **(version)** v1.2.3 - ([1667df3](https://github.com/keyz182/KeyzAllowUtils/commit/1667df36a0590b9d089bfcc9f5d8f2f29cdcccbc)) - github-actions[bot]
 
 - - -
-## [v1.2.4](https://github.com/keyz182/KeyzAllowUtils/compare/c75b39bb0740f1103dda66738fd65eeb4c701c49..v1.2.4) - 2026-05-20
-#### Bug Fixes
-- keep items in ListerHaulables after vanilla Cancel (#24) - ([202a3c5](https://github.com/keyz182/KeyzAllowUtils/commit/202a3c5b0f1b536128da3ab77871cfc27e04406d)) - [@keyz182](https://github.com/keyz182)
-#### Documentation
-- update changelog for v1.2.3 - ([c75b39b](https://github.com/keyz182/KeyzAllowUtils/commit/c75b39bb0740f1103dda66738fd65eeb4c701c49)) - github-actions[bot]
-
-- - -
-
 
 ## [v1.2.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.1..v1.2.2) - 2026-05-20
 #### Bug Fixes
