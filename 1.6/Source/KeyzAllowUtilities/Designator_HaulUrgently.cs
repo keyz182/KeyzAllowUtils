@@ -74,10 +74,14 @@ public class Designator_HaulUrgently : Designator
 
         designationManager.AddDesignation(new Designation((LocalTargetInfo) t, Designation));
 
-        if (designationManager.DesignationOn(t, DesignationDefOf.Haul) == null)
-        {
-            designationManager.AddDesignation(new Designation((LocalTargetInfo) t, DesignationDefOf.Haul));
-        }
+        // Note: we deliberately do NOT add DesignationDefOf.Haul here. Items that are
+        // EverHaulable && !IsInValidBestStorage() are already tracked by ListerHaulables
+        // via the spawn path, so vanilla WorkGiver_HaulGeneral / PUAH already see them.
+        // Adding the vanilla Haul designation caused issue #24: when the player clicked the
+        // vanilla "Cancel" gizmo, Designator_Cancel stripped the Haul designation, which
+        // routed through ListerHaulables.HaulDesignationRemoved and dropped the thing from
+        // the haulables list — making the "Prioritize hauling" float-menu option vanish
+        // until the item was naturally hauled or Haul Urgently was re-applied.
 
         t.SetForbidden(false, false);
     }
