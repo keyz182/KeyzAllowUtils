@@ -7,6 +7,14 @@
 - **(version)** v1.2.4 - ([5d92724](https://github.com/keyz182/KeyzAllowUtils/commit/5d927240ceae9a95e5b5b4374eb81208c6948e54)) - github-actions[bot]
 
 - - -
+## [v1.3.0](https://github.com/keyz182/KeyzAllowUtils/compare/ad9c1dd8b1b15a90e7685e84d297d668b707cf03..v1.3.0) - 2026-05-31
+#### Documentation
+- update changelog for v1.2.4 - ([ad9c1dd](https://github.com/keyz182/KeyzAllowUtils/commit/ad9c1dd8b1b15a90e7685e84d297d668b707cf03)) - github-actions[bot]
+#### Features
+- select rotting corpses - ([7ddd47b](https://github.com/keyz182/KeyzAllowUtils/commit/7ddd47b16f4f36209d3a1fa51ed5db2910c86f38)) - [@keyz182](https://github.com/keyz182)
+
+- - -
+
 
 ## [v1.2.3](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.2..v1.2.3) - 2026-05-20
 #### Bug Fixes
