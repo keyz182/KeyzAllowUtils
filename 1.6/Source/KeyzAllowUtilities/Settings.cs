@@ -24,6 +24,7 @@ public class Settings : ModSettings
     public bool DisableSelectOnScreen = false;
     public bool DisableSelectOnMap = false;
     public bool DisableSelectInRect = false;
+    public bool DisableSelectRotting = false;
     public bool DisableFertileZone = false;
     public bool ExcludeCorpsesFromAllowAll = true;
     public bool DisableSelectStored = false;
@@ -71,6 +72,7 @@ public class Settings : ModSettings
                 options.CheckboxLabeled("KAU_DisableSelectOnScreen".Translate(), ref DisableSelectOnScreen);
                 options.CheckboxLabeled("KAU_DisableSelectOnMap".Translate(), ref DisableSelectOnMap);
                 options.CheckboxLabeled("KAU_DisableSelectInRect".Translate(), ref DisableSelectInRect);
+                options.CheckboxLabeled("KAU_DisableSelectRotting".Translate(), ref DisableSelectRotting);
                 options.ColumnWidth += Listing.ColumnSpacing;
                 options.Outdent();
             }
@@ -202,6 +204,7 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref DisableSelectOnScreen, "DisableSelectOnScreen", false);
         Scribe_Values.Look(ref DisableSelectOnMap, "DisableSelectOnMap", false);
         Scribe_Values.Look(ref DisableSelectInRect, "DisableSelectInRect", false);
+        Scribe_Values.Look(ref DisableSelectRotting, "DisableSelectRotting", false);
         Scribe_Values.Look(ref DisableFertileZone, "DisableFertileZone", false);
         Scribe_Values.Look(ref ExcludeCorpsesFromAllowAll, "ExcludeCorpsesFromAllowAll", true);
         Scribe_Values.Look(ref DisableSelectStored, "DisableSelectStored", false);

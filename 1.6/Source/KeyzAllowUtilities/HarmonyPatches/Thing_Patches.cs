@@ -31,6 +31,11 @@ public static class Thing_Patches
     public static Lazy<string> KUA_SelectOnMap = new(() => "KUA_SelectOnMap".Translate());
     public static Lazy<string> KUA_SelectInRect = new(() => "KUA_SelectInRect".Translate());
 
+    public static Lazy<string> KUA_SelectRotting = new(() => "KUA_SelectRotting".Translate());
+    public static Lazy<string> KUA_SelectRottingDesc = new(() => "KUA_SelectRottingDesc".Translate());
+    public static Lazy<string> KUA_SelectRottingOnScreen = new(() => "KUA_SelectRottingOnScreen".Translate());
+    public static Lazy<string> KUA_SelectRottingOnMap = new(() => "KUA_SelectRottingOnMap".Translate());
+
     public static Lazy<string> KUA_ToggleNoHaulUrgently = new(() => "KUA_ToggleNoHaulUrgently".Translate());
     public static Lazy<string> KUA_ToggleNoHaulUrgentlyDesc = new(() => "KUA_ToggleNoHaulUrgentlyDesc".Translate());
 
@@ -112,6 +117,30 @@ public static class Thing_Patches
                 }
             };
             gizmos.Add(command_Action);
+        }
+
+        if (!KeyzAllowUtilitiesMod.settings.DisableSelection
+            && !KeyzAllowUtilitiesMod.settings.DisableSelectRotting
+            && __instance is Corpse
+            && IsRotting(__instance))
+        {
+            gizmos.Add(new Command_Action
+            {
+                icon = KUA_MultiSelectIcon,
+                defaultLabel = KUA_SelectRotting.Value,
+                defaultDesc = KUA_SelectRottingDesc.Value,
+                action = () =>
+                {
+                    if (Event.current == null || Event.current.button == 0)
+                    {
+                        FilterUtils.SelectAnyOnScreen(currentMap, __instance.Position, IsRotting);
+                    }
+                    else
+                    {
+                        SelectRottingRightClick(__instance);
+                    }
+                }
+            });
         }
 
         if (!KeyzAllowUtilitiesMod.settings.DisableHaulUrgently && __instance is not Pawn && __instance.def.EverHaulable)
@@ -290,6 +319,31 @@ public static class Thing_Patches
         {
             return !thing.def.designateHaulable && thing.def.EverHaulable && thing is not Building;
         }
+    }
+
+    /// <summary>
+    /// True when <paramref name="thing"/> is a corpse that has begun to rot (Rotting or Dessicated).
+    /// See issue #26 — used to bulk-select decayed corpses for destruction while leaving
+    /// fresh ones to be hauled away.
+    /// </summary>
+    private static bool IsRotting(Thing thing)
+    {
+        return thing is Corpse
+               && thing.TryGetComp<CompRottable>() is { } rot
+               && rot.Stage != RotStage.Fresh;
+    }
+
+    public static void SelectRottingRightClick(Thing __instance)
+    {
+        List<FloatMenuOption> items =
+        [
+            new(KUA_SelectRottingOnScreen.Value, () =>
+                FilterUtils.SelectAnyOnScreen(__instance.MapOrHolderMap(), __instance.Position, IsRotting)),
+            new(KUA_SelectRottingOnMap.Value, () =>
+                __instance.MapOrHolderMap().SelectAnyOnMap(__instance.Position, IsRotting))
+        ];
+
+        Find.WindowStack.Add(new FloatMenu(items));
     }
 
     private static List<FloatMenuOption> BuildSelectMenuItems(

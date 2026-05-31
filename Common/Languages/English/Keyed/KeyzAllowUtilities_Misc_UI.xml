@@ -22,6 +22,11 @@
     <KUA_SelectInRect>Select similar items in rect</KUA_SelectInRect>
     <KAU_DisableClaimAll>Disable claim all</KAU_DisableClaimAll>
 
+    <KUA_SelectRotting>Select rotting corpses</KUA_SelectRotting>
+    <KUA_SelectRottingDesc>Select corpses that have begun to rot or have dessicated. Right-click for on-screen/on-map options.</KUA_SelectRottingDesc>
+    <KUA_SelectRottingOnScreen>Select rotting corpses on screen</KUA_SelectRottingOnScreen>
+    <KUA_SelectRottingOnMap>Select rotting corpses on map</KUA_SelectRottingOnMap>
+
     <KUA_SelectOnScreenWithStuff>Select similar items on screen made from {0}</KUA_SelectOnScreenWithStuff>
     <KUA_SelectOnMapWithStuff>Select similar items on map made from {0}</KUA_SelectOnMapWithStuff>
     <KUA_SelectInRectWithStuff>Select similar items in rect made from {0}</KUA_SelectInRectWithStuff>
