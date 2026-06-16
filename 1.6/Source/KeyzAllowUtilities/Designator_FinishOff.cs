@@ -70,13 +70,12 @@ public class Designator_FinishOff : Designator
 
     public override void DesignateThing(Thing t)
     {
-        if (Event.current.shift)
+        DesignationDef def = Event.current.shift
+            ? KeyzAllowUtilitesDefOf.KAU_StripFinishOffDesignation
+            : Designation;
+        if (Map.designationManager.DesignationOn(t, def) == null)
         {
-            Map.designationManager.AddDesignation(new Designation((LocalTargetInfo) t, KeyzAllowUtilitesDefOf.KAU_StripFinishOffDesignation));
-        }
-        else
-        {
-            Map.designationManager.AddDesignation(new Designation((LocalTargetInfo) t, Designation));
+            Map.designationManager.AddDesignation(new Designation((LocalTargetInfo) t, def));
         }
         t.SetForbidden(false, false);
     }
