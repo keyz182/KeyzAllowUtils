@@ -7,6 +7,16 @@
 - **(version)** v1.3.0 - ([a9d1f81](https://github.com/keyz182/KeyzAllowUtils/commit/a9d1f81affc5bf1e84fdf959231860cea27868ea)) - github-actions[bot]
 
 - - -
+## [v1.3.1](https://github.com/keyz182/KeyzAllowUtils/compare/7b7333d3430e42d620b7793169efbffd5d7c1b1e..v1.3.1) - 2026-06-16
+#### Bug Fixes
+- readme update - ([ab8f6d4](https://github.com/keyz182/KeyzAllowUtils/commit/ab8f6d4f2b930a45e77a0d097c632f5ee2d52d7c)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.3.0 - ([7b7333d](https://github.com/keyz182/KeyzAllowUtils/commit/7b7333d3430e42d620b7793169efbffd5d7c1b1e)) - github-actions[bot]
+#### Miscellaneous Chores
+- Merge pull request #27 from Niruase/main - ([4bdce4a](https://github.com/keyz182/KeyzAllowUtils/commit/4bdce4a4550af61e8d723f86e7be5b7fe1371914)) - Kieran Evans
+
+- - -
+
 
 ## [v1.2.4](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.3..v1.2.4) - 2026-05-31
 #### Bug Fixes
