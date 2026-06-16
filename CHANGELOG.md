@@ -1,3 +1,13 @@
+## [v1.3.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.1..v1.3.2) - 2026-06-16
+#### Bug Fixes
+- "trying to mark already marked pawn" on finish off marked pawn - ([100a77f](https://github.com/keyz182/KeyzAllowUtils/commit/100a77fc30514ac1d743c116511fc017bc93a14c)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.3.1 - ([706708e](https://github.com/keyz182/KeyzAllowUtils/commit/706708e292eb22765c10ded56c406b8889af00ab)) - github-actions[bot]
+#### Miscellaneous Chores
+- **(version)** v1.3.2 - ([f45ed24](https://github.com/keyz182/KeyzAllowUtils/commit/f45ed24933ae85a754fa29fecfb15236273cf145)) - github-actions[bot]
+
+- - -
+
 ## [v1.3.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.0..v1.3.1) - 2026-06-16
 #### Bug Fixes
 - readme update - ([ab8f6d4](https://github.com/keyz182/KeyzAllowUtils/commit/ab8f6d4f2b930a45e77a0d097c632f5ee2d52d7c)) - [@keyz182](https://github.com/keyz182)
@@ -8,14 +18,6 @@
 - Merge pull request #27 from Niruase/main - ([4bdce4a](https://github.com/keyz182/KeyzAllowUtils/commit/4bdce4a4550af61e8d723f86e7be5b7fe1371914)) - Kieran Evans
 
 - - -
-## [v1.3.2](https://github.com/keyz182/KeyzAllowUtils/compare/706708e292eb22765c10ded56c406b8889af00ab..v1.3.2) - 2026-06-16
-#### Bug Fixes
-- "trying to mark already marked pawn" on finish off marked pawn - ([100a77f](https://github.com/keyz182/KeyzAllowUtils/commit/100a77fc30514ac1d743c116511fc017bc93a14c)) - [@keyz182](https://github.com/keyz182)
-#### Documentation
-- update changelog for v1.3.1 - ([706708e](https://github.com/keyz182/KeyzAllowUtils/commit/706708e292eb22765c10ded56c406b8889af00ab)) - github-actions[bot]
-
-- - -
-
 
 ## [v1.3.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.4..v1.3.0) - 2026-06-16
 #### Documentation
