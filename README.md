@@ -74,6 +74,7 @@ Portions of the materials used to create this content/mod are trademarks and/or 
 * @ましろ for Lifter patches
 * @llunak for gizmo fixes
 * @a-certain-existence for select similar overhaul
+* @Niruase for the selection tool gizmo icon
 
 
 
