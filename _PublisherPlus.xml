@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Configuration>
   <Excluded>
-    <exclude>.claude</exclude>
     <exclude>.editorconfig</exclude>
     <exclude>.git</exclude>
+    <exclude>.omc</exclude>
     <exclude>1.6/Source</exclude>
     <exclude>Assets</exclude>
     <exclude>CHANGELOG.md</exclude>
