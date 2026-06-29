@@ -2,7 +2,7 @@
 
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFrameworks>net48;net8.0</TargetFrameworks>
+        <TargetFrameworks>net9.0</TargetFrameworks>
         <LangVersion>latest</LangVersion>
         <RootNamespace>KeyzAllowUtilities.Tests</RootNamespace>
         <AssemblyName>KeyzAllowUtilities.Tests</AssemblyName>
@@ -10,19 +10,8 @@
         <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
-    <!-- Game DLL references — path resolved by Directory.Build.props/targets -->
-    <ItemGroup Condition="'$(TargetFramework)' == 'net48' and '$(RimWorldManagedDir)' != ''">
-        <Reference Include="Assembly-CSharp">
-            <HintPath>$(RimWorldManagedDir)/Assembly-CSharp.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="UnityEngine.CoreModule">
-            <HintPath>$(RimWorldManagedDir)/UnityEngine.CoreModule.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-    </ItemGroup>
-    <!-- net8.0: copy game DLLs to test output so the .NET 8 runtime can load them -->
-    <ItemGroup Condition="'$(TargetFramework)' == 'net8.0' and '$(RimWorldManagedDir)' != ''">
+    <!-- Game DLL references — copy to output so the .NET 9 runtime can load them -->
+    <ItemGroup Condition="'$(TargetFramework)' == 'net9.0' and '$(RimWorldManagedDir)' != ''">
         <Reference Include="Assembly-CSharp">
             <HintPath>$(RimWorldManagedDir)/Assembly-CSharp.dll</HintPath>
             <Private>True</Private>
@@ -41,8 +30,8 @@
     <ItemGroup>
         <ProjectReference Include="../KeyzAllowUtilities/KeyzAllowUtilities.csproj" />
     </ItemGroup>
-    <Target Name="RunTestsAfterBuild" AfterTargets="Build" Condition="'$(TargetFramework)' == 'net8.0'">
-        <Exec Command="dotnet test --no-build --framework net8.0 --logger console;verbosity=minimal"
+    <Target Name="RunTestsAfterBuild" AfterTargets="Build" Condition="'$(TargetFramework)' == 'net9.0'">
+        <Exec Command="dotnet test --no-build --framework net9.0 --logger console;verbosity=minimal"
               WorkingDirectory="$(MSBuildProjectDirectory)" />
     </Target>
 </Project>

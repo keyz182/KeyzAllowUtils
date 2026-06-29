@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
-using RimWorld.Planet;
 using UnityEngine;
-using UnityEngine.Windows;
 using Verse;
-using Verse.Steam;
-using Input = UnityEngine.Input;
 
 namespace KeyzAllowUtilities;
 
@@ -73,16 +69,44 @@ public class KeyHandler(Map map) : MapComponent(map)
         {
             if (HaulUrgently.Value != null)
             {
-                Find.DesignatorManager.Select(HaulUrgently.Value);
+                List<Thing> selected = Find.Selector.SelectedObjects.OfType<Thing>().ToList();
+                if (selected.Count == 0)
+                {
+                    Find.DesignatorManager.Select(HaulUrgently.Value);
+                    Event.current.Use();
+                }
+                else
+                {
+                    List<Thing> haulables = selected.Where(t => HaulUrgently.Value.CanDesignateThing(t).Accepted).ToList();
+                    if (haulables.Count > 0)
+                    {
+                        foreach (Thing thing in haulables)
+                            HaulUrgently.Value.DesignateThing(thing);
+                        Event.current.Use();
+                    }
+                    // else: only non-haulables selected — don't consume O so it can pass through (e.g. Build Copy)
+                }
             }
-            Event.current.Use();
+            else
+            {
+                Event.current.Use();
+            }
         }
     }
 
     public static void AllowAll(Map map, bool forbid = false, Def ofDef = null, bool excludeCorpses = false)
     {
+        List<ThingWithComps> selectedForbiddables = Find.Selector.SelectedObjects
+            .OfType<ThingWithComps>()
+            .Where(t => t.HasComp<CompForbiddable>() && !map.fogGrid.IsFogged(t.Position))
+            .ToList();
+
+        IEnumerable<CompForbiddable> targets = selectedForbiddables.Count > 0
+            ? selectedForbiddables.Select(t => t.GetComp<CompForbiddable>())
+            : map.ForbiddableThings(ofDef, excludeCorpses);
+
         int countOfForbiddables = 0;
-        foreach (CompForbiddable compForbiddable in map.ForbiddableThings(ofDef, excludeCorpses))
+        foreach (CompForbiddable compForbiddable in targets)
         {
             if (compForbiddable.Forbidden != forbid) // Dont' count anything already set to what we want
             {
