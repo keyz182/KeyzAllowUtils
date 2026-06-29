@@ -7,6 +7,14 @@
 - **(version)** v1.3.2 - ([f45ed24](https://github.com/keyz182/KeyzAllowUtils/commit/f45ed24933ae85a754fa29fecfb15236273cf145)) - github-actions[bot]
 
 - - -
+## [v1.3.3](https://github.com/keyz182/KeyzAllowUtils/compare/ff862d7ab7090fb875779dc78aa7206ddc33404f..v1.3.3) - 2026-06-29
+#### Bug Fixes
+- O hotkey selection, allow/forbid blueprints, incapable haul pawns; fix test infra net9 - ([0034332](https://github.com/keyz182/KeyzAllowUtils/commit/003433203d18f66292dcc5124946f0711b292f9b)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.3.2 - ([ff862d7](https://github.com/keyz182/KeyzAllowUtils/commit/ff862d7ab7090fb875779dc78aa7206ddc33404f)) - github-actions[bot]
+
+- - -
+
 
 ## [v1.3.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.0..v1.3.1) - 2026-06-16
 #### Bug Fixes
