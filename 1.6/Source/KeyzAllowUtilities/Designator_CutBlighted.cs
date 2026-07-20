@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using KeyzAllowUtilities.HarmonyPatches;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -7,8 +8,15 @@ using Verse;
 namespace KeyzAllowUtilities;
 
 [StaticConstructorOnStartup]
-public class Designator_CutBlighted : Designator_PlantsCut
+public class Designator_CutBlighted : Designator_PlantsCut, IClearsOwnDesignationsOnly
 {
+    public DesignationDef ClearDesignation => DesignationDefOf.CutPlant;
+
+    // Deliberately the inherited Designator_PlantsCut predicate rather than "is blighted":
+    // blight clears once a plant is cut or cured, and scoping to it would strand existing
+    // cut designations with no designator able to clear them.
+    public bool AffectsForClear(LocalTargetInfo target) => RemoveAllDesignationsAffects(target);
+
     public override bool Disabled
     {
         get => disabled || KeyzAllowUtilitiesMod.settings.DisableCut;

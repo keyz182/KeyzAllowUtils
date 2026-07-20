@@ -6,8 +6,13 @@ using Verse;
 namespace KeyzAllowUtilities;
 
 [StaticConstructorOnStartup]
-public class Designator_HarvestGrownWood : Designator_PlantsHarvestWood
+public class Designator_HarvestGrownWood : Designator_PlantsHarvestWood, IClearsOwnDesignationsOnly
 {
+    public DesignationDef ClearDesignation => DesignationDefOf.HarvestPlant;
+
+    // Inherited from Designator_PlantsHarvestWood: trees only.
+    public bool AffectsForClear(LocalTargetInfo target) => RemoveAllDesignationsAffects(target);
+
     public override bool Disabled
     {
         get => disabled || KeyzAllowUtilitiesMod.settings.DisableHarvest;

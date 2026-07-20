@@ -7,8 +7,12 @@ using Verse;
 namespace KeyzAllowUtilities;
 
 [StaticConstructorOnStartup]
-public class Designator_HarvestAll : Designator_Plants
+public class Designator_HarvestAll : Designator_Plants, IClearsOwnDesignationsOnly
 {
+    public DesignationDef ClearDesignation => DesignationDefOf.HarvestPlant;
+
+    public bool AffectsForClear(LocalTargetInfo target) => RemoveAllDesignationsAffects(target);
+
     public override bool Disabled
     {
         get => disabled || KeyzAllowUtilitiesMod.settings.DisableHarvestAll;
@@ -54,6 +58,13 @@ public class Designator_HarvestAll : Designator_Plants
             return "MessageMustPlantCuttingForbidden".Translate();
 
         return true;
+    }
+
+    // Without this the inherited default returns true for everything, so clearing from here
+    // would also wipe tree-chop designations — both share DesignationDefOf.HarvestPlant.
+    protected override bool RemoveAllDesignationsAffects(LocalTargetInfo target)
+    {
+        return Designator_RightClickFloatMenuOptions_Patch.IsNonWoodHarvestable(target);
     }
 
     public override void DesignateThing(Thing t)

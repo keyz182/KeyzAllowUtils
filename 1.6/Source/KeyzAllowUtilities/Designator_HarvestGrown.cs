@@ -6,8 +6,12 @@ using Verse;
 namespace KeyzAllowUtilities;
 
 [StaticConstructorOnStartup]
-public class Designator_HarvestGrown : Designator_Plants
+public class Designator_HarvestGrown : Designator_Plants, IClearsOwnDesignationsOnly
 {
+    public DesignationDef ClearDesignation => DesignationDefOf.HarvestPlant;
+
+    public bool AffectsForClear(LocalTargetInfo target) => RemoveAllDesignationsAffects(target);
+
     public override bool Disabled
     {
         get => disabled || KeyzAllowUtilitiesMod.settings.DisableHarvest;
@@ -59,9 +63,11 @@ public class Designator_HarvestGrown : Designator_Plants
     }
 
 
+    // Scoped to what this designator can actually place (CanDesignateThing rejects "Wood" and
+    // plants with no harvested product), so clearing here does not wipe tree-chop designations.
     protected override bool RemoveAllDesignationsAffects(LocalTargetInfo target)
     {
-        return target.Thing.def.plant.harvestTag == "Standard" || target.Thing.def.plant.IsTree;
+        return Designator_RightClickFloatMenuOptions_Patch.IsNonWoodHarvestable(target);
     }
 
     public override void DesignateThing(Thing t)

@@ -8,8 +8,13 @@ using Verse;
 namespace KeyzAllowUtilities;
 
 [StaticConstructorOnStartup]
-public class Designator_CutGrown : Designator_PlantsCut
+public class Designator_CutGrown : Designator_PlantsCut, IClearsOwnDesignationsOnly
 {
+    public DesignationDef ClearDesignation => DesignationDefOf.CutPlant;
+
+    // Inherited from Designator_PlantsCut (AffectsThing).
+    public bool AffectsForClear(LocalTargetInfo target) => RemoveAllDesignationsAffects(target);
+
     public override bool Disabled
     {
         get => disabled || KeyzAllowUtilitiesMod.settings.DisableCut;

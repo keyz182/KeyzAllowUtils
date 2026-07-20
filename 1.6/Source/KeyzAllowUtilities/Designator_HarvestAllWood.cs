@@ -1,3 +1,4 @@
+using KeyzAllowUtilities.HarmonyPatches;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -5,8 +6,13 @@ using Verse;
 namespace KeyzAllowUtilities;
 
 [StaticConstructorOnStartup]
-public class Designator_HarvestAllWood : Designator_PlantsHarvestWood
+public class Designator_HarvestAllWood : Designator_PlantsHarvestWood, IClearsOwnDesignationsOnly
 {
+    public DesignationDef ClearDesignation => DesignationDefOf.HarvestPlant;
+
+    // Inherited from Designator_PlantsHarvestWood: trees only.
+    public bool AffectsForClear(LocalTargetInfo target) => RemoveAllDesignationsAffects(target);
+
     public override bool Disabled
     {
         get => disabled || KeyzAllowUtilitiesMod.settings.DisableHarvestAll;

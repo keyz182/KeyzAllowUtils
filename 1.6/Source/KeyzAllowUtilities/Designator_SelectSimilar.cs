@@ -14,6 +14,11 @@ public class Designator_SelectSimilar : Designator
     private Func<Thing, bool> filterIgnoreStuff = null;
     private Func<Thing, bool> filterWithStuff = null;
 
+    // True when the tool was activated with nothing selected, so each drag anchors its own
+    // filter from the cursor. False when the player had a pre-selection, where the original
+    // behaviour — one filter for the whole activation — is what they asked for.
+    private bool seededFromCursor;
+
     public override bool Disabled
     {
         get => disabled || KeyzAllowUtilitiesMod.settings.DisableSelection;
@@ -119,9 +124,28 @@ public class Designator_SelectSimilar : Designator
     public override void Selected()
     {
         similarTo.AddRange(Find.Selector.SelectedObjects.OfType<Thing>());
+        seededFromCursor = similarTo.Empty();
     }
 
     public override void Deselected()
+    {
+        ClearFilterCache();
+    }
+
+    public override void DesignateMultiCell(IEnumerable<IntVec3> cells)
+    {
+        base.DesignateMultiCell(cells);
+
+        // The tool stays selected after a drag, so without this the next drag would reuse the
+        // first drag's anchor and match the wrong things. Base resolves the filter for every
+        // cell before returning, so clearing here cannot affect the drag just completed.
+        if (seededFromCursor)
+        {
+            ClearFilterCache();
+        }
+    }
+
+    private void ClearFilterCache()
     {
         similarTo.Clear();
         filterIgnoreStuff = null;
