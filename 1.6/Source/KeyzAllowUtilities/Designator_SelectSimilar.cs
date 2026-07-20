@@ -37,6 +37,16 @@ public class Designator_SelectSimilar : Designator
 
     private Func<Thing, bool> GetFilter()
     {
+        // If `similarTo` is empty (nothing pre-selected), seed it from the thing under the cursor.
+        if (similarTo.Empty())
+        {
+            Thing hovered = MouseOverThing();
+            if (hovered != null && !similarTo.Contains(hovered))
+            {
+                similarTo.Add(hovered);
+            }
+        }
+
         // `similarTo` will only be non-empty between `Selected()` and `Deselected()` calls. So this emptiness check
         // ensures the cached filter being consistent with the `similarTo`.
         if (similarTo.Empty())
@@ -50,6 +60,22 @@ public class Designator_SelectSimilar : Designator
         selectedFilter ??= FilterUtils.MakeFilter(similarTo, checkStuff: !ignoreStuff);
 
         return selectedFilter;
+    }
+
+    private static Thing MouseOverThing()
+    {
+        var mouseCell = UI.MouseCell();
+
+        if (!mouseCell.InBounds(Find.CurrentMap))
+            return null;
+
+        foreach (Thing t in Find.CurrentMap.thingGrid.ThingsListAt(mouseCell))
+        {
+            if (t.def.selectable && !t.IsForbidden(Faction.OfPlayer))
+                return t;
+        }
+
+        return null;
     }
 
     public IEnumerable<Thing> SelectableThingsInCell(IntVec3 c)
