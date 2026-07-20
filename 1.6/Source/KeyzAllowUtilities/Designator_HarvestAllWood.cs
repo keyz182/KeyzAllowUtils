@@ -15,7 +15,7 @@ public class Designator_HarvestAllWood : Designator_PlantsHarvestWood
 
     public override bool Visible => !KeyzAllowUtilitiesMod.settings.DisableHarvestAll;
 
-    protected override DesignationDef Designation => DesignationDefOf.CutPlant;
+    protected override DesignationDef Designation => DesignationDefOf.HarvestPlant;
 
     public override DrawStyleCategoryDef DrawStyleCategory => DrawStyleCategoryDefOf.FilledRectangle;
 

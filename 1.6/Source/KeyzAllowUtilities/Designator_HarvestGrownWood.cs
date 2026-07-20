@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection;
-using HarmonyLib;
-using KeyzAllowUtilities.HarmonyPatches;
+﻿using KeyzAllowUtilities.HarmonyPatches;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -19,7 +16,7 @@ public class Designator_HarvestGrownWood : Designator_PlantsHarvestWood
 
     public override bool Visible => !KeyzAllowUtilitiesMod.settings.DisableHarvest;
 
-    protected override DesignationDef Designation => DesignationDefOf.CutPlant;
+    protected override DesignationDef Designation => DesignationDefOf.HarvestPlant;
 
     public override DrawStyleCategoryDef DrawStyleCategory => DrawStyleCategoryDefOf.FilledRectangle;
 
