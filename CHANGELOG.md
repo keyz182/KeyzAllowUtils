@@ -7,6 +7,18 @@
 - **(version)** v1.3.3 - ([b3d78b6](https://github.com/keyz182/KeyzAllowUtils/commit/b3d78b6202716fc497559cb63fc3bfa0be7a5dbc)) - github-actions[bot]
 
 - - -
+## [v1.3.4](https://github.com/keyz182/KeyzAllowUtils/compare/ed5723d86a2718d0bfc3f04bc7fd748f4f32f439..v1.3.4) - 2026-07-20
+#### Bug Fixes
+- clear-all only removes designations the designator owns - ([e01541f](https://github.com/keyz182/KeyzAllowUtils/commit/e01541f8baec3ea6d4e2a6ed0b90d389a603f5cb)) - [@keyz182](https://github.com/keyz182)
+- Select Similar works without pre-selection - ([fd4ad53](https://github.com/keyz182/KeyzAllowUtils/commit/fd4ad53766bff509bbd17feb54c7493d49d25a60)) - [@keyz182](https://github.com/keyz182)
+- correct Designation property for harvest designators - ([89a6e75](https://github.com/keyz182/KeyzAllowUtils/commit/89a6e75ff453e45211b9fb722acb90bca457b63d)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.3.3 - ([ed5723d](https://github.com/keyz182/KeyzAllowUtils/commit/ed5723d86a2718d0bfc3f04bc7fd748f4f32f439)) - github-actions[bot]
+#### Miscellaneous Chores
+- update publisher plus config - ([486cc42](https://github.com/keyz182/KeyzAllowUtils/commit/486cc429470a9aec65c4200eacc8f30f8b57342d)) - github-actions[bot]
+
+- - -
+
 
 ## [v1.3.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.1..v1.3.2) - 2026-06-29
 #### Bug Fixes
