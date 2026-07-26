@@ -6,5 +6,6 @@
         <li IfModActive="mehni.pickupandhaul.unoffical">Compatibility/mehni.pickupandhaul.unoffical/1.6/</li>
         <li IfModActive="Mehni.PickUpAndHaul">Compatibility/mehni.pickupandhaul/1.6/</li>
         <li IfModActive="ludeon.rimworld.biotech">Compatibility/ludeon.rimworld.biotech/1.6/</li>
+        <li IfModActive="rwmt.Multiplayer">Compatibility/rwmt.Multiplayer/1.6/</li>
 	</v1.6>
 </loadFolders>

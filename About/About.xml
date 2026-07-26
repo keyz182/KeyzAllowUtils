@@ -28,5 +28,6 @@
         <li>ludeon.rimworld.odyssey</li>
         <li>Mehni.PickUpAndHaul</li>
         <li>mehni.pickupandhaul.unofficial</li>
+        <li>rwmt.Multiplayer</li>
     </loadAfter>
 </ModMetaData>

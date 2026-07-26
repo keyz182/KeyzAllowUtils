@@ -37,10 +37,15 @@ jobs:
       - name: Build (pre-flight)
         run: dotnet build 1.6/Source/KeyzAllowUtilities/KeyzAllowUtilities.csproj -c Release -p:TargetFramework=net48
 
-      # Pre-flight build modifies the committed DLL — discard so cog sees a
+      # Falls back to the vendored 1.6/Source/lib/0MultiplayerAPI.dll — no SteamWorkshopDir
+      # available in CI.
+      - name: Build Multiplayer compat (pre-flight)
+        run: dotnet build 1.6/Source/KeyzAllowUtilities.Multiplayer/KeyzAllowUtilities.Multiplayer.csproj -c Release -p:TargetFramework=net48
+
+      # Pre-flight build modifies the committed DLLs — discard so cog sees a
       # clean tree. The pre_bump_hooks will rebuild with the version stamp.
       - name: Clean pre-flight artifacts
-        run: git checkout -- 1.6/Assemblies/
+        run: git checkout -- 1.6/Assemblies/ Compatibility/
 
       # Requires a v* base tag to exist (bootstrap: git tag v1.0.0 && git push origin v1.0.0).
       # cog bump --auto reads conventional commits since the last tag and bumps accordingly.

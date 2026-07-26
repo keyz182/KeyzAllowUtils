@@ -50,6 +50,11 @@ The mod includes settings to customize:
 ## Compatibility
 This mod primarily adds new functionality without modifying core game systems, making it generally compatible with other mods.
 
+### Multiplayer
+Haul Urgently is supported in the [Multiplayer](https://steamcommunity.com/workshop/filedetails/?id=2606448745) mod, including the "on screen" and "on map" bulk options. Other features of this mod have not been tested under Multiplayer and may not stay in sync.
+
+**All players in a session must use the same mod settings.** Several settings (e.g. disabling Haul Urgently, Finish Off, or Harvest/Cut designations) gate simulation-affecting behaviour locally; if players disagree, their clients can diverge.
+
 ## Development
 
 ### Running Tests

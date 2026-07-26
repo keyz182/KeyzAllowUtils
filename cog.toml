@@ -5,7 +5,8 @@ ignore_merge_commits = true
 pre_bump_hooks = [
     "sed -i 's|<modVersion>.*</modVersion>|<modVersion>{{version}}</modVersion>|' About/About.xml",
     "dotnet build 1.6/Source/KeyzAllowUtilities/KeyzAllowUtilities.csproj -c Release -p:Version={{version}} -p:TargetFramework=net48",
-    "git add About/About.xml 1.6/Assemblies/KeyzAllowUtilities.dll",
+    "dotnet build 1.6/Source/KeyzAllowUtilities.Multiplayer/KeyzAllowUtilities.Multiplayer.csproj -c Release -p:Version={{version}} -p:TargetFramework=net48",
+    "git add About/About.xml 1.6/Assemblies/KeyzAllowUtilities.dll Compatibility/rwmt.Multiplayer/1.6/Assemblies/KeyzAllowUtilities.Multiplayer.dll",
 ]
 
 [changelog]

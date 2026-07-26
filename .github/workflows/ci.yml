@@ -25,3 +25,12 @@ jobs:
 
       - name: Build (net48 with Krafs stubs)
         run: dotnet build 1.6/Source/KeyzAllowUtilities/KeyzAllowUtilities.csproj -c Release --no-restore -p:TargetFramework=net48
+
+      # Unlike KeyzAllowUtilities.PUAH, this project's Multiplayer API reference falls back to
+      # a vendored DLL (1.6/Source/lib/0MultiplayerAPI.dll) when SteamWorkshopDir isn't set, so
+      # it builds in CI without the workshop mod present.
+      - name: Restore NuGet packages (Multiplayer compat)
+        run: dotnet restore 1.6/Source/KeyzAllowUtilities.Multiplayer/KeyzAllowUtilities.Multiplayer.csproj
+
+      - name: Build Multiplayer compat (net48 with Krafs stubs)
+        run: dotnet build 1.6/Source/KeyzAllowUtilities.Multiplayer/KeyzAllowUtilities.Multiplayer.csproj -c Release --no-restore -p:TargetFramework=net48

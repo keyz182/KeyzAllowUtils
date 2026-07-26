@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+        <OutputType>Library</OutputType>
+        <LangVersion>latest</LangVersion>
+        <RootNamespace>KeyzAllowUtilities.Multiplayer</RootNamespace>
+        <AssemblyName>KeyzAllowUtilities.Multiplayer</AssemblyName>
+        <OutputPath>../../../Compatibility/rwmt.Multiplayer/1.6/Assemblies</OutputPath>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <Optimize>false</Optimize>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>portable</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>embedded</DebugType>
+        <DebugSymbols>false</DebugSymbols>
+        <Optimize>true</Optimize>
+    </PropertyGroup>
+    <!-- Game DLL references — path resolved by Directory.Build.props/targets -->
+    <ItemGroup Condition="'$(RimWorldManagedDir)' != ''">
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(RimWorldManagedDir)/Assembly-CSharp.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(RimWorldManagedDir)/UnityEngine.CoreModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <HintPath>$(RimWorldManagedDir)/UnityEngine.IMGUIModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.TextRenderingModule">
+            <HintPath>$(RimWorldManagedDir)/UnityEngine.TextRenderingModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+    <!--
+      Multiplayer API reference. Private=False is essential: the Multiplayer mod already ships
+      Assemblies/0MultiplayerAPI.dll (the leading "0" makes it load first), so shipping a second
+      copy would give the API's IAPI interface a distinct type identity from Multiplayer's own,
+      and MP.RegisterSyncMethod would throw InvalidCastException resolving the bridge.
+      Prefers the workshop copy when present (keeps a contributor's local build byte-identical
+      to what MP itself ships); falls back to the vendored copy in ../lib for CI and contributors
+      without the Multiplayer workshop mod installed.
+    -->
+    <ItemGroup>
+        <Reference Include="0MultiplayerAPI">
+            <HintPath Condition="'$(SteamWorkshopDir)' != '' And Exists('$(SteamWorkshopDir)/2606448745/1.6/Assemblies/0MultiplayerAPI.dll')">$(SteamWorkshopDir)/2606448745/1.6/Assemblies/0MultiplayerAPI.dll</HintPath>
+            <HintPath Condition="'$(SteamWorkshopDir)' == '' Or !Exists('$(SteamWorkshopDir)/2606448745/1.6/Assemblies/0MultiplayerAPI.dll')">$(MSBuildThisFileDirectory)../lib/0MultiplayerAPI.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Lib.Harmony" Version="2.*" ExcludeAssets="runtime" />
+    </ItemGroup>
+
+    <!-- CI fallback: when game DLLs aren't available, use stub reference assemblies -->
+    <ItemGroup Condition="'$(RimWorldManagedDir)' == ''">
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\KeyzAllowUtilities\KeyzAllowUtilities.csproj">
+            <Private>false</Private>
+        </ProjectReference>
+    </ItemGroup>
+
+    <PropertyGroup>
+        <StartAction>Program</StartAction>
+        <StartProgram>$(SolutionDir)../../../../RimWorldWin64.exe</StartProgram>
+    </PropertyGroup>
+</Project>

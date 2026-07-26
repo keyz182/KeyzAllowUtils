@@ -8,6 +8,9 @@ That said - Thanks to UnlimitedHugs for [url=https://steamcommunity.com/sharedfi
 
 [h3]Pick Up And Haul Compatible[/h3]
 
+[h3]Multiplayer Compatible[/h3]
+Haul Urgently (designating, the gizmo, and the on screen/on map bulk options) is synced under the [url=https://steamcommunity.com/workshop/filedetails/?id=2606448745]Multiplayer[/url] mod. Other features haven't been tested under Multiplayer yet. All players in a session should use the same mod settings.
+
 [h3]Selection Tools[/h3]
 A Select Similar tool in the Orders menu.
 A new gizmo (button) appears when selecting items that allows you to:

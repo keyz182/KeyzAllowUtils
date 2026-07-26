@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
 using HarmonyLib;
 using RimWorld;
 using UnityEngine;
@@ -157,19 +156,20 @@ public static class Thing_Patches
                     hotKey = KeyzAllowUtilitiesMod.settings.DisableAllShortcuts ? null : KeyzAllowUtilitesDefOf.KAU_HaulUrgently,
                     action = () =>
                     {
-                        if (Event.current.shift)
+                        // Event.current is read here, before any synced call, and never inside
+                        // HaulUrgentlyActions — Multiplayer replays synced methods with
+                        // Event.current null or different, so branch selection must happen on
+                        // the initiating client only.
+                        bool shift = Event.current is { shift: true };
+                        int button = Event.current?.button ?? 0;
+                        if (shift)
                         {
                             Find.DesignatorManager.Select(HaulUrgently.Value);
                             return;
                         }
-                        if (Event.current == null || Event.current.button == 0)
+                        if (button == 0)
                         {
-                            if (!__instance.IsInValidBestStorage() && currentMap.designationManager.DesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation) == null)
-                            {
-                                // Mutual exclusion: Haul Urgently wins over NoHaul
-                                currentMap.designationManager.TryRemoveDesignationOn(__instance, KeyzAllowUtilitesDefOf.KAU_NoHaulDesignation);
-                                HaulUrgently.Value.DesignateThing(__instance);
-                            }
+                            HaulUrgentlyActions.DesignateHaulUrgently(__instance);
                         }
                         else
                         {
@@ -188,9 +188,10 @@ public static class Thing_Patches
                     hotKey = KeyzAllowUtilitiesMod.settings.DisableAllShortcuts ? null : KeyzAllowUtilitesDefOf.KAU_HaulUrgently,
                     action = () =>
                     {
-                        if (Event.current == null || Event.current.button == 0)
+                        int button = Event.current?.button ?? 0;
+                        if (button == 0)
                         {
-                            currentMap.designationManager.RemoveDesignation(des);
+                            HaulUrgentlyActions.CancelHaulUrgently(__instance);
                         }
                         else
                         {
@@ -274,51 +275,21 @@ public static class Thing_Patches
 
     public static void HaulUrgentlyRightClick(Thing __instance)
     {
-        List<FloatMenuOption> items = [];
-
-        items.Add(new FloatMenuOption(KUA_ToggleHaulUrgentlyOnScreen.Value, () =>
-        {
-            FilterUtils.SelectAnyOnScreen(__instance.MapOrHolderMap(), __instance.Position, Filter);
-            int n = 0;
-            foreach (Thing thing in Find.Selector.SelectedObjects.OfType<Thing>())
-            {
-                if (!thing.IsInValidBestStorage() && !thing.MapOrHolderMap().designationManager.HasMapDesignationOn(thing))
-                {
-                    thing.MapOrHolderMap().designationManager.AddDesignation(new Designation(thing, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
-                    // See Designator_HaulUrgently.DesignateThing — issue #24: do not add vanilla
-                    // DesignationDefOf.Haul. ListerHaulables already tracks free-standing haulables.
-                    n++;
-                }
-            }
-            Find.Selector.ClearSelection();
-            Plant_Patches.ReportDesignated(n);
-        }));
-        items.Add(new FloatMenuOption(KUA_ToggleHaulUrgentlyOnMap.Value, () =>
-        {
-            __instance.MapOrHolderMap().SelectAnyOnMap(__instance.Position, Filter);
-            int n = 0;
-            foreach (Thing thing in Find.Selector.SelectedObjects.OfType<Thing>())
-            {
-                if (!thing.IsInValidBestStorage() && !thing.MapOrHolderMap().designationManager.HasMapDesignationOn(thing))
-                {
-                    thing.MapOrHolderMap().designationManager.AddDesignation(new Designation(thing, KeyzAllowUtilitesDefOf.KAU_HaulUrgentlyDesignation));
-                    // See Designator_HaulUrgently.DesignateThing — issue #24: do not add vanilla
-                    // DesignationDefOf.Haul. ListerHaulables already tracks free-standing haulables.
-                    n++;
-                }
-            }
-            Find.Selector.ClearSelection();
-            Plant_Patches.ReportDesignated(n);
-        }));
+        // The target set is resolved here, on the clicking client, from that client's own
+        // camera/selection state, then transmitted to HaulUrgentlyActions.DesignateHaulUrgentlyBulk
+        // as a plain List<Thing> — Multiplayer has no way to re-derive a camera-dependent set
+        // identically on every client, so the resolved set itself is the synced argument.
+        List<FloatMenuOption> items =
+        [
+            new FloatMenuOption(KUA_ToggleHaulUrgentlyOnScreen.Value, () =>
+                HaulUrgentlyActions.DesignateHaulUrgentlyBulk(
+                    __instance.MapOrHolderMap(), HaulUrgentlyActions.ResolveTargetsOnScreen(__instance))),
+            new FloatMenuOption(KUA_ToggleHaulUrgentlyOnMap.Value, () =>
+                HaulUrgentlyActions.DesignateHaulUrgentlyBulk(
+                    __instance.MapOrHolderMap(), HaulUrgentlyActions.ResolveTargetsOnMap(__instance))),
+        ];
 
         Find.WindowStack.Add(new FloatMenu(items));
-
-        return;
-
-        bool Filter(Thing thing)
-        {
-            return !thing.def.designateHaulable && thing.def.EverHaulable && thing is not Building;
-        }
     }
 
     /// <summary>

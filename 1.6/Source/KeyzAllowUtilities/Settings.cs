@@ -7,6 +7,16 @@ namespace KeyzAllowUtilities;
 
 public class Settings : ModSettings
 {
+    /// <summary>
+    /// Set by the optional Compatibility/rwmt.Multiplayer assembly to <c>() => MP.IsInMultiplayer</c>.
+    /// ValidateDesignators runs client-locally on every load (host or join), driven by this
+    /// client's settings; without this guard, a client joining with e.g. DisableHaulUrgently set
+    /// would silently delete the whole session's shared designations out from under everyone
+    /// else. Mirrors the existing WorkGiver_HaulUrgently.JobOnThingDelegate hook pattern so this
+    /// assembly stays free of any Multiplayer API dependency.
+    /// </summary>
+    public static Func<bool> SuppressDesignationPurge = () => false;
+
     public int MaxSelect = 300;
     public bool DisableHaulUrgently = false;
     public bool DisableNoHauling = false;
@@ -154,6 +164,10 @@ public class Settings : ModSettings
         {
             KeyzAllowUtilitesDefOf.KAU_UrgentHaul?.Toggle(!DisableHaulUrgently);
             KeyzAllowUtilitesDefOf.KAU_FinishingOff?.Toggle(!DisableFinishOff);
+
+            // Suppressed under Multiplayer: this runs per-client on every load, so an unguarded
+            // purge would let one client's local settings delete designations shared by everyone.
+            if (SuppressDesignationPurge()) return;
 
             if (DisableHaulUrgently && !Find.Maps.NullOrEmpty())
             {
