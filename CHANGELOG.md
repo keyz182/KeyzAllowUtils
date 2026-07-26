@@ -10,6 +10,14 @@
 - update publisher plus config - ([486cc42](https://github.com/keyz182/KeyzAllowUtils/commit/486cc429470a9aec65c4200eacc8f30f8b57342d)) - github-actions[bot]
 
 - - -
+## [v1.3.5](https://github.com/keyz182/KeyzAllowUtils/compare/227c60d94782d1e8d487c1830df0e54f38473fde..v1.3.5) - 2026-07-26
+#### Bug Fixes
+- multiplayer compatibility - ([a7fa127](https://github.com/keyz182/KeyzAllowUtils/commit/a7fa127391c20411af9a8aa5f38d1bd175640d8e)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.3.4 - ([227c60d](https://github.com/keyz182/KeyzAllowUtils/commit/227c60d94782d1e8d487c1830df0e54f38473fde)) - github-actions[bot]
+
+- - -
+
 
 ## [v1.3.3](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.2..v1.3.3) - 2026-07-20
 #### Bug Fixes
