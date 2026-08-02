@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Configuration>
   <Excluded>
+    <exclude>.claude</exclude>
     <exclude>.editorconfig</exclude>
     <exclude>.git</exclude>
+    <exclude>.mcp.json</exclude>
     <exclude>.omc</exclude>
     <exclude>1.6/Source</exclude>
     <exclude>Assets</exclude>
@@ -10,6 +12,7 @@
     <exclude>cog.toml</exclude>
     <exclude>Common/Textures/UI/KAU_StripMine.svg</exclude>
     <exclude>Common/Textures/UI/KAU_StripMineDiagram.svg</exclude>
+    <exclude>graphify-out</exclude>
     <exclude>modlist.xml</exclude>
     <exclude>release.sh</exclude>
     <exclude>SteamDescription.txt</exclude>
