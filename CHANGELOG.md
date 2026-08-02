@@ -7,6 +7,14 @@
 - **(version)** v1.3.5 - ([3c06f5f](https://github.com/keyz182/KeyzAllowUtils/commit/3c06f5f71b7ad26c46310c8c8af73f3d26411b7c)) - github-actions[bot]
 
 - - -
+## [v1.3.6](https://github.com/keyz182/KeyzAllowUtils/compare/76456f273a23b49a05bbca8a62aa2b7cbec53970..v1.3.6) - 2026-08-02
+#### Bug Fixes
+- multiplayer compat - ([2a31ad3](https://github.com/keyz182/KeyzAllowUtils/commit/2a31ad35a74960758babaf17385b0cd054eeb3c5)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.3.5 - ([76456f2](https://github.com/keyz182/KeyzAllowUtils/commit/76456f273a23b49a05bbca8a62aa2b7cbec53970)) - github-actions[bot]
+
+- - -
+
 
 ## [v1.3.4](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.3..v1.3.4) - 2026-07-26
 #### Bug Fixes
