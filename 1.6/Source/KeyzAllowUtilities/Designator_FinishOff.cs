@@ -70,7 +70,12 @@ public class Designator_FinishOff : Designator
 
     public override void DesignateThing(Thing t)
     {
-        DesignationDef def = Event.current.shift
+        // Event.current is null when Multiplayer replays this call from the tick loop (this
+        // designator writes a Designation, so MP legitimately syncs and replays it there). Under
+        // MP the shift/strip choice can't be carried across the replay anyway — only a type index
+        // is sent and the receiver builds a fresh instance — so it silently degrades to the plain
+        // designation there instead of throwing.
+        DesignationDef def = (Event.current?.shift ?? false)
             ? KeyzAllowUtilitesDefOf.KAU_StripFinishOffDesignation
             : Designation;
         if (Map.designationManager.DesignationOn(t, def) == null)

@@ -1,13 +1,16 @@
 using System;
+using System.Reflection;
+using HarmonyLib;
 using Multiplayer.API;
 using Verse;
 
 namespace KeyzAllowUtilities.Multiplayer;
 
 /// <summary>
-/// Registers HaulUrgently's synced actions with RimWorld Multiplayer. Only loaded when the
-/// Multiplayer mod is active (see loadFolders.xml's IfModActive gate) — the main
-/// KeyzAllowUtilities assembly has no reference to, or dependency on, the Multiplayer API.
+/// Registers HaulUrgently's synced actions with RimWorld Multiplayer, and un-syncs Select
+/// Similar (see MpSelectSimilarUnpatch). Only loaded when the Multiplayer mod is active (see
+/// loadFolders.xml's IfModActive gate) — the main KeyzAllowUtilities assembly has no reference
+/// to, or dependency on, the Multiplayer API.
 /// </summary>
 public class MpCompatMod : Mod
 {
@@ -38,7 +41,15 @@ public class MpCompatMod : Mod
             // the host's shared designations on load — see Settings.ValidateDesignators.
             Settings.SuppressDesignationPurge = () => MP.IsInMultiplayer;
 
-            ModLog.Log("Multiplayer sync registered for HaulUrgently");
+            // Select Similar only ever changes this client's local selection (Find.Selector) —
+            // it must never be command-synced, so MpSelectSimilarUnpatch removes Multiplayer's
+            // generic designator sync from it. PatchAll registers that class's Harmony patches
+            // (including its Selected() timing net); Ensure() also runs eagerly from its own
+            // static constructor. See MpSelectSimilarUnpatch and Settings.DesignateSuccessFeedbackSuppressed.
+            new Harmony("keyz182.rimworld.KeyzAllowUtilities.mp").PatchAll(Assembly.GetExecutingAssembly());
+            Settings.DesignateSuccessFeedbackSuppressed = () => MP.IsInMultiplayer;
+
+            ModLog.Log("Multiplayer compatibility registered (HaulUrgently sync, Select Similar unpatch)");
         }
         catch (Exception e)
         {

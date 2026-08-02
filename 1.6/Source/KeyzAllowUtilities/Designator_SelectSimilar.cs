@@ -4,6 +4,7 @@ using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 
 namespace KeyzAllowUtilities;
 
@@ -18,6 +19,12 @@ public class Designator_SelectSimilar : Designator
     // filter from the cursor. False when the player had a pre-selection, where the original
     // behaviour — one filter for the whole activation — is what they asked for.
     private bool seededFromCursor;
+
+    // Support for Settings.DesignateSuccessFeedbackSuppressed (see that field for why): track
+    // whether a drag is in progress and whether it has selected anything yet, so the drag's
+    // feedback sound plays at most once — after the whole drag, not once per matching cell.
+    private bool inMultiCellDesignation;
+    private bool anySelectedThisDrag;
 
     public override bool Disabled
     {
@@ -103,9 +110,28 @@ public class Designator_SelectSimilar : Designator
 
     public override void DesignateSingleCell(IntVec3 c)
     {
+        bool selectedAny = false;
         foreach (Thing thing in SelectableThingsInCell(c))
         {
             Find.Selector.Select(thing, forceDesignatorDeselect: false);
+            selectedAny = true;
+        }
+
+        if (!selectedAny)
+        {
+            return;
+        }
+
+        if (inMultiCellDesignation)
+        {
+            // Recorded for DesignateMultiCell below to act on once, after the whole drag.
+            anySelectedThisDrag = true;
+        }
+        else if (Settings.DesignateSuccessFeedbackSuppressed())
+        {
+            // Single click: this is the only DesignateSingleCell call for the action, so it's
+            // safe to play the feedback sound directly here. See Settings.DesignateSuccessFeedbackSuppressed.
+            soundSucceeded?.PlayOneShotOnCamera();
         }
     }
 
@@ -134,7 +160,19 @@ public class Designator_SelectSimilar : Designator
 
     public override void DesignateMultiCell(IEnumerable<IntVec3> cells)
     {
+        inMultiCellDesignation = true;
+        anySelectedThisDrag = false;
+
         base.DesignateMultiCell(cells);
+
+        inMultiCellDesignation = false;
+        if (anySelectedThisDrag && Settings.DesignateSuccessFeedbackSuppressed())
+        {
+            // See Settings.DesignateSuccessFeedbackSuppressed: base.DesignateMultiCell already
+            // called Finalize(true), but Multiplayer's global patch on it skips the sound outside
+            // a synced command. Play it once here for the whole drag, not per matching cell.
+            soundSucceeded?.PlayOneShotOnCamera();
+        }
 
         // The tool stays selected after a drag, so without this the next drag would reuse the
         // first drag's anchor and match the wrong things. Base resolves the filter for every

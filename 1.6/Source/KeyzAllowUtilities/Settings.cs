@@ -17,6 +17,17 @@ public class Settings : ModSettings
     /// </summary>
     public static Func<bool> SuppressDesignationPurge = () => false;
 
+    /// <summary>
+    /// Set by the optional Compatibility/rwmt.Multiplayer assembly to <c>() => MP.IsInMultiplayer</c>.
+    /// Select Similar is deliberately left un-synced by Multiplayer (see MpSelectSimilarUnpatch in
+    /// that assembly), since it only changes this client's local selection. But Multiplayer's
+    /// generic Designator.Finalize patch only plays soundSucceeded while a synced command is
+    /// executing, so once un-synced that success feedback is silently skipped. This hook lets
+    /// Designator_SelectSimilar play it directly instead, without this assembly depending on the
+    /// Multiplayer API. Mirrors the SuppressDesignationPurge hook above.
+    /// </summary>
+    public static Func<bool> DesignateSuccessFeedbackSuppressed = () => false;
+
     public int MaxSelect = 300;
     public bool DisableHaulUrgently = false;
     public bool DisableNoHauling = false;
