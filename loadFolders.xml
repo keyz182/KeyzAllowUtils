@@ -6,6 +6,12 @@
         <li IfModActive="mehni.pickupandhaul.unoffical">Compatibility/mehni.pickupandhaul.unoffical/1.6/</li>
         <li IfModActive="Mehni.PickUpAndHaul">Compatibility/mehni.pickupandhaul/1.6/</li>
         <li IfModActive="ludeon.rimworld.biotech">Compatibility/ludeon.rimworld.biotech/1.6/</li>
-        <li IfModActive="rwmt.Multiplayer">Compatibility/rwmt.Multiplayer/1.6/</li>
+        <!-- Multiplayer's About.xml declares packageId "rwmt.Multiplayer" but RimWorld normalizes
+             it to lowercase in the runtime mod list (ModLister.RunningModsListForReading shows
+             "rwmt.multiplayer"). IfModActive matching is case-INsensitive in production against
+             the Active mod set, so either casing works when the game is launched normally through
+             the Mods menu. Lowercase used here defensively to mirror the runtime-normalized form
+             — it costs nothing and makes any hypothetical future case-sensitive lookup safe. -->
+        <li IfModActive="rwmt.multiplayer">Compatibility/rwmt.Multiplayer/1.6/</li>
 	</v1.6>
 </loadFolders>
