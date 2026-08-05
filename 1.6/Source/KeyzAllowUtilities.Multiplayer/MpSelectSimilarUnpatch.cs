@@ -90,10 +90,27 @@ public static class MpSelectSimilarUnpatch
     /// return true to let the original designate method run, false to swallow it (after queueing
     /// a synced replay). For Select Similar we force "run the original" and skip the sync body;
     /// every other designator is left to Multiplayer untouched.
+    ///
+    /// Arg accessor: <c>__0</c> is Harmony's positional accessor for the target's first declared
+    /// parameter. Multiplayer's <c>DesignatorPatches.Designate*</c> methods are static with
+    /// signature <c>(Designator __instance, T value)</c> — the target parameter is literally
+    /// NAMED <c>__instance</c>, which collides with Harmony's <c>__instance</c> special name for
+    /// the instance-of-a-nonstatic-target (null for a static target). Using <c>__0</c> instead of
+    /// <c>[HarmonyArgument("__instance")]</c> sidesteps the collision entirely and works across
+    /// every Harmony 2.x version that KAU or its cohabiting mods might ship.
     /// </summary>
-    private static bool SkipSyncForSelectSimilar([HarmonyArgument("__instance")] Designator designator, ref bool __result)
+    private static bool SkipSyncForSelectSimilar(Designator __0, ref bool __result, MethodBase __originalMethod)
     {
-        if (designator is not Designator_SelectSimilar)
+        bool isSelectSimilar = __0 is Designator_SelectSimilar;
+
+        if (KeyzAllowUtilitiesMod.settings?.MpDebugLogging ?? false)
+        {
+            // Off by default; toggle via mod settings to capture one drag's worth of decisions.
+            // Runs 1x per designated cell, so log volume can be significant during a drag.
+            Log.Message($"[KAU MP] {__originalMethod?.Name ?? "?"}: designator={__0?.GetType().FullName ?? "<null>"} isSelectSimilar={isSelectSimilar} decision={(isSelectSimilar ? "bypass-sync" : "let-mp-sync")}");
+        }
+
+        if (!isSelectSimilar)
         {
             return true;
         }
