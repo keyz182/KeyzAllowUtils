@@ -7,6 +7,16 @@
 - **(version)** v1.3.6 - ([7fefaf2](https://github.com/keyz182/KeyzAllowUtils/commit/7fefaf245e650e87db7ad4aa8db3aaf3b9022fab)) - github-actions[bot]
 
 - - -
+## [v1.3.7](https://github.com/keyz182/KeyzAllowUtils/compare/563272a492a9a789a7f4538836ab87902ab2debb..v1.3.7) - 2026-08-05
+#### Bug Fixes
+- **(mp)** Select Similar exemption + hardened arg accessor (#29) - ([418fea2](https://github.com/keyz182/KeyzAllowUtils/commit/418fea2df42dc411a81ad049e904387339f58f30)) - Kieran Evans
+#### Documentation
+- update changelog for v1.3.6 - ([563272a](https://github.com/keyz182/KeyzAllowUtils/commit/563272a492a9a789a7f4538836ab87902ab2debb)) - github-actions[bot]
+#### Miscellaneous Chores
+- files - ([3eb6084](https://github.com/keyz182/KeyzAllowUtils/commit/3eb6084d71e1de2dbaace09b8fcb124ae87993a5)) - [@keyz182](https://github.com/keyz182)
+
+- - -
+
 
 ## [v1.3.5](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.4..v1.3.5) - 2026-08-02
 #### Bug Fixes
