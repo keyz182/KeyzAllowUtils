@@ -51,6 +51,12 @@ public class Settings : ModSettings
     public bool DisableSelectStored = false;
     public float PlantGrownLevel = 1f;
 
+    // Diagnostic-only. Off by default. When true, MpSelectSimilarUnpatch logs one line per
+    // Designate* invocation intercepted, and Designator_SelectSimilar.DesignateMultiCell logs
+    // when a drag reaches the override. Intended for one-drag capture while diagnosing a
+    // Multiplayer sync report — noisy under sustained use.
+    public bool MpDebugLogging = false;
+
     private float ScrollViewHeight = 0;
     public Vector2 scrollPosition = Vector2.zero;
 
@@ -143,6 +149,13 @@ public class Settings : ModSettings
             Text.Font = orig;
             options.CheckboxLabeled("KAU_ToggleDisableAllowShortcuts".Translate(), ref DisableAllowShortcuts);
             options.CheckboxLabeled("KAU_ToggleDisableAllShortcuts".Translate(), ref DisableAllShortcuts);
+
+            // Diagnostics
+            options.GapLine();
+            Text.Font = GameFont.Small;
+            options.Label("KAU_Section_Diagnostics".Translate());
+            Text.Font = orig;
+            options.CheckboxLabeled("KAU_MpDebugLogging".Translate(), ref MpDebugLogging, "KAU_MpDebugLogging_Tip".Translate());
 
             options.GapLine();
 
@@ -238,6 +251,7 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref DisableAllShortcuts, "DisableAllShortcuts", false);
         Scribe_Values.Look(ref DisableMeleeRequirementForFinishOff, "DisableMeleeRequirementForFinishOff", false);
         Scribe_Values.Look(ref PlantGrownLevel, "PlantGrownLevel", 1f);
+        Scribe_Values.Look(ref MpDebugLogging, "MpDebugLogging", false);
 
         ValidateDesignators();
     }

@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using Verse;
@@ -8,62 +6,48 @@ using Verse;
 namespace KeyzAllowUtilities.Multiplayer;
 
 /// <summary>
-/// Select Similar is a UI-local designator — DesignateSingleCell/DesignateThing only call
-/// Find.Selector.Select, it writes no Designation and mutates no game state. Multiplayer's
-/// generic designation patch (Multiplayer.Client.DesignatorPatches) doesn't know that: it patches
-/// every Designator subtype's declared DesignateSingleCell/DesignateMultiCell/DesignateThing,
-/// serializes the call, and replays it on a *fresh* Designator_SelectSimilar instance from the
-/// tick loop. That fresh instance never had Selected() called, so its filter is empty and the
-/// replay always fails with "No Selectables" — see Designator_SelectSimilar.CanDesignateCell.
-/// Worse, if it ever did "succeed" under replay it would overwrite every other client's local
-/// selection with this client's.
+/// Select Similar is a UI-local designator — its Designate* methods only call
+/// Find.Selector.Select, they write no Designation and mutate no game state. Multiplayer's
+/// generic designation sync (Multiplayer.Client.DesignatorPatches) doesn't know that: it
+/// serializes the call, cancels local execution, and replays it from the tick loop, where the
+/// cursor/selection context the filter needs doesn't exist — so drags fail with "No Selectables"
+/// and any selection it did make would be discarded with the replay's selection sandbox.
 ///
-/// The fix is to remove Multiplayer's patch from these three methods, so they keep running
-/// client-locally — exactly like every other purely-local UI action (e.g. selecting a thing by
-/// clicking it with the vanilla select tool, which Multiplayer does not sync either).
+/// This used to be handled by *unpatching* Multiplayer's prefixes from the three Designate*
+/// overrides declared on Designator_SelectSimilar. That left a hole: DesignateMultiCell calls
+/// base.DesignateMultiCell, and Multiplayer also patches Verse.Designator's own Designate*
+/// methods (it patches every declared override on every Designator subtype, the base class
+/// included). A base call goes straight through the detour on the base method, so drags were
+/// still being synced and cancelled even with 3/3 overrides unpatched.
+///
+/// Instead, prefix Multiplayer's sync prefixes themselves: DesignatorPatches.Designate* receive
+/// the designator instance no matter which subtype's method was patched — including the
+/// base-call route — so a single instance check covers every path. When the instance is
+/// Designator_SelectSimilar we skip the sync body and tell the patched method to run its
+/// original, client-local code. Outside of Select Similar (or with Multiplayer's internals
+/// renamed) nothing changes and we complain loudly instead of failing silent.
+///
+/// This is the same pattern Multiplayer-Compatibility uses for Allow Tool's select similar.
 /// </summary>
-[StaticConstructorOnStartup]
 public static class MpSelectSimilarUnpatch
 {
     private const string MpDesignatorPatchesTypeName = "Multiplayer.Client.DesignatorPatches";
-    private const string MpFinalizerMethodName = "DesignateFinalizer";
     private const string HarmonyId = "keyz182.rimworld.KeyzAllowUtilities.mp";
 
-    private static readonly (string Name, Type[] Args)[] Targets =
-    {
-        ("DesignateSingleCell", new[] { typeof(IntVec3) }),
-        ("DesignateMultiCell", new[] { typeof(IEnumerable<IntVec3>) }),
-        ("DesignateThing", new[] { typeof(Thing) }),
-    };
+    private static readonly string[] Targets = ["DesignateSingleCell", "DesignateMultiCell", "DesignateThing"];
 
-    private static bool done;
+    private static bool applied;
     private static bool complained;
 
-    static MpSelectSimilarUnpatch()
-    {
-        // Primary attempt. About.xml's loadAfter rwmt.Multiplayer means our assemblies load after
-        // Multiplayer's, but StaticConstructorOnStartup execution order across mods is only a
-        // best-effort ordering, not a guarantee — so this is allowed to no-op (see Ensure's "don't
-        // latch on zero" rule); the Selected() prefix below is the guaranteed-timing net.
-        Ensure();
-    }
-
     /// <summary>
-    /// Harmony prefix on Designator_SelectSimilar.Selected() — a method Multiplayer does not
-    /// patch, and which can only run once the player has actually equipped the tool, i.e. long
-    /// after every mod's startup patching (Multiplayer's included) has finished. Guarantees
-    /// Ensure() completes even if the static constructor above ran too early.
+    /// Called from MpCompatMod's constructor. No ordering constraints: this patches Multiplayer's
+    /// own (static) prefix methods, which works whether or not Multiplayer has applied its
+    /// designator patches yet — all mod assemblies are loaded before any Mod is constructed, so
+    /// the type lookup is reliable here.
     /// </summary>
-    [HarmonyPatch(typeof(Designator_SelectSimilar), nameof(Designator_SelectSimilar.Selected))]
-    [HarmonyPrefix]
-    private static void Selected_Patch()
+    public static void Apply()
     {
-        Ensure();
-    }
-
-    public static void Ensure()
-    {
-        if (done)
+        if (applied)
         {
             return;
         }
@@ -71,75 +55,68 @@ public static class MpSelectSimilarUnpatch
         Type mp = AccessTools.TypeByName(MpDesignatorPatchesTypeName);
         if (mp == null)
         {
-            // Multiplayer isn't actually loaded under this name, or was refactored away — either
-            // way there is no designator sync for anything here to have broken. This can never
-            // change at runtime, so it's safe to latch.
-            done = true;
             Complain($"{MpDesignatorPatchesTypeName} not found — Multiplayer may have renamed its designator sync internals");
             return;
         }
 
-        MethodInfo finalizer = AccessTools.DeclaredMethod(mp, MpFinalizerMethodName);
         var harmony = new Harmony(HarmonyId);
-        int removed = 0;
+        var prefix = new HarmonyMethod(typeof(MpSelectSimilarUnpatch), nameof(SkipSyncForSelectSimilar));
+        int patched = 0;
 
-        foreach ((string name, Type[] args) in Targets)
+        foreach (string name in Targets)
         {
-            MethodInfo target = AccessTools.DeclaredMethod(typeof(Designator_SelectSimilar), name, args);
-            if (target == null || target.DeclaringType != typeof(Designator_SelectSimilar))
-            {
-                // A future refactor could rename/remove the override, or (worse) hoist it onto a
-                // shared base class. Either way, resolving by walking the type hierarchy would
-                // risk unpatching a base Designator method and stripping Multiplayer's designator
-                // sync for every OTHER designator in the game — refuse instead and complain loudly.
-                string argList = string.Join(", ", args.Select(a => a.Name));
-                Complain($"Designator_SelectSimilar no longer declares {name}({argList}) — refusing to unpatch a base Designator method");
-                continue;
-            }
-
-            MethodInfo prefix = AccessTools.DeclaredMethod(mp, name);
-            if (prefix == null)
+            MethodInfo target = AccessTools.DeclaredMethod(mp, name);
+            if (target == null)
             {
                 Complain($"{MpDesignatorPatchesTypeName}.{name} not found — Multiplayer may have refactored its designator sync");
                 continue;
             }
 
-            if (!HasPrefix(target, prefix))
-            {
-                // Multiplayer hasn't patched this method yet (we ran first). Leave `done` false so
-                // the Selected() net retries later instead of latching a false success.
-                continue;
-            }
-
-            harmony.Unpatch(target, prefix);
-            if (finalizer != null)
-            {
-                harmony.Unpatch(target, finalizer);
-            }
-
-            if (HasPrefix(target, prefix))
-            {
-                Complain($"Unpatch of {name} did not take");
-            }
-            else
-            {
-                removed++;
-            }
+            harmony.Patch(target, prefix: prefix);
+            patched++;
         }
 
-        if (removed == 0)
+        if (patched == 0)
         {
             return;
         }
 
-        done = true;
-        ModLog.Log($"Multiplayer: Select Similar left un-synced (it only changes local selection) — {removed}/{Targets.Length} designate methods unpatched");
+        applied = true;
+        ModLog.Log($"Multiplayer: Select Similar left un-synced (it only changes local selection) — sync bypassed on {patched}/{Targets.Length} designate hooks");
     }
 
-    private static bool HasPrefix(MethodBase method, MethodInfo patch)
+    /// <summary>
+    /// Prefix on Multiplayer's DesignatorPatches.Designate* sync prefixes. Their contract:
+    /// return true to let the original designate method run, false to swallow it (after queueing
+    /// a synced replay). For Select Similar we force "run the original" and skip the sync body;
+    /// every other designator is left to Multiplayer untouched.
+    ///
+    /// Arg accessor: <c>__0</c> is Harmony's positional accessor for the target's first declared
+    /// parameter. Multiplayer's <c>DesignatorPatches.Designate*</c> methods are static with
+    /// signature <c>(Designator __instance, T value)</c> — the target parameter is literally
+    /// NAMED <c>__instance</c>, which collides with Harmony's <c>__instance</c> special name for
+    /// the instance-of-a-nonstatic-target (null for a static target). Using <c>__0</c> instead of
+    /// <c>[HarmonyArgument("__instance")]</c> sidesteps the collision entirely and works across
+    /// every Harmony 2.x version that KAU or its cohabiting mods might ship.
+    /// </summary>
+    private static bool SkipSyncForSelectSimilar(Designator __0, ref bool __result, MethodBase __originalMethod)
     {
-        Patches info = Harmony.GetPatchInfo(method);
-        return info != null && info.Prefixes.Any(p => p.PatchMethod == patch);
+        bool isSelectSimilar = __0 is Designator_SelectSimilar;
+
+        if (KeyzAllowUtilitiesMod.settings?.MpDebugLogging ?? false)
+        {
+            // Off by default; toggle via mod settings to capture one drag's worth of decisions.
+            // Runs 1x per designated cell, so log volume can be significant during a drag.
+            Log.Message($"[KAU MP] {__originalMethod?.Name ?? "?"}: designator={__0?.GetType().FullName ?? "<null>"} isSelectSimilar={isSelectSimilar} decision={(isSelectSimilar ? "bypass-sync" : "let-mp-sync")}");
+        }
+
+        if (!isSelectSimilar)
+        {
+            return true;
+        }
+
+        __result = true;
+        return false;
     }
 
     private static void Complain(string message)

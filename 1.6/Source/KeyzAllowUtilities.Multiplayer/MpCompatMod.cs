@@ -16,6 +16,12 @@ public class MpCompatMod : Mod
 {
     public MpCompatMod(ModContentPack content) : base(content)
     {
+        // Select Similar only ever changes this client's local selection (Find.Selector) — it
+        // must never be command-synced. This needs no Multiplayer API, so it runs before the
+        // MP.enabled gate below: even with the API bridge unavailable, Multiplayer's designator
+        // sync is active and the exemption is still needed. See MpSelectSimilarUnpatch.
+        MpSelectSimilarUnpatch.Apply();
+
         // MP.enabled is only set once Multiplayer.API.MP's static constructor has resolved the
         // MultiplayerAPIBridge from the Multiplayer assembly; calling the API without it throws
         // UninitializedAPI. All mod assemblies (including Multiplayer's) load before any Mod is
@@ -41,11 +47,6 @@ public class MpCompatMod : Mod
             // the host's shared designations on load — see Settings.ValidateDesignators.
             Settings.SuppressDesignationPurge = () => MP.IsInMultiplayer;
 
-            // Select Similar only ever changes this client's local selection (Find.Selector) —
-            // it must never be command-synced, so MpSelectSimilarUnpatch removes Multiplayer's
-            // generic designator sync from it. PatchAll registers that class's Harmony patches
-            // (including its Selected() timing net); Ensure() also runs eagerly from its own
-            // static constructor. See MpSelectSimilarUnpatch and Settings.DesignateSuccessFeedbackSuppressed.
             new Harmony("keyz182.rimworld.KeyzAllowUtilities.mp").PatchAll(Assembly.GetExecutingAssembly());
             Settings.DesignateSuccessFeedbackSuppressed = () => MP.IsInMultiplayer;
 

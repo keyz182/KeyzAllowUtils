@@ -160,6 +160,16 @@ public class Designator_SelectSimilar : Designator
 
     public override void DesignateMultiCell(IEnumerable<IntVec3> cells)
     {
+        if (KeyzAllowUtilitiesMod.settings?.MpDebugLogging ?? false)
+        {
+            // Confirms whether a drag under Multiplayer ever reaches this override. If
+            // MpSelectSimilarUnpatch.SkipSyncForSelectSimilar fires on drag but this log
+            // does not, Multiplayer is intercepting the drag at a higher layer than
+            // DesignatorPatches (e.g. an input-layer or DragBox patch) — that is where the
+            // next round of exemption work would need to hook.
+            Log.Message($"[KAU MP] Designator_SelectSimilar.DesignateMultiCell entered (cells materialized to check size lazily; drag reached KAU override)");
+        }
+
         inMultiCellDesignation = true;
         anySelectedThisDrag = false;
 

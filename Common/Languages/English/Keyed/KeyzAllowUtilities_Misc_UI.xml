@@ -8,6 +8,9 @@
     <KAU_Section_Combat>Combat</KAU_Section_Combat>
     <KAU_Section_Mining>Mining</KAU_Section_Mining>
     <KAU_Section_Shortcuts>Shortcuts</KAU_Section_Shortcuts>
+    <KAU_Section_Diagnostics>Diagnostics</KAU_Section_Diagnostics>
+    <KAU_MpDebugLogging>Log Multiplayer Select Similar decisions (diagnostic)</KAU_MpDebugLogging>
+    <KAU_MpDebugLogging_Tip>Off by default. When on, logs one line per Designate* call intercepted for Multiplayer sync exemption, plus one line per Select Similar drag reaching the override. Intended for capturing a single drag while diagnosing a multiplayer report — noisy under sustained use.</KAU_MpDebugLogging_Tip>
     <KeyzAllowUtilities_Settings_MaxSelect>Max selected items: [{0}]</KeyzAllowUtilities_Settings_MaxSelect>
     <KUA_AllowAll>Allow all across map</KUA_AllowAll>
     <KUA_AllowAllExcludingCorpses>Allow all across map (except corpses)</KUA_AllowAllExcludingCorpses>
