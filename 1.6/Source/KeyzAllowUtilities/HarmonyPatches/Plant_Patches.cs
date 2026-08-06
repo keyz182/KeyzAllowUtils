@@ -86,14 +86,36 @@ public static class Plant_Patches
         int count = 0;
         foreach (Plant plant in plants)
         {
-            if (predicate(plant))
-            {
-                plant.Map.designationManager.RemoveAllDesignationsOn(plant);
-                plant.Map.designationManager.AddDesignation(new Designation((LocalTargetInfo)plant, designation));
-                count++;
-            }
+            if (!predicate(plant)) continue;
+            DesignationManager dm = plant.Map.designationManager;
+            // Skip plants that already carry the target designation. Under RimWorld Multiplayer
+            // AddDesignation is auto-synced per call, and a stale duplicate coming through the
+            // sync queue trips DesignationManager's built-in guard ("Tried to double-add
+            // designation on Thing X"). Matching the guard here keeps the mod idempotent and
+            // silent in MP. Mirrors the pattern used in HaulUrgentlyActions.
+            if (dm.DesignationOn(plant, designation) != null) continue;
+            dm.RemoveAllDesignationsOn(plant);
+            dm.AddDesignation(new Designation((LocalTargetInfo)plant, designation));
+            count++;
         }
         return count;
+    }
+
+    /// <summary>
+    /// Merge the clicked plant with the current selected-plant set (if any) into a single def
+    /// carrier. Used by every gizmo callback so the two-pass "selected + __instance" pattern
+    /// collapses to one <see cref="DesignateFullyGrownOnScreen"/> / <see cref="DesignateAnyOnMap"/>
+    /// call. Two overlapping passes were producing duplicate sync commands under Multiplayer;
+    /// a single merged pass leaves ToDefSet's dedup to do the union work.
+    /// </summary>
+    private static List<Plant> MergeSelectionWithInstance(Plant instance)
+    {
+        List<Plant> merged = [instance];
+        if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
+        {
+            merged.AddRange(things.OfType<Plant>());
+        }
+        return merged;
     }
 
     public static void ReportDesignated(int count)
@@ -148,25 +170,13 @@ public static class Plant_Patches
                         [
                             new(KUA_HarvestOnScreen_Label.Value, () =>
                             {
-                                int n = 0;
-                                if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
-                                {
-                                    n += DesignateFullyGrownOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.HarvestPlant);
-                                }
-
-                                n += DesignateFullyGrownOnScreen([__instance], __instance.Map, DesignationDefOf.HarvestPlant);
+                                int n = DesignateFullyGrownOnScreen(MergeSelectionWithInstance(__instance), __instance.Map, DesignationDefOf.HarvestPlant);
                                 ReportDesignated(n);
                             }),
 
                             new(KUA_HarvestOnMap_Label.Value, () =>
                             {
-                                int n = 0;
-                                if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
-                                {
-                                    n += __instance.Map.DesignateFullyGrownOnMap(things.OfType<Plant>(), DesignationDefOf.HarvestPlant);
-                                }
-
-                                n += __instance.Map.DesignateFullyGrownOnMap([__instance], DesignationDefOf.HarvestPlant);
+                                int n = __instance.Map.DesignateFullyGrownOnMap(MergeSelectionWithInstance(__instance), DesignationDefOf.HarvestPlant);
                                 ReportDesignated(n);
                             })
                         ];
@@ -194,25 +204,13 @@ public static class Plant_Patches
                         [
                             new(KUA_CutGrownOnScreen_Label.Value, () =>
                             {
-                                int n = 0;
-                                if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
-                                {
-                                    n += DesignateFullyGrownOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.CutPlant, false);
-                                }
-
-                                n += DesignateFullyGrownOnScreen([__instance], __instance.Map, DesignationDefOf.CutPlant, false);
+                                int n = DesignateFullyGrownOnScreen(MergeSelectionWithInstance(__instance), __instance.Map, DesignationDefOf.CutPlant, false);
                                 ReportDesignated(n);
                             }),
 
                             new(KUA_CutGrownOnMap_Label.Value, () =>
                             {
-                                int n = 0;
-                                if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
-                                {
-                                    n += __instance.Map.DesignateFullyGrownOnMap(things.OfType<Plant>(), DesignationDefOf.CutPlant, false);
-                                }
-
-                                n += __instance.Map.DesignateFullyGrownOnMap([__instance], DesignationDefOf.CutPlant, false);
+                                int n = __instance.Map.DesignateFullyGrownOnMap(MergeSelectionWithInstance(__instance), DesignationDefOf.CutPlant, false);
                                 ReportDesignated(n);
                             })
                         ];
@@ -239,25 +237,13 @@ public static class Plant_Patches
                         [
                             new(KUA_HarvestAllOnScreen_Label.Value, () =>
                             {
-                                int n = 0;
-                                if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
-                                {
-                                    n += DesignateAnyOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.HarvestPlant, false);
-                                }
-
-                                n += DesignateAnyOnScreen([__instance], __instance.Map, DesignationDefOf.HarvestPlant, false);
+                                int n = DesignateAnyOnScreen(MergeSelectionWithInstance(__instance), __instance.Map, DesignationDefOf.HarvestPlant, false);
                                 ReportDesignated(n);
                             }),
 
                             new(KUA_HarvestAllOnMap_Label.Value, () =>
                             {
-                                int n = 0;
-                                if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
-                                {
-                                    n += __instance.Map.DesignateAnyOnMap(things.OfType<Plant>(), DesignationDefOf.HarvestPlant, false);
-                                }
-
-                                n += __instance.Map.DesignateAnyOnMap([__instance], DesignationDefOf.HarvestPlant, false);
+                                int n = __instance.Map.DesignateAnyOnMap(MergeSelectionWithInstance(__instance), DesignationDefOf.HarvestPlant, false);
                                 ReportDesignated(n);
                             })
                         ];
@@ -280,25 +266,13 @@ public static class Plant_Patches
                         [
                             new(KUA_HarvestAllWoodOnScreen_Label.Value, () =>
                             {
-                                int n = 0;
-                                if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
-                                {
-                                    n += DesignateAnyOnScreen(things.OfType<Plant>(), __instance.Map, DesignationDefOf.CutPlant, false);
-                                }
-
-                                n += DesignateAnyOnScreen([__instance], __instance.Map, DesignationDefOf.CutPlant, false);
+                                int n = DesignateAnyOnScreen(MergeSelectionWithInstance(__instance), __instance.Map, DesignationDefOf.CutPlant, false);
                                 ReportDesignated(n);
                             }),
 
                             new(KUA_HarvestAllWoodOnMap_Label.Value, () =>
                             {
-                                int n = 0;
-                                if (TryGetSelectedOfCategory(ThingCategory.Plant, out List<Thing> things))
-                                {
-                                    n += __instance.Map.DesignateAnyOnMap(things.OfType<Plant>(), DesignationDefOf.CutPlant, false);
-                                }
-
-                                n += __instance.Map.DesignateAnyOnMap([__instance], DesignationDefOf.CutPlant, false);
+                                int n = __instance.Map.DesignateAnyOnMap(MergeSelectionWithInstance(__instance), DesignationDefOf.CutPlant, false);
                                 ReportDesignated(n);
                             })
                         ];
