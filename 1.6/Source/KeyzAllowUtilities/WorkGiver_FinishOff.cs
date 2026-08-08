@@ -9,18 +9,28 @@ public class WorkGiver_FinishOff : WorkGiver_Scanner
 {
     public override bool ShouldSkip(Pawn pawn, bool forced = false) => base.ShouldSkip(pawn, forced) || KeyzAllowUtilitiesMod.settings.DisableFinishOff;
 
-    public static bool IsValidTarget(Pawn target, Pawn worker)
-    {
-        Designation des = target.Map.designationManager.DesignationOn(target, KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation) ?? target.Map.designationManager.DesignationOn(target, KeyzAllowUtilitesDefOf.KAU_StripFinishOffDesignation);
-        if (des == null) return false;
+    public static Designation GetOwnDesignation(Pawn target) =>
+        target.Map.designationManager.DesignationOn(target, KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation) ??
+        target.Map.designationManager.DesignationOn(target, KeyzAllowUtilitesDefOf.KAU_StripFinishOffDesignation);
 
-        if (target.Downed && !target.Dead && !target.Map.reservationManager.IsReserved(target))
+    public static bool IsValidTarget(Pawn target, Pawn worker) => IsValidTarget(target, worker, out _);
+
+    public static bool IsValidTarget(Pawn target, Pawn worker, out Designation designation)
+    {
+        designation = GetOwnDesignation(target);
+        if (designation == null) return false;
+
+        if (!target.Spawned || target.Dead || !target.Downed)
         {
-            return true;
+            target.Map.designationManager.RemoveDesignation(designation);
+            designation = null;
+            return false;
         }
 
-        target.Map.designationManager.RemoveDesignation(des);
-        return false;
+        // A pawn already working this target (or with no worker specified, e.g. a UI-only check)
+        // must not be treated as unavailable — only genuinely-blocked targets (reserved by someone
+        // else) are skipped, and skipping never deletes the order.
+        return worker == null || worker.CanReserve(target);
     }
 
     public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
@@ -42,7 +52,7 @@ public class WorkGiver_FinishOff : WorkGiver_Scanner
             return null;
         }
 
-        if (!IsValidTarget(target, pawn))
+        if (!IsValidTarget(target, pawn, out Designation des))
         {
             JobFailReason.Is("KAU_NotFriendlyOrDowned".Translate(), null);
             return null;
@@ -57,8 +67,6 @@ public class WorkGiver_FinishOff : WorkGiver_Scanner
         Pawn_MeleeVerbs meleeVerbs = pawn.meleeVerbs;
         Verb verb = meleeVerbs?.TryGetMeleeVerb(target);
         if (verb == null)return null;
-
-        Designation des = target.Map.designationManager.DesignationOn(target, KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation) ?? target.Map.designationManager.DesignationOn(target, KeyzAllowUtilitesDefOf.KAU_StripFinishOffDesignation);
 
         JobDef jobDef = des.def == KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation ? KeyzAllowUtilitesDefOf.KAU_FinishOffPawn : KeyzAllowUtilitesDefOf.KAU_StripFinishOffPawn;
 

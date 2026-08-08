@@ -17,7 +17,10 @@ public class JobDriver_StripFinishOff : JobDriver_FinishOff
     {
         DoStrip(slayer, victim);
         base.DoExecution(slayer, victim);
-        slayer.records.Increment(RecordDefOf.BodiesStripped);
+        if (RecordDefOf.BodiesStripped != null)
+        {
+            slayer.records.Increment(RecordDefOf.BodiesStripped);
+        }
     }
 
 }
