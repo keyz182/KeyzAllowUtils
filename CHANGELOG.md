@@ -8,6 +8,16 @@
 - files - ([3eb6084](https://github.com/keyz182/KeyzAllowUtils/commit/3eb6084d71e1de2dbaace09b8fcb124ae87993a5)) - [@keyz182](https://github.com/keyz182)
 
 - - -
+## [v1.3.8](https://github.com/keyz182/KeyzAllowUtils/compare/af2f427cb1f7afca984408fbf5d651993c3cc44e..v1.3.8) - 2026-08-24
+#### Bug Fixes
+- don't designate destroyed things - ([61a5f50](https://github.com/keyz182/KeyzAllowUtils/commit/61a5f50aee444a426d91ae79b15185f7a9f12cac)) - [@keyz182](https://github.com/keyz182)
+- Finish Off could silently fail to kill after animation played - ([966a170](https://github.com/keyz182/KeyzAllowUtils/commit/966a1705dad751adb415e1db7fe6689f1b91e7a5)) - [@keyz182](https://github.com/keyz182)
+- designate log spam - ([12e8e74](https://github.com/keyz182/KeyzAllowUtils/commit/12e8e74dd8ad0c5745a76ec489eccf5d33047709)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.3.7 - ([af2f427](https://github.com/keyz182/KeyzAllowUtils/commit/af2f427cb1f7afca984408fbf5d651993c3cc44e)) - github-actions[bot]
+
+- - -
+
 
 ## [v1.3.6](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.5..v1.3.6) - 2026-08-05
 #### Bug Fixes
