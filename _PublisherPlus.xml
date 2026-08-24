@@ -8,7 +8,6 @@
     <exclude>.omc</exclude>
     <exclude>1.6/Source</exclude>
     <exclude>Assets</exclude>
-    <exclude>CHANGELOG.md</exclude>
     <exclude>cog.toml</exclude>
     <exclude>Common/Textures/UI/KAU_StripMine.svg</exclude>
     <exclude>Common/Textures/UI/KAU_StripMineDiagram.svg</exclude>

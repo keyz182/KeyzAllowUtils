@@ -113,6 +113,13 @@ public class Designator_SelectSimilar : Designator
         bool selectedAny = false;
         foreach (Thing thing in SelectableThingsInCell(c))
         {
+            if (thing.Destroyed)
+            {
+                // Can die/rot mid-drag (e.g. a downed pawn bleeding out between cells), which
+                // destroys the old Thing — Selector.Select logs a red error for a destroyed thing.
+                continue;
+            }
+
             Find.Selector.Select(thing, forceDesignatorDeselect: false);
             selectedAny = true;
         }
@@ -142,6 +149,11 @@ public class Designator_SelectSimilar : Designator
 
     public override void DesignateThing(Thing t)
     {
+        if (t.Destroyed)
+        {
+            return;
+        }
+
         Find.Selector.Select(t, forceDesignatorDeselect: false);
     }
 
