@@ -9,6 +9,14 @@
 - **(version)** v1.3.8 - ([7c2aaae](https://github.com/keyz182/KeyzAllowUtils/commit/7c2aaae9f508751408c48a9ce49f974eaf75d678)) - github-actions[bot]
 
 - - -
+## [v1.3.9](https://github.com/keyz182/KeyzAllowUtils/compare/9a3f0528cbaf3b9231f9cc8c2845619d55509567..v1.3.9) - 2026-10-05
+#### Bug Fixes
+- mech Haul+ priority reset on load; right-click allow/forbid all ignored map scope - ([74c7f6a](https://github.com/keyz182/KeyzAllowUtils/commit/74c7f6a8151f71ee68607c7771485dc948a7ba2a)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.3.8 - ([9a3f052](https://github.com/keyz182/KeyzAllowUtils/commit/9a3f0528cbaf3b9231f9cc8c2845619d55509567)) - github-actions[bot]
+
+- - -
+
 
 ## [v1.3.7](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.6..v1.3.7) - 2026-08-24
 #### Bug Fixes
