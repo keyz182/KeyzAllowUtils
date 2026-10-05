@@ -37,15 +37,15 @@ public static class CompForbiddable_Patches
                     [
                         new FloatMenuOption("KUA_AllowAll".Translate(), () =>
                         {
-                            KeyHandler.AllowAll(__instance.parent.Map, false, __instance.parent.def);
+                            KeyHandler.AllowAll(__instance.parent.Map, false, __instance.parent.def, preferSelection: false);
                         }),
                         new FloatMenuOption("KUA_AllowAllExcludingCorpses".Translate(), () =>
                         {
-                            KeyHandler.AllowAll(__instance.parent.Map, false, __instance.parent.def, excludeCorpses: true);
+                            KeyHandler.AllowAll(__instance.parent.Map, false, __instance.parent.def, excludeCorpses: true, preferSelection: false);
                         }),
                         new FloatMenuOption("KUA_ForbidAll".Translate(), () =>
                         {
-                            KeyHandler.AllowAll(__instance.parent.Map, true, __instance.parent.def);
+                            KeyHandler.AllowAll(__instance.parent.Map, true, __instance.parent.def, preferSelection: false);
                         })
                     ];
 

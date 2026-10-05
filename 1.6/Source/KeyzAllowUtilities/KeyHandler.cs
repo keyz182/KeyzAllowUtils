@@ -18,23 +18,6 @@ public class KeyHandler(Map map) : MapComponent(map)
     public static Lazy<Designator_HaulUrgently> HaulUrgently = new(() => DefDatabase<DesignationCategoryDef>.GetNamed("Orders").AllResolvedDesignators
         .OfType<Designator_HaulUrgently>().FirstOrDefault());
 
-
-    public override void FinalizeInit()
-    {
-        foreach (Pawn mech in map.mapPawns.SpawnedColonyMechs)
-        {
-            // get haul urgently picked up
-            if (KeyzAllowUtilitesDefOf.KAU_UrgentHaul != null && mech.RaceProps.mechEnabledWorkTypes.Contains(KeyzAllowUtilitesDefOf.KAU_UrgentHaul))
-            {
-                mech.workSettings.Notify_UseWorkPrioritiesChanged();
-                if (mech.workSettings.GetPriority(KeyzAllowUtilitesDefOf.KAU_UrgentHaul) <= 0)
-                {
-                    mech.workSettings.SetPriority(KeyzAllowUtilitesDefOf.KAU_UrgentHaul, 1);
-                }
-            }
-        }
-    }
-
     public override void MapComponentOnGUI()
     {
         if (Current.ProgramState != ProgramState.Playing)
@@ -94,9 +77,12 @@ public class KeyHandler(Map map) : MapComponent(map)
         }
     }
 
-    public static void AllowAll(Map map, bool forbid = false, Def ofDef = null, bool excludeCorpses = false)
+    /// <param name="preferSelection">When true and forbiddables are selected, act on the selection
+    /// only (hotkeys). The gizmo right-click menu passes false: it is only reachable with something
+    /// selected, so honouring the selection would make "all on map" never apply.</param>
+    public static void AllowAll(Map map, bool forbid = false, Def ofDef = null, bool excludeCorpses = false, bool preferSelection = true)
     {
-        List<ThingWithComps> selectedForbiddables = Find.Selector.SelectedObjects
+        List<ThingWithComps> selectedForbiddables = !preferSelection ? [] : Find.Selector.SelectedObjects
             .OfType<ThingWithComps>()
             .Where(t => t.HasComp<CompForbiddable>() && !map.fogGrid.IsFogged(t.Position))
             .ToList();
