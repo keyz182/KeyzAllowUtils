@@ -7,6 +7,14 @@
 - **(version)** v1.3.9 - ([7696a53](https://github.com/keyz182/KeyzAllowUtils/commit/7696a537687416296ca20755fbcff78b75b2333d)) - github-actions[bot]
 
 - - -
+## [v1.4.0](https://github.com/keyz182/KeyzAllowUtils/compare/285e0568f5e73b9f98bf3563f0569f416d5bd7b7..v1.4.0) - 2026-10-15
+#### Documentation
+- update changelog for v1.3.9 - ([285e056](https://github.com/keyz182/KeyzAllowUtils/commit/285e0568f5e73b9f98bf3563f0569f416d5bd7b7)) - github-actions[bot]
+#### Features
+- RimWorld 1.7 support (net10.0 build) - ([3c1d598](https://github.com/keyz182/KeyzAllowUtils/commit/3c1d598283f83f413af14c207e750d00dd7bca29)) - [@keyz182](https://github.com/keyz182)
+
+- - -
+
 
 ## [v1.3.8](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.7..v1.3.8) - 2026-10-05
 #### Bug Fixes
