@@ -86,6 +86,8 @@ jobs:
           cp -r Compatibility dist/KeyzAllowUtils/
           cp -r 1.6 dist/KeyzAllowUtils/
           rm -rf dist/KeyzAllowUtils/1.6/Source
+          # 1.7 assemblies are built locally (they need the 1.7 game DLLs) and committed as-is
+          cp -r 1.7 dist/KeyzAllowUtils/
           cp loadFolders.xml LICENSE dist/KeyzAllowUtils/
           cd dist
           zip -r "../KeyzAllowUtils-${VERSION}.zip" KeyzAllowUtils/
