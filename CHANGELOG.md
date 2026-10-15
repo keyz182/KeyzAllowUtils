@@ -7,6 +7,16 @@
 - **(version)** v1.4.0 - ([16170c1](https://github.com/keyz182/KeyzAllowUtils/commit/16170c17716c902f94ea9e9cc08ebe72a3a9cd2c)) - github-actions[bot]
 
 - - -
+## [v1.4.1](https://github.com/keyz182/KeyzAllowUtils/compare/a5fac735ebb3991fdcd45bb347da50521a0e6df9..v1.4.1) - 2026-10-15
+#### Bug Fixes
+- bump - ([11dd26d](https://github.com/keyz182/KeyzAllowUtils/commit/11dd26dd5ca57d966285ab7091489194f9e142ee)) - [@keyz182](https://github.com/keyz182)
+#### Continuous Integration
+- include 1.7 folder in release package - ([caa79e5](https://github.com/keyz182/KeyzAllowUtils/commit/caa79e51d94cc258e9524959b562fa1c5704a4e3)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.4.0 - ([a5fac73](https://github.com/keyz182/KeyzAllowUtils/commit/a5fac735ebb3991fdcd45bb347da50521a0e6df9)) - github-actions[bot]
+
+- - -
+
 
 ## [v1.3.9](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.8..v1.3.9) - 2026-10-15
 #### Bug Fixes
