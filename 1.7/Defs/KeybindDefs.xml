@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Defs>
+
+    <KeyBindingCategoryDef>
+        <defName>KAU_AllowUtilities</defName>
+        <label>Allow Utilites</label>
+        <description>Shortcuts for Keyz' allow utils mod.</description>
+    </KeyBindingCategoryDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_Allow</defName>
+        <label>Allow</label>
+        <defaultKeyCodeA>Home</defaultKeyCodeA>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_Forbid</defName>
+        <label>Forbid</label>
+        <defaultKeyCodeA>End</defaultKeyCodeA>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_SelectSimilar</defName>
+        <label>Select similar</label>
+        <defaultKeyCodeA>P</defaultKeyCodeA>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_SelectSimilarDesignator</defName>
+        <label>Select similar (Designator)</label>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_HarvestFullyGrown</defName>
+        <label>Harvest fully grown</label>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_HarvestFullyGrownWood</defName>
+        <label>Chop fully grown wood</label>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_CutFullyGrown</defName>
+        <label>Cut fully grown</label>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_HarvestAll</defName>
+        <label>Harvest all (any growth)</label>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_HarvestAllWood</defName>
+        <label>Chop all wood (any growth)</label>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_StripMine</defName>
+        <label>Strip Mine</label>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_FertileGrowArea</defName>
+        <label>Growing zone (Fertile only)</label>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_FertileGrowAreaExpand</defName>
+        <label>Expand zone (Fertile only)</label>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_HaulUrgently</defName>
+        <label>Haul urgently</label>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_HaulUrgentlySelection</defName>
+        <label>Haul urgently selection</label>
+        <defaultKeyCodeA>O</defaultKeyCodeA>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_FinishOff</defName>
+        <label>Finish off</label>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_SelectFloor</defName>
+        <label>Select Floor</label>
+    </KeyBindingDef>
+
+    <KeyBindingDef>
+        <category>KAU_AllowUtilities</category>
+        <defName>KAU_CutBlighted</defName>
+        <label>Cut Blighted</label>
+    </KeyBindingDef>
+</Defs>

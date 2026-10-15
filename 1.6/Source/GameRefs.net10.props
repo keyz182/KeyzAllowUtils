@@ -1,0 +1,39 @@
+<Project>
+  <!--
+    References for the RimWorld 1.7 (Waylith, .NET 10) build. Imported by every project that
+    targets net10.0. UnityEngine*.dll no longer exist: UnityStubs.dll stands in for all of them.
+
+    Harmony is not shipped with the game. The Brrainz Harmony mod's 1.7 build is referenced
+    in place (Private=False, so it is never copied into this mod). When that mod is not
+    installed, the Lib.Harmony package is used for compilation only.
+  -->
+  <PropertyGroup>
+    <_HarmonyModDll Condition="'$(SteamWorkshopDir)' != ''">$(SteamWorkshopDir)/2009463077/1.7/Assemblies/0Harmony.dll</_HarmonyModDll>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0' and '$(RimWorldGameRoot)' != ''">
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(RimWorldGameRoot)/Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityStubs">
+      <HintPath>$(RimWorldGameRoot)/UnityStubs.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <!-- Engine types leak through game signatures (e.g. DrawPropertyBlock), so the compiler needs Waylith -->
+    <Reference Include="Waylith">
+      <HintPath>$(RimWorldGameRoot)/Waylith.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0' and '$(_HarmonyModDll)' != '' and Exists('$(_HarmonyModDll)')">
+    <Reference Include="0Harmony">
+      <HintPath>$(_HarmonyModDll)</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0' and ('$(_HarmonyModDll)' == '' or !Exists('$(_HarmonyModDll)'))">
+    <PackageReference Include="Lib.Harmony" Version="2.*" ExcludeAssets="runtime" />
+  </ItemGroup>
+</Project>

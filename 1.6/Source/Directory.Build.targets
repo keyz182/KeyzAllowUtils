@@ -152,7 +152,7 @@ if (!string.IsNullOrEmpty(RimWorldManagedDir))
   <!-- Only run the inline task if Directory.Build.props didn't resolve the path -->
   <Target Name="ResolveRimWorldPaths"
           BeforeTargets="ResolveAssemblyReferences"
-          Condition="'$(RimWorldManagedDir)' == ''">
+          Condition="'$(RimWorldManagedDir)' == '' and '$(RimWorldGameRoot)' == ''">
     <FindRimWorld ProjectDir="$(MSBuildProjectDirectory)">
       <Output TaskParameter="RimWorldManagedDir" PropertyName="RimWorldManagedDir" />
       <Output TaskParameter="SteamAppsDir" PropertyName="SteamAppsDir" />

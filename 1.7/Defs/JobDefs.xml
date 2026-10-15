@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <JobDef>
+        <defName>KAU_FinishOffPawn</defName>
+        <driverClass>KeyzAllowUtilities.JobDriver_FinishOff</driverClass>
+        <reportString>Finishing off</reportString>
+        <alwaysShowWeapon>true</alwaysShowWeapon>
+        <casualInterruptible>false</casualInterruptible>
+    </JobDef>
+
+    <JobDef>
+        <defName>KAU_StripFinishOffPawn</defName>
+        <driverClass>KeyzAllowUtilities.JobDriver_StripFinishOff</driverClass>
+        <reportString>Stripping and finishing off</reportString>
+        <alwaysShowWeapon>true</alwaysShowWeapon>
+        <casualInterruptible>false</casualInterruptible>
+    </JobDef>
+</Defs>

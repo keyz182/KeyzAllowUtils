@@ -2,7 +2,7 @@
 
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFrameworks>net48;net8.0</TargetFrameworks>
+        <TargetFrameworks>net48;net10.0</TargetFrameworks>
         <OutputType>Library</OutputType>
         <LangVersion>latest</LangVersion>
         <RootNamespace>KeyzAllowUtilities</RootNamespace>
@@ -23,9 +23,10 @@
         <DebugSymbols>false</DebugSymbols>
         <Optimize>true</Optimize>
     </PropertyGroup>
-    <!-- net8.0 is test-only; keep it out of the game's Assemblies/ folder -->
-    <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
-        <OutputPath>bin/$(Configuration)/net8.0/</OutputPath>
+    <!-- net10.0 is the RimWorld 1.7 (Waylith) build; net48 is the 1.6 build -->
+    <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
+        <OutputPath>../../../1.7/Assemblies/</OutputPath>
+        <GenerateDependencyFile>false</GenerateDependencyFile>
     </PropertyGroup>
     <!-- Game DLL references — path resolved by Directory.Build.props/targets -->
     <ItemGroup Condition="'$(TargetFramework)' == 'net48' and '$(RimWorldManagedDir)' != ''">
@@ -54,41 +55,18 @@
     <ItemGroup Condition="'$(TargetFramework)' == 'net48' and '$(RimWorldManagedDir)' == ''">
         <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*" />
     </ItemGroup>
-    <ItemGroup Condition="'$(TargetFramework)' == 'net8.0' and '$(RimWorldManagedDir)' != ''">
-        <Reference Include="Assembly-CSharp">
-            <HintPath>$(RimWorldManagedDir)/Assembly-CSharp.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="UnityEngine.CoreModule">
-            <HintPath>$(RimWorldManagedDir)/UnityEngine.CoreModule.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="UnityEngine.IMGUIModule">
-            <HintPath>$(RimWorldManagedDir)/UnityEngine.IMGUIModule.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="UnityEngine.TextRenderingModule">
-            <HintPath>$(RimWorldManagedDir)/UnityEngine.TextRenderingModule.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="UnityEngine.InputLegacyModule">
-            <HintPath>$(RimWorldManagedDir)/UnityEngine.InputLegacyModule.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-    </ItemGroup>
-    <ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
         <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    </ItemGroup>
-    <ItemGroup>
         <PackageReference Include="Lib.Harmony" Version="2.*" ExcludeAssets="runtime" />
     </ItemGroup>
+    <Import Project="../GameRefs.net10.props" />
     <PropertyGroup>
         <StartAction>Program</StartAction>
         <StartProgram>$(SolutionDir)../../../../RimWorldWin64.exe</StartProgram>
     </PropertyGroup>
 
     <ItemGroup>
-        <ReleaseFiles Include="../../../1.6/**" Exclude="../../../1.6/Source/**" />
+        <ReleaseFiles Include="../../../1.6/**;../../../1.7/**" Exclude="../../../1.6/Source/**" />
         <AboutFiles Include="../../../About/**" Exclude="../../../About/*.png~" />
         <CommonFiles Include="../../../Common/**;../../../Compatibility/**" />
         <ExtraFiles Include="../../../loadFolders.xml;../../../LICENSE;../../../README.md;../../../.github/**;../../../qodana.yaml" />

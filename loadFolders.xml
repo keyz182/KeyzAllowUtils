@@ -14,4 +14,12 @@
              — it costs nothing and makes any hypothetical future case-sensitive lookup safe. -->
         <li IfModActive="rwmt.multiplayer">Compatibility/rwmt.Multiplayer/1.6/</li>
 	</v1.6>
+	<v1.7>
+		<!-- 1.7 does not load the 1.6 folder: its net48 assembly would clash with 1.7/Assemblies -->
+		<li>Common</li>
+		<li>1.7</li>
+        <li IfModActive="ludeon.rimworld.biotech">Compatibility/ludeon.rimworld.biotech/1.7/</li>
+        <!-- No 1.7 PickUpAndHaul build exists yet, so there is no PUAH compat folder for 1.7. -->
+        <li IfModActive="rwmt.multiplayer">Compatibility/rwmt.Multiplayer/1.7/</li>
+	</v1.7>
 </loadFolders>

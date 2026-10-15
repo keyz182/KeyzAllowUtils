@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Defs>
+    <DesignationDef>
+        <defName>KAU_HaulUrgentlyDesignation</defName>
+        <texturePath>UI/KUA_HaulDesignation</texturePath>
+        <targetType>Thing</targetType>
+        <designateCancelable>true</designateCancelable>
+    </DesignationDef>
+
+    <DesignationDef>
+        <defName>KAU_NoHaulDesignation</defName>
+        <texturePath>UI/KAU_NoHaulDesignation</texturePath>
+        <targetType>Thing</targetType>
+    </DesignationDef>
+
+    <DesignationDef>
+        <defName>KAU_FinishOffDesignation</defName>
+        <texturePath>UI/KUA_FinishOffDesignation</texturePath>
+        <targetType>Thing</targetType>
+    </DesignationDef>
+
+    <DesignationDef>
+        <defName>KAU_StripFinishOffDesignation</defName>
+        <texturePath>UI/KUA_FinishOffDesignation</texturePath>
+        <targetType>Thing</targetType>
+    </DesignationDef>
+
+    <DesignationDef>
+        <defName>KAU_SelectSimilarDesignation</defName>
+        <texturePath>UI/KUA_MultiSelect</texturePath>
+        <targetType>Thing</targetType>
+    </DesignationDef>
+
+</Defs>

@@ -2,7 +2,9 @@
 
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net48</TargetFramework>
+        <TargetFrameworks>net48</TargetFrameworks>
+        <!-- The 1.7 target switches on once PickUpAndHaul ships a 1.7 build (none exists yet) -->
+        <TargetFrameworks Condition="'$(SteamWorkshopDir)' != '' and Exists('$(SteamWorkshopDir)/1279012058/1.7/Assemblies/PickUpAndHaul.dll')">net48;net10.0</TargetFrameworks>
         <OutputType>Library</OutputType>
         <LangVersion>latest</LangVersion>
         <RootNamespace>KeyzAllowUtilities.PUAH</RootNamespace>
@@ -10,6 +12,10 @@
         <OutputPath>../../../Compatibility/mehni.pickupandhaul/1.6/Assemblies</OutputPath>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
+        <OutputPath>../../../Compatibility/mehni.pickupandhaul/1.7/Assemblies</OutputPath>
+        <GenerateDependencyFile>false</GenerateDependencyFile>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <Optimize>false</Optimize>
@@ -22,7 +28,7 @@
         <Optimize>true</Optimize>
     </PropertyGroup>
     <!-- Game DLL references — path resolved by Directory.Build.props/targets -->
-    <ItemGroup Condition="'$(RimWorldManagedDir)' != ''">
+    <ItemGroup Condition="'$(TargetFramework)' == 'net48' and '$(RimWorldManagedDir)' != ''">
         <Reference Include="Assembly-CSharp">
             <HintPath>$(RimWorldManagedDir)/Assembly-CSharp.dll</HintPath>
             <Private>False</Private>
@@ -41,21 +47,26 @@
         </Reference>
     </ItemGroup>
     <!-- Workshop mod reference -->
-    <ItemGroup Condition="'$(SteamWorkshopDir)' != ''">
+    <ItemGroup Condition="'$(TargetFramework)' == 'net48' and '$(SteamWorkshopDir)' != ''">
         <Reference Include="PickUpAndHaul">
             <HintPath>$(SteamWorkshopDir)/1279012058/1.6/Assemblies/PickUpAndHaul.dll</HintPath>
             <Private>False</Private>
         </Reference>
     </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <ItemGroup Condition="'$(TargetFramework)' == 'net10.0' and '$(SteamWorkshopDir)' != ''">
+        <Reference Include="PickUpAndHaul">
+            <HintPath>$(SteamWorkshopDir)/1279012058/1.7/Assemblies/PickUpAndHaul.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
     </ItemGroup>
-    <ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+        <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
         <PackageReference Include="Lib.Harmony" Version="2.*" ExcludeAssets="runtime" />
     </ItemGroup>
+    <Import Project="../GameRefs.net10.props" />
 
     <!-- CI fallback: when game DLLs aren't available, use stub reference assemblies -->
-    <ItemGroup Condition="'$(RimWorldManagedDir)' == ''">
+    <ItemGroup Condition="'$(TargetFramework)' == 'net48' and '$(RimWorldManagedDir)' == ''">
         <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*" />
     </ItemGroup>
 

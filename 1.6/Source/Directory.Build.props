@@ -11,8 +11,26 @@
   -->
 
   <PropertyGroup>
+    <!--
+      Projects set AppendTargetFrameworkToOutputPath=false, which also makes net48 and net10.0 share
+      obj/<Configuration>/ (the ref assembly is overwritten and parallel builds collide).
+      Multi-target inner builds get their own intermediate folder.
+    -->
+    <IntermediateOutputPath Condition="'$(TargetFramework)' != ''">obj/$(Configuration)/$(TargetFramework)/</IntermediateOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <!-- Relative base: 5 levels up from any project in 1.6/Source/ProjectName/ -->
     <_GameRoot>$([MSBuild]::NormalizePath($(MSBuildProjectDirectory), '..', '..', '..', '..', '..'))</_GameRoot>
+
+    <!--
+      RimWorld 1.7 (Waylith) keeps its managed DLLs in the game root, not in *_Data/Managed.
+      RimWorldGameRoot is set only when Assembly-CSharp.dll AND UnityStubs.dll sit there,
+      which is how a 1.7 install is told apart from 1.6. Override with -p:RimWorldGameRoot=/path.
+    -->
+    <RimWorldGameRoot Condition="'$(RimWorldGameRoot)' == '' and '$(RIMWORLD_PATH)' != '' and Exists('$(RIMWORLD_PATH)/UnityStubs.dll') and Exists('$(RIMWORLD_PATH)/Assembly-CSharp.dll')">$(RIMWORLD_PATH)</RimWorldGameRoot>
+    <RimWorldGameRoot Condition="'$(RimWorldGameRoot)' == '' and Exists('$(_GameRoot)/UnityStubs.dll') and Exists('$(_GameRoot)/Assembly-CSharp.dll')">$(_GameRoot)</RimWorldGameRoot>
+    <RimWorldGameRoot Condition="'$(RimWorldGameRoot)' != ''">$([System.IO.Path]::GetFullPath($(RimWorldGameRoot)))</RimWorldGameRoot>
 
     <!-- Priority 1: explicit CLI property (already set, nothing to do) -->
 
