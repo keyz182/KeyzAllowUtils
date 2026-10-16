@@ -15,7 +15,7 @@ public class PUAHMod : Mod
         Harmony.DEBUG = true;
 #endif
         Harmony harmony = new Harmony("keyz182.rimworld.KeyzAllowUtilities.PUAH.main");
-        harmony.PatchAll();
+        harmony.PatchAll(typeof(PUAHMod).Assembly);
 
         try
         {

@@ -18,7 +18,7 @@ public class KeyzAllowUtilitiesMod : Mod
         Harmony.DEBUG = true;
 #endif
         Harmony harmony = new Harmony("keyz182.rimworld.KeyzAllowUtilities.main");
-        harmony.PatchAll();
+        harmony.PatchAll(typeof(KeyzAllowUtilitiesMod).Assembly);
     }
 
     public override void DoSettingsWindowContents(Rect inRect)
