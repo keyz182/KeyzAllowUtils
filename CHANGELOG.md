@@ -9,6 +9,14 @@
 - **(version)** v1.4.1 - ([28ded41](https://github.com/keyz182/KeyzAllowUtils/commit/28ded41cd1b3b3021df7ca7aa7e4e783e899623c)) - github-actions[bot]
 
 - - -
+## [v1.4.2](https://github.com/keyz182/KeyzAllowUtils/compare/5e60a178ecff073634bd312d53e36b8752f73914..v1.4.2) - 2026-10-16
+#### Bug Fixes
+- pass assembly to Harmony PatchAll for 1.7 - ([d18b27f](https://github.com/keyz182/KeyzAllowUtils/commit/d18b27f3d02c1118d30dc3ca8e863a3b4d711815)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.4.1 - ([5e60a17](https://github.com/keyz182/KeyzAllowUtils/commit/5e60a178ecff073634bd312d53e36b8752f73914)) - github-actions[bot]
+
+- - -
+
 
 ## [v1.4.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.9..v1.4.0) - 2026-10-15
 #### Documentation
