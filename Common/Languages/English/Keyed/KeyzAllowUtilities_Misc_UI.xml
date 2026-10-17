@@ -87,6 +87,7 @@
     <KAU_DisableSelectOnScreen>Disable "Select on screen"</KAU_DisableSelectOnScreen>
     <KAU_DisableSelectOnMap>Disable "Select on map"</KAU_DisableSelectOnMap>
     <KAU_DisableSelectInRect>Disable "Select in rect"</KAU_DisableSelectInRect>
+    <KAU_DisableSelectRotting>Disable "Select rotting corpses"</KAU_DisableSelectRotting>
 
     <KAU_ToggleFertileZone>Disable Fertile Grow Zone Designator</KAU_ToggleFertileZone>
 
