@@ -1,3 +1,13 @@
+## [v1.5.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.5.0..v1.5.1) - 2026-10-17
+#### Bug Fixes
+- ship Release builds of all 1.6 and 1.7 assemblies - ([6043d13](https://github.com/keyz182/KeyzAllowUtils/commit/6043d1313751ff2631fcfc3311365538483ce603)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.5.0 - ([637e559](https://github.com/keyz182/KeyzAllowUtils/commit/637e559d4f6cf795e49eb9c39c032b898163af45)) - github-actions[bot]
+#### Miscellaneous Chores
+- **(version)** v1.5.1 - ([6e1d49e](https://github.com/keyz182/KeyzAllowUtils/commit/6e1d49ee7aacde1ee8a5a895cf643fa7477d3559)) - github-actions[bot]
+
+- - -
+
 ## [v1.5.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.4.2..v1.5.0) - 2026-10-17
 #### Bug Fixes
 - add missing Select rotting setting label and correct test command - ([6a967b4](https://github.com/keyz182/KeyzAllowUtils/commit/6a967b48a6183b13fcc290a04b1f8e6e6db4f778)) - [@keyz182](https://github.com/keyz182)
@@ -10,14 +20,6 @@
 - rebuild assemblies for plant growth threshold changes - ([efb73f7](https://github.com/keyz182/KeyzAllowUtils/commit/efb73f7163f72495d9d2f567549d09c33c4d1781)) - [@keyz182](https://github.com/keyz182)
 
 - - -
-## [v1.5.1](https://github.com/keyz182/KeyzAllowUtils/compare/637e559d4f6cf795e49eb9c39c032b898163af45..v1.5.1) - 2026-10-17
-#### Bug Fixes
-- ship Release builds of all 1.6 and 1.7 assemblies - ([6043d13](https://github.com/keyz182/KeyzAllowUtils/commit/6043d1313751ff2631fcfc3311365538483ce603)) - [@keyz182](https://github.com/keyz182)
-#### Documentation
-- update changelog for v1.5.0 - ([637e559](https://github.com/keyz182/KeyzAllowUtils/commit/637e559d4f6cf795e49eb9c39c032b898163af45)) - github-actions[bot]
-
-- - -
-
 
 ## [v1.4.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.4.1..v1.4.2) - 2026-10-17
 #### Bug Fixes
