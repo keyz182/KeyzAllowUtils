@@ -7,6 +7,18 @@
 - **(version)** v1.4.2 - ([e3cc65a](https://github.com/keyz182/KeyzAllowUtils/commit/e3cc65aa4b7a8a65f1789095a21d9c2af17e343c)) - github-actions[bot]
 
 - - -
+## [v1.5.0](https://github.com/keyz182/KeyzAllowUtils/compare/972b81763297875d489fe9d80e4d327eff3c02e6..v1.5.0) - 2026-10-17
+#### Bug Fixes
+- add missing Select rotting setting label and correct test command - ([6a967b4](https://github.com/keyz182/KeyzAllowUtils/commit/6a967b48a6183b13fcc290a04b1f8e6e6db4f778)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.4.2 - ([972b817](https://github.com/keyz182/KeyzAllowUtils/commit/972b81763297875d489fe9d80e4d327eff3c02e6)) - github-actions[bot]
+#### Features
+- show plant growth threshold in slider and designator tooltips - ([f4c1a76](https://github.com/keyz182/KeyzAllowUtils/commit/f4c1a763717313ccb2fba166e84f2104ac943240)) - [@keyz182](https://github.com/keyz182)
+#### Miscellaneous Chores
+- rebuild assemblies for plant growth threshold changes - ([efb73f7](https://github.com/keyz182/KeyzAllowUtils/commit/efb73f7163f72495d9d2f567549d09c33c4d1781)) - [@keyz182](https://github.com/keyz182)
+
+- - -
+
 
 ## [v1.4.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.4.0..v1.4.1) - 2026-10-16
 #### Bug Fixes
