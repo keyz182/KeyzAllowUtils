@@ -74,6 +74,8 @@ A new designator to create or expand growing zones that only targets fertile gro
 [*]Designate mature plants for cutting across the entire map
 [/list]
 
+"Fully grown" means mature by default. To also mark plants that are nearly grown, lower the growth threshold in the mod settings (for example, 95%).
+
 [b]Harvest All / Chop All Wood[/b]
 [list]
 [*]Designate plants for harvesting regardless of growth level

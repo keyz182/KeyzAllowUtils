@@ -35,6 +35,8 @@ Two new gizmos for efficient plant management:
 * Designate only fully mature plants for cutting on screen
 * Designate only fully mature plants for cutting across the entire map
 
+"Fully grown" means mature by default. To also mark plants that are nearly grown, lower the growth threshold in the mod settings (for example, 95%).
+
 ### Debug Tools
 Available in the debug actions menu (requires debug mode):
 * Grow plants to maturity in a selected area
@@ -46,6 +48,7 @@ Available in the debug actions menu (requires debug mode):
 ## Configuration
 The mod includes settings to customize:
 * Maximum number of items that can be selected at once
+* Growth threshold for Harvest grown, Chop grown wood and Cut grown (default 100% = mature only)
 
 ## Compatibility
 This mod primarily adds new functionality without modifying core game systems, making it generally compatible with other mods.

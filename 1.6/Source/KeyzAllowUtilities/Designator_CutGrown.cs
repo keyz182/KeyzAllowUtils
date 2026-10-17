@@ -22,6 +22,7 @@ public class Designator_CutGrown : Designator_PlantsCut, IClearsOwnDesignationsO
     }
 
     public override bool Visible => !KeyzAllowUtilitiesMod.settings.DisableCut;
+    public override string Desc => Plant_Patches.GrownThresholdDesc(defaultDesc);
     protected override DesignationDef Designation => DesignationDefOf.CutPlant;
 
     public override DrawStyleCategoryDef DrawStyleCategory => DrawStyleCategoryDefOf.FilledRectangle;

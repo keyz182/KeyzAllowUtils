@@ -19,6 +19,7 @@ public class Designator_HarvestGrown : Designator_Plants, IClearsOwnDesignations
     }
 
     public override bool Visible => !KeyzAllowUtilitiesMod.settings.DisableHarvest;
+    public override string Desc => Plant_Patches.GrownThresholdDesc(defaultDesc);
     protected override DesignationDef Designation => DesignationDefOf.HarvestPlant;
 
     public override DrawStyleCategoryDef DrawStyleCategory => DrawStyleCategoryDefOf.FilledRectangle;

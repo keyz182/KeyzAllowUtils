@@ -146,7 +146,9 @@
     <KUA_ClaimedDoors>Claimed {0} doors</KUA_ClaimedDoors>
     <KUA_DesignatedCount>{0} things designated</KUA_DesignatedCount>
 
-    <KAU_PlantGrownLevel>Consider plants grown at this level {0}%</KAU_PlantGrownLevel>
+    <KAU_PlantGrownLevel>Treat plants as grown at: {0}%</KAU_PlantGrownLevel>
+    <KAU_PlantGrownLevelTooltip>Growth level used by Harvest grown, Chop grown wood and Cut grown. At 100% only mature plants are marked. Set it lower to also mark plants that are nearly grown.</KAU_PlantGrownLevelTooltip>
+    <KAU_GrownThresholdNote>Marks plants at {0}% growth or more. Change this in the mod settings.</KAU_GrownThresholdNote>
 
     <KUA_HarvestAll>Harvest all</KUA_HarvestAll>
     <KUA_HarvestAllDesc>Marks harvestable plants to be harvested regardless of growth level.</KUA_HarvestAllDesc>

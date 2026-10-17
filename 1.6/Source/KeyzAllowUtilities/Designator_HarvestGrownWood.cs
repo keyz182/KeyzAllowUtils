@@ -20,6 +20,7 @@ public class Designator_HarvestGrownWood : Designator_PlantsHarvestWood, IClears
     }
 
     public override bool Visible => !KeyzAllowUtilitiesMod.settings.DisableHarvest;
+    public override string Desc => Plant_Patches.GrownThresholdDesc(defaultDesc);
 
     protected override DesignationDef Designation => DesignationDefOf.HarvestPlant;
 

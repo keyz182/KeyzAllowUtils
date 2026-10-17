@@ -41,6 +41,16 @@ public static class Plant_Patches
         return plant.Growth >= level;
     }
 
+    // Appends the configured growth threshold to a "grown" designator's description, so players
+    // can see it is adjustable. At 100% the designators mean "mature", so the base text stands.
+    public static string GrownThresholdDesc(string baseDesc)
+    {
+        float level = KeyzAllowUtilitiesMod.settings.PlantGrownLevel;
+        if (level >= 1f)
+            return baseDesc;
+        return baseDesc + "\n\n" + "KAU_GrownThresholdNote".Translate((level * 100f).ToString("F0"));
+    }
+
     public static int DesignateFullyGrownOnScreen(IEnumerable<Plant> things, Map map, DesignationDef designation, bool checkIfHarvestable = true)
     {
         IEnumerable<Plant> plants = map.SelectablePlantsOnScreen()

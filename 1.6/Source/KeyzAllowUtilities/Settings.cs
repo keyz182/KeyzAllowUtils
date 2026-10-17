@@ -124,7 +124,10 @@ public class Settings : ModSettings
             options.CheckboxLabeled("KAU_ToggleHarvestAll".Translate(), ref DisableHarvestAll);
             options.CheckboxLabeled("KAU_ToggleCut".Translate(), ref DisableCut);
             options.CheckboxLabeled("KAU_ToggleFertileZone".Translate(), ref DisableFertileZone);
-            PlantGrownLevel = options.SliderLabeled("KAU_PlantGrownLevel".Translate(PlantGrownLevel*100), PlantGrownLevel, 0f, 1f);
+            PlantGrownLevel = GenMath.RoundTo(
+                options.SliderLabeled("KAU_PlantGrownLevel".Translate((PlantGrownLevel * 100f).ToString("F0")), PlantGrownLevel, 0f, 1f,
+                    tooltip: "KAU_PlantGrownLevelTooltip".Translate()),
+                0.01f);
 
             // Combat
             options.GapLine();
