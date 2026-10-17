@@ -4,11 +4,18 @@
     <exclude>.claude</exclude>
     <exclude>.editorconfig</exclude>
     <exclude>.git</exclude>
+    <exclude>.gitattributes</exclude>
+    <exclude>.github</exclude>
+    <exclude>.gitignore</exclude>
     <exclude>.mcp.json</exclude>
     <exclude>.omc</exclude>
     <exclude>1.6/Source</exclude>
     <exclude>Assets</exclude>
+    <exclude>CHANGELOG.md</exclude>
     <exclude>cog.toml</exclude>
+    <exclude>Common/Assets.zip.fingerprint</exclude>
+    <exclude>Common/Assets.zip.roles</exclude>
+    <exclude>Common/Assets.zip.stamps</exclude>
     <exclude>Common/Textures/UI/KAU_StripMine.svg</exclude>
     <exclude>Common/Textures/UI/KAU_StripMineDiagram.svg</exclude>
     <exclude>graphify-out</exclude>
