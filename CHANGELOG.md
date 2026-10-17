@@ -1,4 +1,17 @@
-## [v1.4.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.4.1..v1.4.2) - 2026-10-16
+## [v1.5.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.4.2..v1.5.0) - 2026-10-17
+#### Bug Fixes
+- add missing Select rotting setting label and correct test command - ([6a967b4](https://github.com/keyz182/KeyzAllowUtils/commit/6a967b48a6183b13fcc290a04b1f8e6e6db4f778)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.4.2 - ([972b817](https://github.com/keyz182/KeyzAllowUtils/commit/972b81763297875d489fe9d80e4d327eff3c02e6)) - github-actions[bot]
+#### Features
+- show plant growth threshold in slider and designator tooltips - ([f4c1a76](https://github.com/keyz182/KeyzAllowUtils/commit/f4c1a763717313ccb2fba166e84f2104ac943240)) - [@keyz182](https://github.com/keyz182)
+#### Miscellaneous Chores
+- **(version)** v1.5.0 - ([f81f820](https://github.com/keyz182/KeyzAllowUtils/commit/f81f82018b2dc6b861545ab10c4ddc7bee4ebfdf)) - github-actions[bot]
+- rebuild assemblies for plant growth threshold changes - ([efb73f7](https://github.com/keyz182/KeyzAllowUtils/commit/efb73f7163f72495d9d2f567549d09c33c4d1781)) - [@keyz182](https://github.com/keyz182)
+
+- - -
+
+## [v1.4.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.4.1..v1.4.2) - 2026-10-17
 #### Bug Fixes
 - pass assembly to Harmony PatchAll for 1.7 - ([d18b27f](https://github.com/keyz182/KeyzAllowUtils/commit/d18b27f3d02c1118d30dc3ca8e863a3b4d711815)) - [@keyz182](https://github.com/keyz182)
 #### Documentation
@@ -7,20 +20,8 @@
 - **(version)** v1.4.2 - ([e3cc65a](https://github.com/keyz182/KeyzAllowUtils/commit/e3cc65aa4b7a8a65f1789095a21d9c2af17e343c)) - github-actions[bot]
 
 - - -
-## [v1.5.0](https://github.com/keyz182/KeyzAllowUtils/compare/972b81763297875d489fe9d80e4d327eff3c02e6..v1.5.0) - 2026-10-17
-#### Bug Fixes
-- add missing Select rotting setting label and correct test command - ([6a967b4](https://github.com/keyz182/KeyzAllowUtils/commit/6a967b48a6183b13fcc290a04b1f8e6e6db4f778)) - [@keyz182](https://github.com/keyz182)
-#### Documentation
-- update changelog for v1.4.2 - ([972b817](https://github.com/keyz182/KeyzAllowUtils/commit/972b81763297875d489fe9d80e4d327eff3c02e6)) - github-actions[bot]
-#### Features
-- show plant growth threshold in slider and designator tooltips - ([f4c1a76](https://github.com/keyz182/KeyzAllowUtils/commit/f4c1a763717313ccb2fba166e84f2104ac943240)) - [@keyz182](https://github.com/keyz182)
-#### Miscellaneous Chores
-- rebuild assemblies for plant growth threshold changes - ([efb73f7](https://github.com/keyz182/KeyzAllowUtils/commit/efb73f7163f72495d9d2f567549d09c33c4d1781)) - [@keyz182](https://github.com/keyz182)
 
-- - -
-
-
-## [v1.4.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.4.0..v1.4.1) - 2026-10-16
+## [v1.4.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.4.0..v1.4.1) - 2026-10-17
 #### Bug Fixes
 - bump - ([11dd26d](https://github.com/keyz182/KeyzAllowUtils/commit/11dd26dd5ca57d966285ab7091489194f9e142ee)) - [@keyz182](https://github.com/keyz182)
 #### Continuous Integration
@@ -32,7 +33,7 @@
 
 - - -
 
-## [v1.4.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.9..v1.4.0) - 2026-10-16
+## [v1.4.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.9..v1.4.0) - 2026-10-17
 #### Documentation
 - update changelog for v1.3.9 - ([285e056](https://github.com/keyz182/KeyzAllowUtils/commit/285e0568f5e73b9f98bf3563f0569f416d5bd7b7)) - github-actions[bot]
 #### Features
@@ -42,7 +43,7 @@
 
 - - -
 
-## [v1.3.9](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.8..v1.3.9) - 2026-10-16
+## [v1.3.9](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.8..v1.3.9) - 2026-10-17
 #### Bug Fixes
 - mech Haul+ priority reset on load; right-click allow/forbid all ignored map scope - ([74c7f6a](https://github.com/keyz182/KeyzAllowUtils/commit/74c7f6a8151f71ee68607c7771485dc948a7ba2a)) - [@keyz182](https://github.com/keyz182)
 #### Documentation
@@ -52,7 +53,7 @@
 
 - - -
 
-## [v1.3.8](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.7..v1.3.8) - 2026-10-16
+## [v1.3.8](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.7..v1.3.8) - 2026-10-17
 #### Bug Fixes
 - don't designate destroyed things - ([61a5f50](https://github.com/keyz182/KeyzAllowUtils/commit/61a5f50aee444a426d91ae79b15185f7a9f12cac)) - [@keyz182](https://github.com/keyz182)
 - Finish Off could silently fail to kill after animation played - ([966a170](https://github.com/keyz182/KeyzAllowUtils/commit/966a1705dad751adb415e1db7fe6689f1b91e7a5)) - [@keyz182](https://github.com/keyz182)
@@ -64,7 +65,7 @@
 
 - - -
 
-## [v1.3.7](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.6..v1.3.7) - 2026-10-16
+## [v1.3.7](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.6..v1.3.7) - 2026-10-17
 #### Bug Fixes
 - **(mp)** Select Similar exemption + hardened arg accessor (#29) - ([418fea2](https://github.com/keyz182/KeyzAllowUtils/commit/418fea2df42dc411a81ad049e904387339f58f30)) - Kieran Evans
 #### Documentation
@@ -75,7 +76,7 @@
 
 - - -
 
-## [v1.3.6](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.5..v1.3.6) - 2026-10-16
+## [v1.3.6](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.5..v1.3.6) - 2026-10-17
 #### Bug Fixes
 - multiplayer compat - ([2a31ad3](https://github.com/keyz182/KeyzAllowUtils/commit/2a31ad35a74960758babaf17385b0cd054eeb3c5)) - [@keyz182](https://github.com/keyz182)
 #### Documentation
@@ -85,7 +86,7 @@
 
 - - -
 
-## [v1.3.5](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.4..v1.3.5) - 2026-10-16
+## [v1.3.5](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.4..v1.3.5) - 2026-10-17
 #### Bug Fixes
 - multiplayer compatibility - ([a7fa127](https://github.com/keyz182/KeyzAllowUtils/commit/a7fa127391c20411af9a8aa5f38d1bd175640d8e)) - [@keyz182](https://github.com/keyz182)
 #### Documentation
@@ -95,7 +96,7 @@
 
 - - -
 
-## [v1.3.4](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.3..v1.3.4) - 2026-10-16
+## [v1.3.4](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.3..v1.3.4) - 2026-10-17
 #### Bug Fixes
 - clear-all only removes designations the designator owns - ([e01541f](https://github.com/keyz182/KeyzAllowUtils/commit/e01541f8baec3ea6d4e2a6ed0b90d389a603f5cb)) - [@keyz182](https://github.com/keyz182)
 - Select Similar works without pre-selection - ([fd4ad53](https://github.com/keyz182/KeyzAllowUtils/commit/fd4ad53766bff509bbd17feb54c7493d49d25a60)) - [@keyz182](https://github.com/keyz182)
@@ -108,7 +109,7 @@
 
 - - -
 
-## [v1.3.3](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.2..v1.3.3) - 2026-10-16
+## [v1.3.3](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.2..v1.3.3) - 2026-10-17
 #### Bug Fixes
 - O hotkey selection, allow/forbid blueprints, incapable haul pawns; fix test infra net9 - ([0034332](https://github.com/keyz182/KeyzAllowUtils/commit/003433203d18f66292dcc5124946f0711b292f9b)) - [@keyz182](https://github.com/keyz182)
 #### Documentation
@@ -118,7 +119,7 @@
 
 - - -
 
-## [v1.3.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.1..v1.3.2) - 2026-10-16
+## [v1.3.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.1..v1.3.2) - 2026-10-17
 #### Bug Fixes
 - "trying to mark already marked pawn" on finish off marked pawn - ([100a77f](https://github.com/keyz182/KeyzAllowUtils/commit/100a77fc30514ac1d743c116511fc017bc93a14c)) - [@keyz182](https://github.com/keyz182)
 #### Documentation
@@ -128,7 +129,7 @@
 
 - - -
 
-## [v1.3.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.0..v1.3.1) - 2026-10-16
+## [v1.3.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.3.0..v1.3.1) - 2026-10-17
 #### Bug Fixes
 - readme update - ([ab8f6d4](https://github.com/keyz182/KeyzAllowUtils/commit/ab8f6d4f2b930a45e77a0d097c632f5ee2d52d7c)) - [@keyz182](https://github.com/keyz182)
 #### Documentation
@@ -139,7 +140,7 @@
 
 - - -
 
-## [v1.3.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.4..v1.3.0) - 2026-10-16
+## [v1.3.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.4..v1.3.0) - 2026-10-17
 #### Documentation
 - update changelog for v1.2.4 - ([ad9c1dd](https://github.com/keyz182/KeyzAllowUtils/commit/ad9c1dd8b1b15a90e7685e84d297d668b707cf03)) - github-actions[bot]
 #### Features
@@ -149,7 +150,7 @@
 
 - - -
 
-## [v1.2.4](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.3..v1.2.4) - 2026-10-16
+## [v1.2.4](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.3..v1.2.4) - 2026-10-17
 #### Bug Fixes
 - keep items in ListerHaulables after vanilla Cancel (#24) - ([202a3c5](https://github.com/keyz182/KeyzAllowUtils/commit/202a3c5b0f1b536128da3ab77871cfc27e04406d)) - [@keyz182](https://github.com/keyz182)
 #### Documentation
@@ -159,7 +160,7 @@
 
 - - -
 
-## [v1.2.3](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.2..v1.2.3) - 2026-10-16
+## [v1.2.3](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.2..v1.2.3) - 2026-10-17
 #### Bug Fixes
 - Hide des when AUR is enabled, show selected counts. - ([f374028](https://github.com/keyz182/KeyzAllowUtils/commit/f374028aa557a0aff57efc2ec275d5fc873772e4)) - [@keyz182](https://github.com/keyz182)
 #### Documentation
@@ -169,7 +170,7 @@
 
 - - -
 
-## [v1.2.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.1..v1.2.2) - 2026-10-16
+## [v1.2.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.1..v1.2.2) - 2026-10-17
 #### Bug Fixes
 - allow canceling - ([e5b9839](https://github.com/keyz182/KeyzAllowUtils/commit/e5b9839a6778cc95701bd4244ebfd558d06ca25b)) - [@keyz182](https://github.com/keyz182)
 - do not haul - ([71106cd](https://github.com/keyz182/KeyzAllowUtils/commit/71106cdbd5184f9792c861ca539863fcc564f3b1)) - [@keyz182](https://github.com/keyz182)
@@ -180,7 +181,7 @@
 
 - - -
 
-## [v1.2.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.0..v1.2.1) - 2026-10-16
+## [v1.2.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.2.0..v1.2.1) - 2026-10-17
 #### Bug Fixes
 - don't strip vanilla Haul designation when cancelling Haul Urgently - ([15336d2](https://github.com/keyz182/KeyzAllowUtils/commit/15336d287ed24d69114541491e41d20b8557c475)) - [@keyz182](https://github.com/keyz182)
 #### Documentation
@@ -191,7 +192,7 @@
 
 - - -
 
-## [v1.2.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.1.0..v1.2.0) - 2026-10-16
+## [v1.2.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.1.0..v1.2.0) - 2026-10-17
 #### Documentation
 - update changelog for v1.1.0 - ([f3cfc82](https://github.com/keyz182/KeyzAllowUtils/commit/f3cfc82703ddd7080f0c2857f6db7b2e7b50d38b)) - github-actions[bot]
 #### Features
@@ -201,7 +202,7 @@
 
 - - -
 
-## [v1.1.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.0.2..v1.1.0) - 2026-10-16
+## [v1.1.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.0.2..v1.1.0) - 2026-10-17
 #### Documentation
 - update changelog for v1.0.2 - ([5db74f7](https://github.com/keyz182/KeyzAllowUtils/commit/5db74f7850f7b8956172c2a2ed5382939c14abe8)) - github-actions[bot]
 #### Features
@@ -213,7 +214,7 @@
 
 - - -
 
-## [v1.0.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.0.1..v1.0.2) - 2026-10-16
+## [v1.0.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.0.1..v1.0.2) - 2026-10-17
 #### Documentation
 - update changelog for v1.0.1 - ([8177ad8](https://github.com/keyz182/KeyzAllowUtils/commit/8177ad806ab0a6c8bcf702942f88e2432af27554)) - github-actions[bot]
 #### Miscellaneous Chores
@@ -223,7 +224,7 @@
 
 - - -
 
-## [v1.0.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.0.0..v1.0.1) - 2026-10-16
+## [v1.0.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.0.0..v1.0.1) - 2026-10-17
 #### Bug Fixes
 - changelog template - ([3ff6af1](https://github.com/keyz182/KeyzAllowUtils/commit/3ff6af13293fedb715615140ad814f8a1a24b43a)) - [@keyz182](https://github.com/keyz182)
 #### Documentation
@@ -234,7 +235,7 @@
 
 - - -
 
-## [v1.0.0](https://github.com/keyz182/KeyzAllowUtils/compare/344a4df83e1333d5e2f2daef0c0504bae8829ac0..v1.0.0) - 2026-10-16
+## [v1.0.0](https://github.com/keyz182/KeyzAllowUtils/compare/344a4df83e1333d5e2f2daef0c0504bae8829ac0..v1.0.0) - 2026-10-17
 #### Bug Fixes
 - **(ci)** remove initial-tag special case from release workflow - ([082505a](https://github.com/keyz182/KeyzAllowUtils/commit/082505a0637096add806c7f31480ae946aaf74ca)) - [@keyz182](https://github.com/keyz182)
 - **(ci)** discard pre-flight DLL before cog bump - ([786aa7c](https://github.com/keyz182/KeyzAllowUtils/commit/786aa7cc3eb53e34f6af649752538a7a7d522ff5)) - [@keyz182](https://github.com/keyz182)
