@@ -33,6 +33,7 @@ public class Settings : ModSettings
     public bool DisableNoHauling = false;
     public bool DisableClaimAll = false;
     public bool DisableFinishOff = false;
+    public bool DisableFinishOffWorkType = false;
     public bool DisableStripMine = false;
     public bool AllowFinishOffOnFriendly = false;
     public bool DisableAllowShortcuts = false;
@@ -60,10 +61,18 @@ public class Settings : ModSettings
     private float ScrollViewHeight = 0;
     public Vector2 scrollPosition = Vector2.zero;
 
+    /// <summary>
+    /// True when designating finish-off (designator, gizmo, keybind, work giver) is unavailable.
+    /// The right-click menu is gated on <see cref="DisableFinishOff"/> alone, so it survives
+    /// <see cref="DisableFinishOffWorkType"/>.
+    /// </summary>
+    public bool FinishOffDesignationsDisabled => DisableFinishOff || DisableFinishOffWorkType;
+
     public void DoWindowContents(Rect wrect)
     {
         bool prevHaulUrgently = DisableHaulUrgently;
         bool prevFinishOff = DisableFinishOff;
+        bool prevFinishOffWorkType = DisableFinishOffWorkType;
         bool prevHarvest = DisableHarvest;
         bool prevCut = DisableCut;
 
@@ -135,6 +144,15 @@ public class Settings : ModSettings
             options.Label("KAU_Section_Combat".Translate());
             Text.Font = orig;
             options.CheckboxLabeled("KAU_ToggleFinishOff".Translate(), ref DisableFinishOff);
+            if (!DisableFinishOff)
+            {
+                options.Indent();
+                options.ColumnWidth -= Listing.ColumnSpacing;
+                options.CheckboxLabeled("KAU_DisableFinishOffWorkType".Translate(), ref DisableFinishOffWorkType,
+                    "KAU_DisableFinishOffWorkType_Tip".Translate());
+                options.ColumnWidth += Listing.ColumnSpacing;
+                options.Outdent();
+            }
             options.CheckboxLabeled("KAU_ToggleAllowFinishOffOnFriendly".Translate(), ref AllowFinishOffOnFriendly);
             options.CheckboxLabeled("KAU_DisableMeleeRequirementForFinishOff".Translate(), ref DisableMeleeRequirementForFinishOff);
 
@@ -164,6 +182,7 @@ public class Settings : ModSettings
 
             if (prevHaulUrgently != DisableHaulUrgently
                 || prevFinishOff != DisableFinishOff
+                || prevFinishOffWorkType != DisableFinishOffWorkType
                 || prevHarvest != DisableHarvest
                 || prevCut != DisableCut)
             {
@@ -190,7 +209,7 @@ public class Settings : ModSettings
         if (Scribe.mode == LoadSaveMode.Inactive || Scribe.mode == LoadSaveMode.Saving)
         {
             KeyzAllowUtilitesDefOf.KAU_UrgentHaul?.Toggle(!DisableHaulUrgently);
-            KeyzAllowUtilitesDefOf.KAU_FinishingOff?.Toggle(!DisableFinishOff);
+            KeyzAllowUtilitesDefOf.KAU_FinishingOff?.Toggle(!FinishOffDesignationsDisabled);
 
             // Suppressed under Multiplayer: this runs per-client on every load, so an unguarded
             // purge would let one client's local settings delete designations shared by everyone.
@@ -204,7 +223,7 @@ public class Settings : ModSettings
                 }
             }
 
-            if (DisableFinishOff && !Find.Maps.NullOrEmpty())
+            if (FinishOffDesignationsDisabled && !Find.Maps.NullOrEmpty())
             {
                 foreach (Map map in Find.Maps)
                 {
@@ -237,6 +256,7 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref DisableNoHauling, "DisableNoHauling", false);
         Scribe_Values.Look(ref DisableClaimAll, "DisableClaimAll", false);
         Scribe_Values.Look(ref DisableFinishOff, "DisableFinishOff", false);
+        Scribe_Values.Look(ref DisableFinishOffWorkType, "DisableFinishOffWorkType", false);
         Scribe_Values.Look(ref DisableStripMine, "DisableStripMine", false);
         Scribe_Values.Look(ref DisableHarvest, "DisableHarvest", false);
         Scribe_Values.Look(ref DisableHarvestAll, "DisableHarvestAll", false);

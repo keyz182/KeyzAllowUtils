@@ -7,7 +7,7 @@ namespace KeyzAllowUtilities;
 
 public class WorkGiver_FinishOff : WorkGiver_Scanner
 {
-    public override bool ShouldSkip(Pawn pawn, bool forced = false) => base.ShouldSkip(pawn, forced) || KeyzAllowUtilitiesMod.settings.DisableFinishOff;
+    public override bool ShouldSkip(Pawn pawn, bool forced = false) => base.ShouldSkip(pawn, forced) || KeyzAllowUtilitiesMod.settings.FinishOffDesignationsDisabled;
 
     public static Designation GetOwnDesignation(Pawn target) =>
         target.Map.designationManager.DesignationOn(target, KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation) ??

@@ -27,7 +27,7 @@ public static class Pawn_Patches
     [HarmonyPostfix]
     public static void GetGizmos_Patch(Pawn __instance, ref IEnumerable<Gizmo> __result)
     {
-        if(KeyzAllowUtilitiesMod.settings.DisableFinishOff || !__instance.Downed || __instance.Dead || __instance.MapOrHolderMap() == null) return;
+        if(KeyzAllowUtilitiesMod.settings.FinishOffDesignationsDisabled || !__instance.Downed || __instance.Dead || __instance.MapOrHolderMap() == null) return;
         if(__instance.Faction == Faction.OfPlayer || (__instance.guest != null && __instance.guest.HostFaction == Faction.OfPlayer)) return;
 
         bool hideGizmo = !KeyzAllowUtilitiesMod.settings.AllowFinishOffOnFriendly && !(__instance.Faction?.HostileTo(Faction.OfPlayer) ?? true) && !__instance.IsAnimal;

@@ -11,11 +11,11 @@ public class Designator_FinishOff : Designator
 {
     public override bool Disabled
     {
-        get => disabled || KeyzAllowUtilitiesMod.settings.DisableFinishOff;
+        get => disabled || KeyzAllowUtilitiesMod.settings.FinishOffDesignationsDisabled;
         set => disabled = value;
     }
 
-    public override bool Visible => !KeyzAllowUtilitiesMod.settings.DisableFinishOff;
+    public override bool Visible => !KeyzAllowUtilitiesMod.settings.FinishOffDesignationsDisabled;
 
     protected override DesignationDef Designation => KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation;
 

@@ -41,7 +41,7 @@ public class KeyHandler(Map map) : MapComponent(map)
                 Find.DesignatorManager.Select(SelectSimilar.Value);
             }
             Event.current.Use();
-        }else if (!KeyzAllowUtilitiesMod.settings.DisableFinishOff && KeyzAllowUtilitesDefOf.KAU_FinishOff.KeyDownEvent)
+        }else if (!KeyzAllowUtilitiesMod.settings.FinishOffDesignationsDisabled && KeyzAllowUtilitesDefOf.KAU_FinishOff.KeyDownEvent)
         {
             if (FinishOff.Value != null)
             {

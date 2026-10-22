@@ -78,6 +78,8 @@
 
     <KAU_ToggleHaulUrgently>Disable Haul Urgently</KAU_ToggleHaulUrgently>
     <KAU_ToggleFinishOff>Disable Finish Off</KAU_ToggleFinishOff>
+    <KAU_DisableFinishOffWorkType>Right-click only (hide Finish work type)</KAU_DisableFinishOffWorkType>
+    <KAU_DisableFinishOffWorkType_Tip>Removes the Finish column from the work tab, plus the finish-off designator, gizmo and keybind. You can still right-click a downed pawn to order a colonist to finish it off.</KAU_DisableFinishOffWorkType_Tip>
     <KAU_ToggleStripMine>Disable Strip Mine</KAU_ToggleStripMine>
     <KAU_ToggleAllowFinishOffOnFriendly>Allow finish off on friendly pawns</KAU_ToggleAllowFinishOffOnFriendly>
 
