@@ -1,3 +1,13 @@
+## [v1.6.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.6.0..v1.6.1) - 2026-10-22
+#### Bug Fixes
+- build and version-stamp the 1.7 assembly in CI - ([ee11285](https://github.com/keyz182/KeyzAllowUtils/commit/ee11285419e8138db330b3fcf9b508c3b54152ca)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.6.0 - ([19d739a](https://github.com/keyz182/KeyzAllowUtils/commit/19d739a7596a5609f4bf9770144218353cfba676)) - github-actions[bot]
+#### Miscellaneous Chores
+- **(version)** v1.6.1 - ([a4ae5b0](https://github.com/keyz182/KeyzAllowUtils/commit/a4ae5b0c917c8652b480a8d3e7440408e827b2b2)) - github-actions[bot]
+
+- - -
+
 ## [v1.6.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.5.1..v1.6.0) - 2026-10-22
 #### Documentation
 - images - ([a494ffd](https://github.com/keyz182/KeyzAllowUtils/commit/a494ffd47fe099b502b3114cb847c61b4f60c4f8)) - [@keyz182](https://github.com/keyz182)
@@ -9,14 +19,6 @@
 - exclude repo and cache files from workshop upload - ([717c635](https://github.com/keyz182/KeyzAllowUtils/commit/717c63563d43101342180ba830c02b9f9b674339)) - [@keyz182](https://github.com/keyz182)
 
 - - -
-## [v1.6.1](https://github.com/keyz182/KeyzAllowUtils/compare/19d739a7596a5609f4bf9770144218353cfba676..v1.6.1) - 2026-10-22
-#### Bug Fixes
-- build and version-stamp the 1.7 assembly in CI - ([ee11285](https://github.com/keyz182/KeyzAllowUtils/commit/ee11285419e8138db330b3fcf9b508c3b54152ca)) - [@keyz182](https://github.com/keyz182)
-#### Documentation
-- update changelog for v1.6.0 - ([19d739a](https://github.com/keyz182/KeyzAllowUtils/commit/19d739a7596a5609f4bf9770144218353cfba676)) - github-actions[bot]
-
-- - -
-
 
 ## [v1.5.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.5.0..v1.5.1) - 2026-10-22
 #### Bug Fixes
