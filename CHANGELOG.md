@@ -7,6 +7,17 @@
 - **(version)** v1.5.1 - ([6e1d49e](https://github.com/keyz182/KeyzAllowUtils/commit/6e1d49ee7aacde1ee8a5a895cf643fa7477d3559)) - github-actions[bot]
 
 - - -
+## [v1.6.0](https://github.com/keyz182/KeyzAllowUtils/compare/3169301c33cfa7b1c7d6abebe816312d235d5255..v1.6.0) - 2026-10-22
+#### Documentation
+- images - ([a494ffd](https://github.com/keyz182/KeyzAllowUtils/commit/a494ffd47fe099b502b3114cb847c61b4f60c4f8)) - [@keyz182](https://github.com/keyz182)
+- update changelog for v1.5.1 - ([3169301](https://github.com/keyz182/KeyzAllowUtils/commit/3169301c33cfa7b1c7d6abebe816312d235d5255)) - github-actions[bot]
+#### Features
+- add right-click-only mode for Finish Off - ([e25f971](https://github.com/keyz182/KeyzAllowUtils/commit/e25f97190c03220bfa0aa2c2fd6ccb8a15aff5d4)) - [@keyz182](https://github.com/keyz182)
+#### Miscellaneous Chores
+- exclude repo and cache files from workshop upload - ([717c635](https://github.com/keyz182/KeyzAllowUtils/commit/717c63563d43101342180ba830c02b9f9b674339)) - [@keyz182](https://github.com/keyz182)
+
+- - -
+
 
 ## [v1.5.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.4.2..v1.5.0) - 2026-10-17
 #### Bug Fixes
