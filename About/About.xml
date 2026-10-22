@@ -7,7 +7,7 @@
         <li>1.7</li>
     </supportedVersions>
     <packageId>keyz182.KeyzAllowUtilities</packageId>
-    <modVersion>1.6.0</modVersion>
+    <modVersion>1.6.1</modVersion>
     <description>Utility gizmos for bulk allow/forbid, selection, haul urgently, and more.</description>
     <url>https://steamcommunity.com/id/keyz182/myworkshopfiles/?appid=294100</url>
 	<modDependencies>
