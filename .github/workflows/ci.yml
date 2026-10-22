@@ -18,13 +18,18 @@ jobs:
 
       - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9  # v4.3.1
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: '10.0.x'
 
       - name: Restore NuGet packages
         run: dotnet restore 1.6/Source/KeyzAllowUtilities/KeyzAllowUtilities.csproj
 
       - name: Build (net48 with Krafs stubs)
         run: dotnet build 1.6/Source/KeyzAllowUtilities/KeyzAllowUtilities.csproj -c Release --no-restore -p:TargetFramework=net48
+
+      # RimWorld 1.7 (net10.0) compile check against the Krafs reference assemblies. Output goes
+      # outside the repo so the committed 1.7/Assemblies DLL is left untouched.
+      - name: Build (net10.0 with Krafs reference assemblies)
+        run: dotnet build 1.6/Source/KeyzAllowUtilities/KeyzAllowUtilities.csproj -c Release --no-restore -p:TargetFramework=net10.0 -p:OutputPath="${{ runner.temp }}/net10-out/"
 
       # Unlike KeyzAllowUtilities.PUAH, this project's Multiplayer API reference falls back to
       # a vendored DLL (1.6/Source/lib/0MultiplayerAPI.dll) when SteamWorkshopDir isn't set, so

@@ -22,7 +22,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9  # v4.3.1
         with:
-          dotnet-version: "8.0.x"
+          dotnet-version: "10.0.x"
 
       - name: Install cocogitto
         uses: cocogitto/cocogitto-action@c7a74f5406bab86da17da0f0e460a69f8219a68c  # v3
@@ -33,9 +33,14 @@ jobs:
 
       # Build runs before the version bump so a broken build never creates a
       # tag. The pre_bump_hooks in cog.toml rebuild with the stamped version.
-      # Only net48 — net8.0 needs real game DLLs which aren't available in CI.
+      # The game isn't available in CI, so both targets compile against the Krafs.Rimworld.Ref
+      # reference assemblies. The 1.7 (net10.0) pre-flight writes outside the repo so it cannot
+      # dirty the tracked 1.7/Assemblies DLL before cog bump.
       - name: Build (pre-flight)
         run: dotnet build 1.6/Source/KeyzAllowUtilities/KeyzAllowUtilities.csproj -c Release -p:TargetFramework=net48
+
+      - name: Build 1.7 (pre-flight)
+        run: dotnet build 1.6/Source/KeyzAllowUtilities/KeyzAllowUtilities.csproj -c Release -p:TargetFramework=net10.0 -p:OutputPath="${{ runner.temp }}/preflight-net10/"
 
       # Falls back to the vendored 1.6/Source/lib/0MultiplayerAPI.dll — no SteamWorkshopDir
       # available in CI.
@@ -45,7 +50,7 @@ jobs:
       # Pre-flight build modifies the committed DLLs — discard so cog sees a
       # clean tree. The pre_bump_hooks will rebuild with the version stamp.
       - name: Clean pre-flight artifacts
-        run: git checkout -- 1.6/Assemblies/ Compatibility/
+        run: git checkout -- 1.6/Assemblies/ 1.7/Assemblies/ Compatibility/
 
       # Requires a v* base tag to exist (bootstrap: git tag v1.0.0 && git push origin v1.0.0).
       # cog bump --auto reads conventional commits since the last tag and bumps accordingly.
@@ -86,7 +91,7 @@ jobs:
           cp -r Compatibility dist/KeyzAllowUtils/
           cp -r 1.6 dist/KeyzAllowUtils/
           rm -rf dist/KeyzAllowUtils/1.6/Source
-          # 1.7 assemblies are built locally (they need the 1.7 game DLLs) and committed as-is
+          # 1.7 assembly is rebuilt and version-stamped by the cog.toml pre_bump_hooks
           cp -r 1.7 dist/KeyzAllowUtils/
           cp loadFolders.xml LICENSE dist/KeyzAllowUtils/
           cd dist

@@ -6,6 +6,10 @@
     Harmony is not shipped with the game. The Brrainz Harmony mod's 1.7 build is referenced
     in place (Private=False, so it is never copied into this mod). When that mod is not
     installed, the Lib.Harmony package is used for compilation only.
+
+    When no 1.7 install is found (RimWorldGameRoot unset, e.g. CI), the Krafs.Rimworld.Ref
+    reference assemblies stand in for Assembly-CSharp, UnityStubs and Waylith. The wildcard
+    follows the newest 1.7 build, prereleases included, because 1.7 is still the unstable branch.
   -->
   <PropertyGroup>
     <_HarmonyModDll Condition="'$(SteamWorkshopDir)' != ''">$(SteamWorkshopDir)/2009463077/1.7/Assemblies/0Harmony.dll</_HarmonyModDll>
@@ -25,6 +29,11 @@
       <HintPath>$(RimWorldGameRoot)/Waylith.dll</HintPath>
       <Private>False</Private>
     </Reference>
+  </ItemGroup>
+
+  <!-- Fallback when the game is not available: reference assemblies from NuGet -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0' and '$(RimWorldGameRoot)' == ''">
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.7.*-*" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net10.0' and '$(_HarmonyModDll)' != '' and Exists('$(_HarmonyModDll)')">
