@@ -171,7 +171,7 @@ if (!string.IsNullOrEmpty(RimWorldManagedDir))
   <!--
     When the inline task finds the game at build-time but .props didn't know at restore-time,
     SteamWorkshopDir/SteamAppsDir are only available in targets that run after ResolveRimWorldPaths.
-    For projects that need SteamWorkshopDir (PUAH), the .props static probe should cover the
+    For projects that need SteamWorkshopDir (Multiplayer), the .props static probe should cover the
     in-tree case. The out-of-tree case is handled here.
   -->
 </Project>

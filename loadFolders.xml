@@ -3,8 +3,6 @@
 	<v1.6>
 		<li>Common</li>
 		<li>1.6</li>
-        <li IfModActive="mehni.pickupandhaul.unoffical">Compatibility/mehni.pickupandhaul.unoffical/1.6/</li>
-        <li IfModActive="Mehni.PickUpAndHaul">Compatibility/mehni.pickupandhaul/1.6/</li>
         <li IfModActive="ludeon.rimworld.biotech">Compatibility/ludeon.rimworld.biotech/1.6/</li>
         <!-- Multiplayer's About.xml declares packageId "rwmt.Multiplayer" but RimWorld normalizes
              it to lowercase in the runtime mod list (ModLister.RunningModsListForReading shows
@@ -19,7 +17,6 @@
 		<li>Common</li>
 		<li>1.7</li>
         <li IfModActive="ludeon.rimworld.biotech">Compatibility/ludeon.rimworld.biotech/1.7/</li>
-        <!-- No 1.7 PickUpAndHaul build exists yet, so there is no PUAH compat folder for 1.7. -->
         <li IfModActive="rwmt.multiplayer">Compatibility/rwmt.Multiplayer/1.7/</li>
 	</v1.7>
 </loadFolders>

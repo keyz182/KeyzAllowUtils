@@ -31,7 +31,7 @@ jobs:
       - name: Build (net10.0 with Krafs reference assemblies)
         run: dotnet build 1.6/Source/KeyzAllowUtilities/KeyzAllowUtilities.csproj -c Release --no-restore -p:TargetFramework=net10.0 -p:OutputPath="${{ runner.temp }}/net10-out/"
 
-      # Unlike KeyzAllowUtilities.PUAH, this project's Multiplayer API reference falls back to
+      # This project's Multiplayer API reference falls back to
       # a vendored DLL (1.6/Source/lib/0MultiplayerAPI.dll) when SteamWorkshopDir isn't set, so
       # it builds in CI without the workshop mod present.
       - name: Restore NuGet packages (Multiplayer compat)
