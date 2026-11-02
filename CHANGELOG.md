@@ -7,6 +7,14 @@
 - **(version)** v1.6.1 - ([a4ae5b0](https://github.com/keyz182/KeyzAllowUtils/commit/a4ae5b0c917c8652b480a8d3e7440408e827b2b2)) - github-actions[bot]
 
 - - -
+## [v1.6.2](https://github.com/keyz182/KeyzAllowUtils/compare/2a192e8d536d0cbad9e6b238e2e65128a375b7c1..v1.6.2) - 2026-11-02
+#### Bug Fixes
+- urgent haul uses Pick Up And Haul on 1.7 and Continued - ([efa80b3](https://github.com/keyz182/KeyzAllowUtils/commit/efa80b3e2e6f0eb187e9e8bd2dfda1caec0745a0)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.6.1 - ([2a192e8](https://github.com/keyz182/KeyzAllowUtils/commit/2a192e8d536d0cbad9e6b238e2e65128a375b7c1)) - github-actions[bot]
+
+- - -
+
 
 ## [v1.6.0](https://github.com/keyz182/KeyzAllowUtils/compare/v1.5.1..v1.6.0) - 2026-10-22
 #### Documentation
