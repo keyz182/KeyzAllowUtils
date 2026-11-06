@@ -41,6 +41,27 @@ public static class Plant_Patches
         return plant.Growth >= level;
     }
 
+    // Wild grass: a plant that cannot be sown and whose defName contains "Grass". Vanilla grass
+    // has no harvested product, but some mods (e.g. Medieval Overhaul) give it hay, which makes
+    // the harvest designators mark every patch of grass. Sowable crops such as haygrass never
+    // count, so they are still harvested.
+    public static bool IsWildGrass(ThingDef def)
+    {
+        if (def?.plant == null || def.plant.Sowable) return false;
+        return def.defName != null && def.defName.IndexOf("Grass", StringComparison.OrdinalIgnoreCase) >= 0;
+    }
+
+    // True when a harvest designator should skip this plant because it is wild grass and the
+    // player has not opted in. 1.7 only: the 1.6 build keeps its existing behaviour.
+    public static bool SkipAsWildGrass(Plant plant)
+    {
+#if NET10_0_OR_GREATER
+        return !KeyzAllowUtilitiesMod.settings.HarvestWildGrass && IsWildGrass(plant?.def);
+#else
+        return false;
+#endif
+    }
+
     // Appends the configured growth threshold to a "grown" designator's description, so players
     // can see it is adjustable. At 100% the designators mean "mature", so the base text stands.
     public static string GrownThresholdDesc(string baseDesc)

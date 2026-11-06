@@ -137,6 +137,9 @@
     <KAU_NoHarvestableThing>Not harvestable thing</KAU_NoHarvestableThing>
     <KAU_AlreadyDesignated>Already designated</KAU_AlreadyDesignated>
     <KAU_NotFullyGrown>Not fully grown</KAU_NotFullyGrown>
+    <KAU_WildGrassExcluded>Wild grass (turn on in mod settings)</KAU_WildGrassExcluded>
+    <KAU_HarvestWildGrass>Harvest wild grass</KAU_HarvestWildGrass>
+    <KAU_HarvestWildGrass_Tip>When off, Harvest grown and Harvest all skip wild grass. Some mods make grass drop hay. Sown crops such as haygrass are always harvested.</KAU_HarvestWildGrass_Tip>
 
     <KUA_CutBlighted>Cut blighted</KUA_CutBlighted>
     <KUA_CutBlightedDesc>Cut only blighted plants</KUA_CutBlightedDesc>

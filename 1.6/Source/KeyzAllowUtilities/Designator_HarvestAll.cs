@@ -51,6 +51,9 @@ public class Designator_HarvestAll : Designator_Plants, IClearsOwnDesignationsOn
         if (plant.def.plant.harvestTag == "Wood" || plant.def.plant.harvestedThingDef == null)
             return "KAU_NoHarvestableThing".Translate();
 
+        if (Plant_Patches.SkipAsWildGrass(plant))
+            return "KAU_WildGrassExcluded".Translate();
+
         if (Map.designationManager.AllDesignationsOn(plant).Any(des => des.def == DesignationDefOf.HarvestPlant))
             return "KAU_AlreadyDesignated".Translate();
 

@@ -51,6 +51,7 @@ public class Settings : ModSettings
     public bool ExcludeCorpsesFromAllowAll = true;
     public bool DisableSelectStored = false;
     public float PlantGrownLevel = 1f;
+    public bool HarvestWildGrass = false;
 
     // Diagnostic-only. Off by default. When true, MpSelectSimilarUnpatch logs one line per
     // Designate* invocation intercepted, and Designator_SelectSimilar.DesignateMultiCell logs
@@ -137,6 +138,9 @@ public class Settings : ModSettings
                 options.SliderLabeled("KAU_PlantGrownLevel".Translate((PlantGrownLevel * 100f).ToString("F0")), PlantGrownLevel, 0f, 1f,
                     tooltip: "KAU_PlantGrownLevelTooltip".Translate()),
                 0.01f);
+#if NET10_0_OR_GREATER
+            options.CheckboxLabeled("KAU_HarvestWildGrass".Translate(), ref HarvestWildGrass, "KAU_HarvestWildGrass_Tip".Translate());
+#endif
 
             // Combat
             options.GapLine();
@@ -274,6 +278,7 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref DisableAllShortcuts, "DisableAllShortcuts", false);
         Scribe_Values.Look(ref DisableMeleeRequirementForFinishOff, "DisableMeleeRequirementForFinishOff", false);
         Scribe_Values.Look(ref PlantGrownLevel, "PlantGrownLevel", 1f);
+        Scribe_Values.Look(ref HarvestWildGrass, "HarvestWildGrass", false);
         Scribe_Values.Look(ref MpDebugLogging, "MpDebugLogging", false);
 
         ValidateDesignators();
