@@ -189,6 +189,7 @@ public static class Thing_Patches
                     action = () =>
                     {
                         int button = Event.current?.button ?? 0;
+                        if (button == 0 && ShiftSelect.TrySelect(HaulUrgently.Value)) return;
                         if (button == 0)
                         {
                             HaulUrgentlyActions.CancelHaulUrgently(__instance);

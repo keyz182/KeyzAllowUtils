@@ -264,6 +264,7 @@ public static class Plant_Patches
                     defaultDesc = KUA_HarvestAllDesc_Label.Value,
                     action = () =>
                     {
+                        if (ShiftSelect.TrySelect(ShiftSelect.OrdersDesignator<Designator_HarvestAll>())) return;
                         List<FloatMenuOption> items =
                         [
                             new(KUA_HarvestAllOnScreen_Label.Value, () =>
@@ -293,6 +294,7 @@ public static class Plant_Patches
                     defaultDesc = KUA_HarvestAllWoodDesc_Label.Value,
                     action = () =>
                     {
+                        if (ShiftSelect.TrySelect(ShiftSelect.OrdersDesignator<Designator_HarvestAllWood>())) return;
                         List<FloatMenuOption> items =
                         [
                             new(KUA_HarvestAllWoodOnScreen_Label.Value, () =>

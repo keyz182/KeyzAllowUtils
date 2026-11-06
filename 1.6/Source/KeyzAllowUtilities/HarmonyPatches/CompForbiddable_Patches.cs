@@ -28,7 +28,16 @@ public static class CompForbiddable_Patches
                 newCmd.activateIfAmbiguous =  command_Toggle.activateIfAmbiguous;
                 newCmd.defaultDesc =  command_Toggle.defaultDesc;
                 newCmd.tutorTag = command_Toggle.tutorTag;
-                newCmd.toggleAction = command_Toggle.toggleAction;
+                System.Action originalToggle = command_Toggle.toggleAction;
+                newCmd.toggleAction = () =>
+                {
+                    // Shift-click picks up the drag tool that undoes the current state.
+                    Designator designator = __instance.Forbidden
+                        ? ShiftSelect.OrdersDesignator<Designator_Unforbid>()
+                        : ShiftSelect.OrdersDesignator<Designator_Forbid>();
+                    if (ShiftSelect.TrySelect(designator)) return;
+                    originalToggle();
+                };
                 newCmd.RightClickAction = () =>
                 {
                     if(__instance.parent.Map == null) return;
