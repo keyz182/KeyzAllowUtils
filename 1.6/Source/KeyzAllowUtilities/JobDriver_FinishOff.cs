@@ -5,6 +5,7 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 using Verse.AI;
+using Verse.Sound;
 
 namespace KeyzAllowUtilities;
 
@@ -14,6 +15,9 @@ public class JobDriver_FinishOff : JobDriver
     // designation, so the designation check below only applies when one existed at job start —
     // otherwise a float-menu-ordered kill would fail its first tick.
     private bool _hadDesignationAtStart;
+
+    // Set in the kill toil just before DoExecution; true when the chosen verb is ranged.
+    private bool _killShot;
 
     public override bool TryMakePreToilReservations(bool errorOnFailed)
     {
@@ -64,7 +68,11 @@ public class JobDriver_FinishOff : JobDriver
                 try
                 {
                     Verb verb = job.verbToUse ?? pawn.meleeVerbs?.TryGetMeleeVerb(victim);
-                    verb?.TryStartCastOn(victim, false, true, false, false);
+                    _killShot = verb is { verbProps.IsMeleeAttack: false };
+                    if (_killShot)
+                        PlayKillShotEffects(verb, victim);
+                    else
+                        verb?.TryStartCastOn(victim, false, true, false, false);
 
                     // Only give execution thoughts for victims where GiveThoughtsForPawnExecuted
                     // produces semantically correct output: prisoners, guests, and player-faction
@@ -103,9 +111,19 @@ public class JobDriver_FinishOff : JobDriver
         };
     }
 
+    // A ranged finish-off is a point-blank kill shot: it plays the weapon's sound and muzzle
+    // flash but fires no projectile, so it cannot miss or hit anyone standing behind the victim.
+    private void PlayKillShotEffects(Verb verb, Pawn victim)
+    {
+        pawn.rotationTracker.FaceTarget(victim);
+        verb.verbProps.soundCast?.PlayOneShot(new TargetInfo(pawn.Position, pawn.Map));
+        if (verb.verbProps.muzzleFlashScale > 0.01f)
+            FleckMaker.Static(pawn.Position, pawn.Map, FleckDefOf.ShotFlash, verb.verbProps.muzzleFlashScale);
+    }
+
     public virtual void DoExecution(Pawn slayer, Pawn victim)
     {
-        int bloodAmount = Mathf.Max(GenMath.RoundRandom(victim.BodySize * 8f), 1);
+        int bloodAmount = Mathf.Max(GenMath.RoundRandom(victim.BodySize * (_killShot ? 12f : 8f)), 1);
         for (int i = 0; i < bloodAmount; i++)
         {
             victim.health.DropBloodFilth();
@@ -113,7 +131,7 @@ public class JobDriver_FinishOff : JobDriver
 
         BodyPartRecord bodyPartRecord = victim.RaceProps.body.GetPartsWithTag(BodyPartTagDefOf.ConsciousnessSource).FirstOrDefault();
         int damageAmount = ((bodyPartRecord != null) ? Mathf.Clamp((int) victim.health.hediffSet.GetPartHealth(bodyPartRecord) - 1, 1, 20) : 20);
-        DamageInfo damageInfo = new(DamageDefOf.ExecutionCut, damageAmount, -1f, -1f, slayer, bodyPartRecord, null, DamageInfo.SourceCategory.ThingOrUnknown, null, true,
+        DamageInfo damageInfo = new(_killShot ? DamageDefOf.Bullet : DamageDefOf.ExecutionCut, damageAmount, -1f, -1f, slayer, bodyPartRecord, null, DamageInfo.SourceCategory.ThingOrUnknown, null, true,
             true, QualityCategory.Normal, true);
         victim.TakeDamage(damageInfo);
 

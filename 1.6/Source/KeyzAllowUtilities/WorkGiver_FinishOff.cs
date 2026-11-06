@@ -58,15 +58,15 @@ public class WorkGiver_FinishOff : WorkGiver_Scanner
             return null;
         }
 
-        if (!KeyzAllowUtilitiesMod.settings.DisableMeleeRequirementForFinishOff && pawn.skills.GetSkill(SkillDefOf.Melee).Level < 5)
+        Verb verb = FinishOffVerb.Choose(pawn, target, out bool ranged);
+        string tooLow = FinishOffVerb.SkillTooLowReason(pawn, ranged);
+        if (tooLow != null)
         {
-            JobFailReason.Is("Melee too low", null);
+            JobFailReason.Is(tooLow, null);
             return null;
         }
 
-        Pawn_MeleeVerbs meleeVerbs = pawn.meleeVerbs;
-        Verb verb = meleeVerbs?.TryGetMeleeVerb(target);
-        if (verb == null)return null;
+        if (verb == null) return null;
 
         JobDef jobDef = des.def == KeyzAllowUtilitesDefOf.KAU_FinishOffDesignation ? KeyzAllowUtilitesDefOf.KAU_FinishOffPawn : KeyzAllowUtilitesDefOf.KAU_StripFinishOffPawn;
 

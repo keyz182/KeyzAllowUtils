@@ -53,6 +53,9 @@
     <KAU_Kill>Finish off {0} [{1}]</KAU_Kill>
     <KAU_StripKill>Strip, then finish off {0} [{1}]</KAU_StripKill>
     <KAU_MeleeTooLow>Melee too low {0}</KAU_MeleeTooLow>
+    <KAU_ShootingTooLow>Shooting too low {0}</KAU_ShootingTooLow>
+    <KAU_DisableRangedFinishOff>Disable ranged finish off</KAU_DisableRangedFinishOff>
+    <KAU_DisableRangedFinishOff_Tip>When off, a colonist holding a ranged weapon whose Shooting is higher than their Melee finishes off with a point-blank shot. The shot always kills.</KAU_DisableRangedFinishOff_Tip>
     <KAU_Unable>Unable to melee</KAU_Unable>
 
     <KUA_HaulUrgently>Haul urgently</KUA_HaulUrgently>

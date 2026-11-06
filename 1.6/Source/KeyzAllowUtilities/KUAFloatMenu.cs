@@ -32,17 +32,16 @@ public class KUAFloatMenu: FloatMenuOptionProvider
         {
             if (!KeyzAllowUtilitiesMod.settings.AllowFinishOffOnFriendly && !(clickedPawn.Faction?.HostileTo(Faction.OfPlayer) ?? true) && !clickedPawn.IsAnimal) continue;
 
-            SkillRecord meleeSkill = pawn.skills?.GetSkill(SkillDefOf.Melee);
-            int melee = meleeSkill?.Level ?? 0;
+            Verb verb = FinishOffVerb.Choose(pawn, clickedPawn, out bool ranged);
+            string tooLow = FinishOffVerb.SkillTooLowReason(pawn, ranged);
 
-            if (!KeyzAllowUtilitiesMod.settings.DisableMeleeRequirementForFinishOff && melee < 5)
+            if (tooLow != null)
             {
                 yield return new FloatMenuOption(
-                    "KAU_NoKill".Translate((NamedArgument) clickedPawn.Label) + ": " + "KAU_MeleeTooLow".Translate(melee).CapitalizeFirst(), null);
+                    "KAU_NoKill".Translate((NamedArgument) clickedPawn.Label) + ": " + tooLow.CapitalizeFirst(), null);
             }
             else
             {
-                Verb verb = pawn.meleeVerbs?.TryGetMeleeVerb(clickedPawn);
                 if (verb == null)
                 {
                     yield return new FloatMenuOption(
