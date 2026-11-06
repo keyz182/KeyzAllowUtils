@@ -37,10 +37,19 @@ public static class HaulAIUtility_Patches
         // Nothing to do if the caller already decided no.
         if (!__result) return;
 
+        if (HasNoHaulDesignation(t)) __result = false;
+    }
+
+    /// <summary>
+    /// True when <paramref name="t"/> carries the Do Not Haul designation. Also used by mod
+    /// compatibility patches (e.g. Fav Locker) whose hauling skips HaulAIUtility.
+    /// </summary>
+    public static bool HasNoHaulDesignation(Thing t)
+    {
         // MapHeld covers items inside containers / pawn inventory; gizmo gates on Spawned so
         // designations are only ever added against spawned items, but be defensive on read.
         DesignationManager dm = t?.MapHeld?.designationManager;
-        if (dm == null) return;
+        if (dm == null) return false;
 
         // Performance: SpawnedDesignationsOfDef hits a per-def index in vanilla — this is O(1)
         // when no NoHaul designations exist on the map (the common case for most colonies).
@@ -48,11 +57,8 @@ public static class HaulAIUtility_Patches
         // work-giver scans), so the empty-map fast path matters.
         foreach (Designation d in dm.SpawnedDesignationsOfDef(KeyzAllowUtilitesDefOf.KAU_NoHaulDesignation))
         {
-            if (d.target.Thing == t)
-            {
-                __result = false;
-                return;
-            }
+            if (d.target.Thing == t) return true;
         }
+        return false;
     }
 }

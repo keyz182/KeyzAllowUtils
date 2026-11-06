@@ -19,6 +19,7 @@ public class KeyzAllowUtilitiesMod : Mod
 #endif
         Harmony harmony = new Harmony("keyz182.rimworld.KeyzAllowUtilities.main");
         harmony.PatchAll(typeof(KeyzAllowUtilitiesMod).Assembly);
+        HarmonyPatches.FavLocker_Compat.Apply(harmony);
     }
 
     public override void DoSettingsWindowContents(Rect inRect)
