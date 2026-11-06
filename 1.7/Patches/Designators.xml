@@ -7,6 +7,7 @@
                 <xpath>/Defs/DesignationCategoryDef[defName="Floors"]/specialDesignatorClasses/li[6]</xpath>
                 <value>
                     <li>KeyzAllowUtilities.Designator_Floors</li>
+                    <li>KeyzAllowUtilities.Designator_RemoveFloorMatching</li>
                 </value>
             </li>
             <!-- Grabbed from original Allow Tool - puts the tool in the place people expect -->
