@@ -55,6 +55,7 @@ public class Settings : ModSettings
     public bool DisablePartyHunt = false;
     public bool DisableRangedFinishOff = false;
     public bool DisableNoStorageAlert = false;
+    public bool AutoHaulHuntedAnimals = true;
 
     // Diagnostic-only. Off by default. When true, MpSelectSimilarUnpatch logs one line per
     // Designate* invocation intercepted, and Designator_SelectSimilar.DesignateMultiCell logs
@@ -129,6 +130,7 @@ public class Settings : ModSettings
             options.CheckboxLabeled("KAU_ToggleNoHauling".Translate(), ref DisableNoHauling);
 #if NET10_0_OR_GREATER
             options.CheckboxLabeled("KAU_DisableNoStorageAlert".Translate(), ref DisableNoStorageAlert);
+            options.CheckboxLabeled("KAU_AutoHaulHuntedAnimals".Translate(), ref AutoHaulHuntedAnimals, "KAU_AutoHaulHuntedAnimals_Tip".Translate());
 #endif
 
             // Plants
@@ -292,6 +294,7 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref DisablePartyHunt, "DisablePartyHunt", false);
         Scribe_Values.Look(ref DisableRangedFinishOff, "DisableRangedFinishOff", false);
         Scribe_Values.Look(ref DisableNoStorageAlert, "DisableNoStorageAlert", false);
+        Scribe_Values.Look(ref AutoHaulHuntedAnimals, "AutoHaulHuntedAnimals", true);
         Scribe_Values.Look(ref MpDebugLogging, "MpDebugLogging", false);
 
         ValidateDesignators();

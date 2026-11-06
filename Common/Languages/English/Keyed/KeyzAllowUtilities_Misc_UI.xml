@@ -56,6 +56,8 @@
     <KAU_ShootingTooLow>Shooting too low {0}</KAU_ShootingTooLow>
     <KAU_NoStorageAlert>Items with no storage ({0})</KAU_NoStorageAlert>
     <KAU_NoStorageAlertDesc>No stockpile or storage on the map is allowed to take these items, so they will not be hauled. Allow them in a stockpile, or forbid them to hide this alert.</KAU_NoStorageAlertDesc>
+    <KAU_AutoHaulHuntedAnimals>Auto haul hunted animals</KAU_AutoHaulHuntedAnimals>
+    <KAU_AutoHaulHuntedAnimals_Tip>When an animal marked for hunting dies, its corpse is marked Haul Urgently.</KAU_AutoHaulHuntedAnimals_Tip>
     <KAU_DisableNoStorageAlert>Disable "items with no storage" alert</KAU_DisableNoStorageAlert>
     <KAU_DisableRangedFinishOff>Disable ranged finish off</KAU_DisableRangedFinishOff>
     <KAU_DisableRangedFinishOff_Tip>When off, a colonist holding a ranged weapon whose Shooting is higher than their Melee finishes off with a point-blank shot. The shot always kills.</KAU_DisableRangedFinishOff_Tip>
