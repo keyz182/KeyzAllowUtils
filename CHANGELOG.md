@@ -7,6 +7,22 @@
 - **(version)** v1.6.2 - ([d84a31c](https://github.com/keyz182/KeyzAllowUtils/commit/d84a31cd8c6f5eb5a386dbaf036814ef498c6f6d)) - github-actions[bot]
 
 - - -
+## [v1.7.0](https://github.com/keyz182/KeyzAllowUtils/compare/03421b44b1fb47bc378fd4c75567b594186c7e2a..v1.7.0) - 2026-11-06
+#### Bug Fixes
+- Fav Locker respects Do Not Haul - ([6130ed4](https://github.com/keyz182/KeyzAllowUtils/commit/6130ed46e4d68da2b589fcb9a9e64a57692d22d8)) - [@keyz182](https://github.com/keyz182)
+#### Documentation
+- update changelog for v1.6.2 - ([03421b4](https://github.com/keyz182/KeyzAllowUtils/commit/03421b44b1fb47bc378fd4c75567b594186c7e2a)) - github-actions[bot]
+#### Features
+- remove one floor type designator (1.7) - ([e2d2e80](https://github.com/keyz182/KeyzAllowUtils/commit/e2d2e809fa6982b53f8238fdbedaa49bb21c5c70)) - [@keyz182](https://github.com/keyz182)
+- shift-click gizmos to pick their designator (1.7) - ([bc96509](https://github.com/keyz182/KeyzAllowUtils/commit/bc96509dc500d72eae1f98d584c4eca6a2005a1f)) - [@keyz182](https://github.com/keyz182)
+- auto haul hunted animals (1.7) - ([4301be8](https://github.com/keyz182/KeyzAllowUtils/commit/4301be813440c30b5ca9ad42582ed0f289d41f9b)) - [@keyz182](https://github.com/keyz182)
+- alert for items no storage accepts (1.7) - ([42eb24b](https://github.com/keyz182/KeyzAllowUtils/commit/42eb24bf07242a39a84b1b03d98de7640724ce2d)) - [@keyz182](https://github.com/keyz182)
+- ranged finish off kill shot (1.7) - ([f4b3c66](https://github.com/keyz182/KeyzAllowUtils/commit/f4b3c6694cae2527e9c10691ccd3a506bed372ee)) - [@keyz182](https://github.com/keyz182)
+- party hunt toggle for drafted colonists (1.7) - ([51f015b](https://github.com/keyz182/KeyzAllowUtils/commit/51f015b945cbc9cfd21c390cad75fb7fae42fb15)) - [@keyz182](https://github.com/keyz182)
+- option to skip wild grass in harvest orders (1.7) - ([96fee0d](https://github.com/keyz182/KeyzAllowUtils/commit/96fee0dcfd31428329a39af312bd95b2f4ce2118)) - [@keyz182](https://github.com/keyz182)
+
+- - -
+
 
 ## [v1.6.1](https://github.com/keyz182/KeyzAllowUtils/compare/v1.6.0..v1.6.1) - 2026-11-02
 #### Bug Fixes
