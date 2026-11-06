@@ -42,6 +42,10 @@ public class MpCompatMod : Mod
                 .CancelIfAnyArgNull().MinTime(0);
             MP.RegisterSyncMethod(typeof(HaulUrgentlyActions), nameof(HaulUrgentlyActions.DesignateHaulUrgentlyBulk))
                 .CancelIfAnyArgNull().MinTime(0);
+#if NET10_0_OR_GREATER
+            MP.RegisterSyncMethod(typeof(PartyHunt), nameof(PartyHunt.SetEnabled))
+                .CancelIfAnyArgNull().MinTime(0);
+#endif
 
             // A client joining mid-session must not have their local settings silently delete
             // the host's shared designations on load — see Settings.ValidateDesignators.

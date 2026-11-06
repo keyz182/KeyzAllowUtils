@@ -52,6 +52,7 @@ public class Settings : ModSettings
     public bool DisableSelectStored = false;
     public float PlantGrownLevel = 1f;
     public bool HarvestWildGrass = false;
+    public bool DisablePartyHunt = false;
 
     // Diagnostic-only. Off by default. When true, MpSelectSimilarUnpatch logs one line per
     // Designate* invocation intercepted, and Designator_SelectSimilar.DesignateMultiCell logs
@@ -159,6 +160,9 @@ public class Settings : ModSettings
             }
             options.CheckboxLabeled("KAU_ToggleAllowFinishOffOnFriendly".Translate(), ref AllowFinishOffOnFriendly);
             options.CheckboxLabeled("KAU_DisableMeleeRequirementForFinishOff".Translate(), ref DisableMeleeRequirementForFinishOff);
+#if NET10_0_OR_GREATER
+            options.CheckboxLabeled("KAU_DisablePartyHunt".Translate(), ref DisablePartyHunt);
+#endif
 
             // Mining
             options.GapLine();
@@ -279,6 +283,7 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref DisableMeleeRequirementForFinishOff, "DisableMeleeRequirementForFinishOff", false);
         Scribe_Values.Look(ref PlantGrownLevel, "PlantGrownLevel", 1f);
         Scribe_Values.Look(ref HarvestWildGrass, "HarvestWildGrass", false);
+        Scribe_Values.Look(ref DisablePartyHunt, "DisablePartyHunt", false);
         Scribe_Values.Look(ref MpDebugLogging, "MpDebugLogging", false);
 
         ValidateDesignators();

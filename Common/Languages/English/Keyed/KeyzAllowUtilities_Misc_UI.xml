@@ -138,6 +138,9 @@
     <KAU_AlreadyDesignated>Already designated</KAU_AlreadyDesignated>
     <KAU_NotFullyGrown>Not fully grown</KAU_NotFullyGrown>
     <KAU_WildGrassExcluded>Wild grass (turn on in mod settings)</KAU_WildGrassExcluded>
+    <KAU_PartyHunt>Party hunt</KAU_PartyHunt>
+    <KAU_PartyHuntDesc>While drafted with fire at will on, this colonist shoots animals marked for hunting that are in range. The colonist does not move.</KAU_PartyHuntDesc>
+    <KAU_DisablePartyHunt>Disable party hunt</KAU_DisablePartyHunt>
     <KAU_HarvestWildGrass>Harvest wild grass</KAU_HarvestWildGrass>
     <KAU_HarvestWildGrass_Tip>When off, Harvest grown and Harvest all skip wild grass. Some mods make grass drop hay. Sown crops such as haygrass are always harvested.</KAU_HarvestWildGrass_Tip>
 

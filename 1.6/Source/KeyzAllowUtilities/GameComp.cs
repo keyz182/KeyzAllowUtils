@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using System.Collections.Generic;
+using Verse;
 
 namespace KeyzAllowUtilities;
 
@@ -14,9 +15,26 @@ public class GameComp(Game game) : GameComponent
     /// </summary>
     private bool mechUrgentHaulMigrated;
 
+#if NET10_0_OR_GREATER
+    /// <summary>Pawns with Party hunt turned on. Change it only through PartyHunt.SetEnabled.</summary>
+    public HashSet<Pawn> PartyHunters = new();
+#endif
+
     public override void ExposeData()
     {
         Scribe_Values.Look(ref mechUrgentHaulMigrated, "mechUrgentHaulMigrated");
+#if NET10_0_OR_GREATER
+        // Drop dead or destroyed pawns before saving. World-pawn cleanup can discard them, and a
+        // saved reference to a discarded pawn logs "Could not resolve reference" on every load.
+        if (Scribe.mode == LoadSaveMode.Saving)
+            PartyHunters.RemoveWhere(p => p == null || p.Dead || p.Destroyed);
+        Scribe_Collections.Look(ref PartyHunters, "partyHunters", LookMode.Reference);
+        if (Scribe.mode == LoadSaveMode.PostLoadInit)
+        {
+            PartyHunters ??= new HashSet<Pawn>();
+            PartyHunters.RemoveWhere(p => p == null);
+        }
+#endif
     }
 
     public override void FinalizeInit()
