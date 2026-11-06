@@ -54,6 +54,7 @@ public class Settings : ModSettings
     public bool HarvestWildGrass = false;
     public bool DisablePartyHunt = false;
     public bool DisableRangedFinishOff = false;
+    public bool DisableNoStorageAlert = false;
 
     // Diagnostic-only. Off by default. When true, MpSelectSimilarUnpatch logs one line per
     // Designate* invocation intercepted, and Designator_SelectSimilar.DesignateMultiCell logs
@@ -126,6 +127,9 @@ public class Settings : ModSettings
             Text.Font = orig;
             options.CheckboxLabeled("KAU_ToggleHaulUrgently".Translate(), ref DisableHaulUrgently);
             options.CheckboxLabeled("KAU_ToggleNoHauling".Translate(), ref DisableNoHauling);
+#if NET10_0_OR_GREATER
+            options.CheckboxLabeled("KAU_DisableNoStorageAlert".Translate(), ref DisableNoStorageAlert);
+#endif
 
             // Plants
             options.GapLine();
@@ -287,6 +291,7 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref HarvestWildGrass, "HarvestWildGrass", false);
         Scribe_Values.Look(ref DisablePartyHunt, "DisablePartyHunt", false);
         Scribe_Values.Look(ref DisableRangedFinishOff, "DisableRangedFinishOff", false);
+        Scribe_Values.Look(ref DisableNoStorageAlert, "DisableNoStorageAlert", false);
         Scribe_Values.Look(ref MpDebugLogging, "MpDebugLogging", false);
 
         ValidateDesignators();
