@@ -4,12 +4,10 @@
     <exclude>.claude</exclude>
     <exclude>.editorconfig</exclude>
     <exclude>.git</exclude>
-    <exclude>.gitattributes</exclude>
-    <exclude>.github</exclude>
-    <exclude>.gitignore</exclude>
     <exclude>.mcp.json</exclude>
     <exclude>.omc</exclude>
     <exclude>1.6/Source</exclude>
+    <exclude>About/Preview.png~</exclude>
     <exclude>Assets</exclude>
     <exclude>CHANGELOG.md</exclude>
     <exclude>cog.toml</exclude>
