@@ -15,6 +15,16 @@
 - **(version)** v1.7.0 - ([5b42b73](https://github.com/keyz182/KeyzAllowUtils/commit/5b42b734613dc8a1fa2e63486dbb19de07975912)) - github-actions[bot]
 
 - - -
+## [v1.8.0](https://github.com/keyz182/KeyzAllowUtils/compare/fd83967b01efb7fb761ffa726f27094ba856e93a..v1.8.0) - 2026-11-07
+#### Documentation
+- update changelog for v1.7.0 - ([fd83967](https://github.com/keyz182/KeyzAllowUtils/commit/fd83967b01efb7fb761ffa726f27094ba856e93a)) - github-actions[bot]
+#### Features
+- filter architect search results instead of dimming them - ([bf45428](https://github.com/keyz182/KeyzAllowUtils/commit/bf45428a5e27e8e8bfa1f63173e418944e9743d0)) - [@keyz182](https://github.com/keyz182)
+#### Miscellaneous Chores
+- publish - ([b9b5c19](https://github.com/keyz182/KeyzAllowUtils/commit/b9b5c19b1858670885d75023dd86905ba6c8f0d2)) - [@keyz182](https://github.com/keyz182)
+
+- - -
+
 
 ## [v1.6.2](https://github.com/keyz182/KeyzAllowUtils/compare/v1.6.1..v1.6.2) - 2026-11-06
 #### Bug Fixes
