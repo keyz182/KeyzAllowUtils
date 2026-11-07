@@ -56,6 +56,7 @@ public class Settings : ModSettings
     public bool DisableRangedFinishOff = false;
     public bool DisableNoStorageAlert = false;
     public bool AutoHaulHuntedAnimals = true;
+    public bool ArchitectSearchFilter = true;
 
     // Diagnostic-only. Off by default. When true, MpSelectSimilarUnpatch logs one line per
     // Designate* invocation intercepted, and Designator_SelectSimilar.DesignateMultiCell logs
@@ -187,6 +188,13 @@ public class Settings : ModSettings
             options.CheckboxLabeled("KAU_ToggleDisableAllowShortcuts".Translate(), ref DisableAllowShortcuts);
             options.CheckboxLabeled("KAU_ToggleDisableAllShortcuts".Translate(), ref DisableAllShortcuts);
 
+            // Architect menu
+            options.GapLine();
+            Text.Font = GameFont.Small;
+            options.Label("KAU_Section_Architect".Translate());
+            Text.Font = orig;
+            options.CheckboxLabeled("KAU_ArchitectSearchFilter".Translate(), ref ArchitectSearchFilter, "KAU_ArchitectSearchFilter_Tip".Translate());
+
             // Diagnostics
             options.GapLine();
             Text.Font = GameFont.Small;
@@ -295,6 +303,7 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref DisableRangedFinishOff, "DisableRangedFinishOff", false);
         Scribe_Values.Look(ref DisableNoStorageAlert, "DisableNoStorageAlert", false);
         Scribe_Values.Look(ref AutoHaulHuntedAnimals, "AutoHaulHuntedAnimals", true);
+        Scribe_Values.Look(ref ArchitectSearchFilter, "ArchitectSearchFilter", true);
         Scribe_Values.Look(ref MpDebugLogging, "MpDebugLogging", false);
 
         ValidateDesignators();

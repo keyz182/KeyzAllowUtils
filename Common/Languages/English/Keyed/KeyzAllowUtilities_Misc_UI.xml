@@ -9,6 +9,7 @@
     <KAU_Section_Mining>Mining</KAU_Section_Mining>
     <KAU_Section_Shortcuts>Shortcuts</KAU_Section_Shortcuts>
     <KAU_Section_Diagnostics>Diagnostics</KAU_Section_Diagnostics>
+    <KAU_Section_Architect>Architect menu</KAU_Section_Architect>
     <KAU_MpDebugLogging>Log Multiplayer Select Similar decisions (diagnostic)</KAU_MpDebugLogging>
     <KAU_MpDebugLogging_Tip>Off by default. When on, logs one line per Designate* call intercepted for Multiplayer sync exemption, plus one line per Select Similar drag reaching the override. Intended for capturing a single drag while diagnosing a multiplayer report — noisy under sustained use.</KAU_MpDebugLogging_Tip>
     <KeyzAllowUtilities_Settings_MaxSelect>Max selected items: [{0}]</KeyzAllowUtilities_Settings_MaxSelect>
@@ -189,4 +190,9 @@
 
     <KAU_NotAPawn>Not a pawn</KAU_NotAPawn>
     <KAU_NotFriendlyOrDowned>Not friendly or downed</KAU_NotFriendlyOrDowned>
+
+    <KAU_ArchitectSearchFilter>Architect search hides non-matching items</KAU_ArchitectSearchFilter>
+    <KAU_ArchitectSearchFilter_Tip>When on, searching in the Architect menu shows only the items that match. When off, the game dims the items that do not match. You can also switch this with the funnel button next to the search box.</KAU_ArchitectSearchFilter_Tip>
+    <KAU_ArchitectSearchFilterOn>Search filter: on\nOnly matching items are shown.\n\nClick to dim non-matching items instead.</KAU_ArchitectSearchFilterOn>
+    <KAU_ArchitectSearchFilterOff>Search filter: off\nNon-matching items are dimmed.\n\nClick to show only matching items.</KAU_ArchitectSearchFilterOff>
 </LanguageData>
