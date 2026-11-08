@@ -31,44 +31,77 @@ public static class ArchitectSearch_Patches
         AccessTools.MethodDelegate<Func<ArchitectCategoryTab, Command, bool>>(
             AccessTools.Method(typeof(ArchitectCategoryTab), "Matches"));
 
-    public static IEnumerable<Designator> FilterForSearch(IEnumerable<Designator> designators, ArchitectCategoryTab tab)
+    private static bool missWarned;
+
+    public static IEnumerable<Gizmo> FilterForSearch(IEnumerable<Gizmo> gizmos, ArchitectCategoryTab tab)
     {
         if (!KeyzAllowUtilitiesMod.settings.ArchitectSearchFilter || !QuickSearchFilterRef(tab).Active)
-            return designators;
+            return gizmos;
 
-        List<Designator> matches = new();
-        foreach (Designator designator in designators)
+        List<Gizmo> matches = new();
+        foreach (Gizmo gizmo in gizmos)
         {
-            if (MatchesFunc(tab, designator)) matches.Add(designator);
+            if (gizmo is not Command command || MatchesFunc(tab, command)) matches.Add(gizmo);
         }
         return matches;
     }
 
     /// <summary>
-    /// Feeds the gizmo grid in DesignationTabOnGUI through <see cref="FilterForSearch"/>.
-    /// Only this call site changes, so search state and category colours still see the full list.
+    /// Stands in for <see cref="GizmoGridDrawer.DrawGizmoGrid"/> inside DesignationTabOnGUI.
+    /// Same parameters plus the tab, so the call swap keeps the stack balanced.
+    /// </summary>
+    public static void DrawGizmoGridFiltered(IEnumerable<Gizmo> gizmos, float startX, out Gizmo mouseoverGizmo,
+        Func<Gizmo, bool> customActivatorFunc, Func<Gizmo, bool> highlightFunc, Func<Gizmo, bool> lowlightFunc,
+        bool multipleSelected, ArchitectCategoryTab tab)
+    {
+        GizmoGridDrawer.DrawGizmoGrid(FilterForSearch(gizmos, tab), startX, out mouseoverGizmo,
+            customActivatorFunc, highlightFunc, lowlightFunc, multipleSelected);
+    }
+
+    /// <summary>
+    /// Routes the gizmo grid draw in DesignationTabOnGUI through <see cref="DrawGizmoGridFiltered"/>.
+    /// Anchors on the draw call, not on how the gizmo list is built, so other mods that change
+    /// the list source do not break it. Search state and category colours still see the full list.
     /// </summary>
     [HarmonyPatch(nameof(ArchitectCategoryTab.DesignationTabOnGUI))]
     [HarmonyTranspiler]
-    public static IEnumerable<CodeInstruction> DesignationTabOnGUI_Transpiler(IEnumerable<CodeInstruction> instructions)
+    public static IEnumerable<CodeInstruction> DesignationTabOnGUI_Transpiler(
+        IEnumerable<CodeInstruction> instructions, MethodBase __originalMethod)
     {
-        MethodInfo getter = AccessTools.PropertyGetter(typeof(DesignationCategoryDef),
-            nameof(DesignationCategoryDef.ResolvedAllowedDesignators));
-        MethodInfo filter = AccessTools.Method(typeof(ArchitectSearch_Patches), nameof(FilterForSearch));
+        MethodInfo draw = AccessTools.Method(typeof(GizmoGridDrawer), nameof(GizmoGridDrawer.DrawGizmoGrid));
+        MethodInfo filtered = AccessTools.Method(typeof(ArchitectSearch_Patches), nameof(DrawGizmoGridFiltered));
 
         bool patched = false;
         foreach (CodeInstruction instruction in instructions)
         {
-            yield return instruction;
-            if (patched || !instruction.Calls(getter)) continue;
+            if (patched || !instruction.Calls(draw))
+            {
+                yield return instruction;
+                continue;
+            }
 
-            yield return new CodeInstruction(OpCodes.Ldarg_0);
-            yield return new CodeInstruction(OpCodes.Call, filter);
+            yield return new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(instruction);
+            yield return new CodeInstruction(OpCodes.Call, filtered).MoveBlocksFrom(instruction);
             patched = true;
         }
 
-        if (!patched)
-            Log.Error("[KeyzAllowUtilities] Architect search filter: ResolvedAllowedDesignators call not found; search will dim instead of filter.");
+        if (patched || missWarned) yield break;
+        missWarned = true;
+        Log.Warning("[KeyzAllowUtilities] Architect search filter: DrawGizmoGrid call not found in "
+                    + "DesignationTabOnGUI; search will dim instead of filter. Other patches on it: "
+                    + OtherPatchOwners(__originalMethod));
+    }
+
+    private static string OtherPatchOwners(MethodBase original)
+    {
+        Patches info = original == null ? null : Harmony.GetPatchInfo(original);
+        if (info == null) return "none";
+
+        List<string> owners = new();
+        foreach (Patch patch in info.Prefixes) owners.Add($"{patch.owner} (prefix)");
+        foreach (Patch patch in info.Transpilers) owners.Add($"{patch.owner} (transpiler)");
+        owners.RemoveAll(owner => owner.StartsWith("keyz182.rimworld.KeyzAllowUtilities", StringComparison.Ordinal));
+        return owners.Count == 0 ? "none" : string.Join(", ", owners);
     }
 
     /// <summary>
